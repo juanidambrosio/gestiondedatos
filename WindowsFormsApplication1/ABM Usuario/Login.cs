@@ -24,7 +24,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -69,6 +69,13 @@ namespace WindowsFormsApplication1.ABM_Usuario
         private void progressBar1_Click(object sender, EventArgs e)
         {
             ProgressBar pBar = new ProgressBar();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            AltaUsuario altaUsuario = new AltaUsuario();
+            altaUsuario.Show();
+            
         }
 
     }
