@@ -31,6 +31,8 @@ namespace WindowsFormsApplication1.ABM_Usuario
         {
             txtContrasenia.Clear();
             txtUsuario.Clear();
+            this.timer1.Stop();
+            this.progressBar1.Value = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -58,9 +60,9 @@ namespace WindowsFormsApplication1.ABM_Usuario
         private void timer1_Tick(object sender, EventArgs e)
         {
             this.progressBar1.Increment(1);
-            if (progressBar1.Value == progressBar1.Maximum)
+            if (this.progressBar1.Value == progressBar1.Maximum)
             {
-                progressBar1.Value = 0;
+                this.progressBar1.Value = 0;
                 this.timer1.Stop();
                 //MOSTRAR LOS DATOS EN LOS RBUTTON
             }
