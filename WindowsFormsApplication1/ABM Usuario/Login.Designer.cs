@@ -48,6 +48,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label4 = new System.Windows.Forms.Label();
             this.cmdRegistrarse = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cmdCambiarContrasenia = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label3
@@ -233,12 +235,34 @@
             this.cmdRegistrarse.UseVisualStyleBackColor = true;
             this.cmdRegistrarse.Click += new System.EventHandler(this.cmdRegistrarse_Click);
             // 
+            // label5
+            // 
+            this.label5.AllowDrop = true;
+            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label5.Location = new System.Drawing.Point(313, 119);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(175, 68);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "Cambiar contraseña";
+            // 
+            // cmdCambiarContrasenia
+            // 
+            this.cmdCambiarContrasenia.Location = new System.Drawing.Point(330, 145);
+            this.cmdCambiarContrasenia.Name = "cmdCambiarContrasenia";
+            this.cmdCambiarContrasenia.Size = new System.Drawing.Size(146, 23);
+            this.cmdCambiarContrasenia.TabIndex = 26;
+            this.cmdCambiarContrasenia.Text = "Cambiar contraseña";
+            this.cmdCambiarContrasenia.UseVisualStyleBackColor = true;
+            this.cmdCambiarContrasenia.Click += new System.EventHandler(this.cmdCambiarContrasenia_Click);
+            // 
             // Login
             // 
             this.AccessibleDescription = "Aceptar";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 463);
+            this.Controls.Add(this.cmdCambiarContrasenia);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.cmdRegistrarse);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmdVolver);
@@ -286,6 +310,8 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button cmdRegistrarse;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button cmdCambiarContrasenia;
 
     }
 }
