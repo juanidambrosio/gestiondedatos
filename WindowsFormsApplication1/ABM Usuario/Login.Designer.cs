@@ -31,9 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.label3 = new System.Windows.Forms.Label();
             this.Usuario = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.cmdCancelar = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cmdAceptar = new System.Windows.Forms.Button();
             this.txtContrasenia = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,10 +44,10 @@
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.radioButton6 = new System.Windows.Forms.RadioButton();
-            this.button3 = new System.Windows.Forms.Button();
+            this.cmdVolver = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label4 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.cmdRegistrarse = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label3
@@ -71,15 +71,15 @@
             this.Usuario.TabIndex = 7;
             this.Usuario.Text = "Usuario";
             // 
-            // button2
+            // cmdCancelar
             // 
-            this.button2.Location = new System.Drawing.Point(153, 102);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "CANCELAR";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.cmdCancelar.Location = new System.Drawing.Point(153, 102);
+            this.cmdCancelar.Name = "cmdCancelar";
+            this.cmdCancelar.Size = new System.Drawing.Size(75, 23);
+            this.cmdCancelar.TabIndex = 15;
+            this.cmdCancelar.Text = "Cancelar";
+            this.cmdCancelar.UseVisualStyleBackColor = true;
+            this.cmdCancelar.Click += new System.EventHandler(this.cmdCancelar_Click);
             // 
             // progressBar1
             // 
@@ -89,15 +89,15 @@
             this.progressBar1.TabIndex = 14;
             this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
             // 
-            // button1
+            // cmdAceptar
             // 
-            this.button1.Location = new System.Drawing.Point(153, 57);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "ACEPTAR";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.cmdAceptar.Location = new System.Drawing.Point(153, 57);
+            this.cmdAceptar.Name = "cmdAceptar";
+            this.cmdAceptar.Size = new System.Drawing.Size(75, 23);
+            this.cmdAceptar.TabIndex = 13;
+            this.cmdAceptar.Text = "Aceptar";
+            this.cmdAceptar.UseVisualStyleBackColor = true;
+            this.cmdAceptar.Click += new System.EventHandler(this.cmdAceptar_Click);
             // 
             // txtContrasenia
             // 
@@ -198,18 +198,19 @@
             this.radioButton6.Text = " ";
             this.radioButton6.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // cmdVolver
             // 
-            this.button3.Location = new System.Drawing.Point(79, 389);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(127, 23);
-            this.button3.TabIndex = 22;
-            this.button3.Text = "VOLVER";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.cmdVolver.Location = new System.Drawing.Point(79, 389);
+            this.cmdVolver.Name = "cmdVolver";
+            this.cmdVolver.Size = new System.Drawing.Size(127, 23);
+            this.cmdVolver.TabIndex = 22;
+            this.cmdVolver.Text = "Volver";
+            this.cmdVolver.UseVisualStyleBackColor = true;
+            this.cmdVolver.Click += new System.EventHandler(this.cmdVolver_Click);
             // 
             // timer1
             // 
+            this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // label4
@@ -222,15 +223,15 @@
             this.label4.TabIndex = 23;
             this.label4.Text = "Registrarse!";
             // 
-            // button4
+            // cmdRegistrarse
             // 
-            this.button4.Location = new System.Drawing.Point(330, 39);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(146, 23);
-            this.button4.TabIndex = 24;
-            this.button4.Text = "Registrarse";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.cmdRegistrarse.Location = new System.Drawing.Point(330, 39);
+            this.cmdRegistrarse.Name = "cmdRegistrarse";
+            this.cmdRegistrarse.Size = new System.Drawing.Size(146, 23);
+            this.cmdRegistrarse.TabIndex = 24;
+            this.cmdRegistrarse.Text = "Registrarse";
+            this.cmdRegistrarse.UseVisualStyleBackColor = true;
+            this.cmdRegistrarse.Click += new System.EventHandler(this.cmdRegistrarse_Click);
             // 
             // Login
             // 
@@ -238,18 +239,18 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 463);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.cmdRegistrarse);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.cmdVolver);
             this.Controls.Add(this.radioButton6);
             this.Controls.Add(this.radioButton5);
             this.Controls.Add(this.radioButton4);
             this.Controls.Add(this.radioButton3);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.cmdCancelar);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.cmdAceptar);
             this.Controls.Add(this.txtContrasenia);
             this.Controls.Add(this.txtUsuario);
             this.Controls.Add(this.label2);
@@ -268,9 +269,9 @@
 
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label Usuario;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button cmdCancelar;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cmdAceptar;
         private System.Windows.Forms.TextBox txtContrasenia;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.Label label2;
@@ -281,10 +282,10 @@
         private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.RadioButton radioButton5;
         private System.Windows.Forms.RadioButton radioButton6;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button cmdVolver;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button cmdRegistrarse;
 
     }
 }

@@ -35,8 +35,8 @@
             this.lblNombreUsuario = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.lblMail = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.cmdAceptar = new System.Windows.Forms.Button();
+            this.cmdBorrar = new System.Windows.Forms.Button();
             this.lblTipoDNICliente = new System.Windows.Forms.Label();
             this.lblNroDocCliente = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -78,7 +78,7 @@
             this.txtCUITEmpresa = new System.Windows.Forms.TextBox();
             this.txtNombreContEmpresa = new System.Windows.Forms.TextBox();
             this.txtTelEmpresa = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.cmdVolver = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -136,25 +136,25 @@
             this.lblMail.TabIndex = 7;
             this.lblMail.Text = "(*) Mail:";
             // 
-            // button1
+            // cmdAceptar
             // 
-            this.button1.Location = new System.Drawing.Point(22, 99);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Aceptar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.cmdAceptar.Location = new System.Drawing.Point(22, 99);
+            this.cmdAceptar.Name = "cmdAceptar";
+            this.cmdAceptar.Size = new System.Drawing.Size(75, 23);
+            this.cmdAceptar.TabIndex = 8;
+            this.cmdAceptar.Text = "Aceptar";
+            this.cmdAceptar.UseVisualStyleBackColor = true;
+            this.cmdAceptar.Click += new System.EventHandler(this.cmdAceptar_Click);
             // 
-            // button2
+            // cmdBorrar
             // 
-            this.button2.Location = new System.Drawing.Point(22, 136);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Borrar todo";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.cmdBorrar.Location = new System.Drawing.Point(22, 136);
+            this.cmdBorrar.Name = "cmdBorrar";
+            this.cmdBorrar.Size = new System.Drawing.Size(75, 23);
+            this.cmdBorrar.TabIndex = 9;
+            this.cmdBorrar.Text = "Borrar todo";
+            this.cmdBorrar.UseVisualStyleBackColor = true;
+            this.cmdBorrar.Click += new System.EventHandler(this.cmdBorrar_Click);
             // 
             // lblTipoDNICliente
             // 
@@ -485,22 +485,22 @@
             this.txtTelEmpresa.Size = new System.Drawing.Size(100, 20);
             this.txtTelEmpresa.TabIndex = 51;
             // 
-            // button3
+            // cmdVolver
             // 
-            this.button3.Location = new System.Drawing.Point(22, 178);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 52;
-            this.button3.Text = "Volver";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.cmdVolver.Location = new System.Drawing.Point(22, 178);
+            this.cmdVolver.Name = "cmdVolver";
+            this.cmdVolver.Size = new System.Drawing.Size(75, 23);
+            this.cmdVolver.TabIndex = 52;
+            this.cmdVolver.Text = "Volver";
+            this.cmdVolver.UseVisualStyleBackColor = true;
+            this.cmdVolver.Click += new System.EventHandler(this.cmdVolver_Click);
             // 
             // AltaUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(764, 456);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.cmdVolver);
             this.Controls.Add(this.txtTelEmpresa);
             this.Controls.Add(this.txtNombreContEmpresa);
             this.Controls.Add(this.txtCUITEmpresa);
@@ -541,8 +541,8 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.lblNroDocCliente);
             this.Controls.Add(this.lblTipoDNICliente);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.cmdBorrar);
+            this.Controls.Add(this.cmdAceptar);
             this.Controls.Add(this.lblMail);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblNombreUsuario);
@@ -565,8 +565,8 @@
         private System.Windows.Forms.Label lblNombreUsuario;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblMail;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button cmdAceptar;
+        private System.Windows.Forms.Button cmdBorrar;
         private System.Windows.Forms.Label lblTipoDNICliente;
         private System.Windows.Forms.Label lblNroDocCliente;
         private System.Windows.Forms.Label label9;
@@ -608,6 +608,6 @@
         private System.Windows.Forms.TextBox txtCUITEmpresa;
         private System.Windows.Forms.TextBox txtNombreContEmpresa;
         private System.Windows.Forms.TextBox txtTelEmpresa;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button cmdVolver;
     }
 }

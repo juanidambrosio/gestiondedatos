@@ -17,13 +17,14 @@ namespace WindowsFormsApplication1
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void cmdIngresarUsuario_Click(object sender, EventArgs e)
         {
             WindowsFormsApplication1.ABM_Usuario.Login login = new WindowsFormsApplication1.ABM_Usuario.Login();
             login.Show();
+            this.Hide();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void cmdSalir_Click(object sender, EventArgs e)
         {
             this.Close();
         }

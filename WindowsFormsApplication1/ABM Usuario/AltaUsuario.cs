@@ -157,12 +157,14 @@ namespace WindowsFormsApplication1.ABM_Usuario
             this.timer1.Start();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void cmdAceptar_Click(object sender, EventArgs e)
         {
             if(rbCliente.Checked== false && rbEmpresa.Checked == false)
             {
                 MessageBox.Show("Debe seleccionar un tipo de Usuario", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                return;
             }
+
 
             if(rbCliente.Checked== true &&
                 ((string.IsNullOrEmpty(txtApellidoCliente.Text)) ||
@@ -196,11 +198,15 @@ namespace WindowsFormsApplication1.ABM_Usuario
               MessageBox.Show("Debe completar todos los campos obligatorios", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
               return;
           } 
-                
+          
+           //GUARDAR LOS DATOS DE LOS txtUsuario txtContrasenia y demas en la BDD
+          Login log = new Login();
+          log.Show();
+          this.Hide();
                 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void cmdBorrar_Click(object sender, EventArgs e)
         {
             this.txtMail.Text = "";
             this.txtPassword.Text = "";
@@ -232,9 +238,13 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void cmdVolver_Click(object sender, EventArgs e)
         {
+            Login log = new Login();
+            log.Show();
             this.Hide();
+            
+
         }
     }
 }

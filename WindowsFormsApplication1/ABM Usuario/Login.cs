@@ -22,12 +22,14 @@ namespace WindowsFormsApplication1.ABM_Usuario
             
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void cmdVolver_Click(object sender, EventArgs e)
         {
+            Login log = new Login();
+            log.Show();
             this.Hide();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void cmdCancelar_Click(object sender, EventArgs e)
         {
             txtContrasenia.Clear();
             txtUsuario.Clear();
@@ -35,7 +37,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             this.progressBar1.Value = 0;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void cmdAceptar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtUsuario.Text) || 
                 string.IsNullOrEmpty(txtContrasenia.Text))
@@ -60,10 +62,15 @@ namespace WindowsFormsApplication1.ABM_Usuario
         private void timer1_Tick(object sender, EventArgs e)
         {
             this.progressBar1.Increment(1);
-            if (this.progressBar1.Value == progressBar1.Maximum)
+            if (this.progressBar1.Value == progressBar1.Maximum )
             {
                 this.progressBar1.Value = 0;
+                Form1 f1 = new Form1();
+                f1.lblUsuario.Text = this.txtUsuario.Text;
+                
                 this.timer1.Stop();
+                f1.Show();
+                this.Hide();
                 //MOSTRAR LOS DATOS EN LOS RBUTTON
             }
         }
@@ -73,10 +80,11 @@ namespace WindowsFormsApplication1.ABM_Usuario
             ProgressBar pBar = new ProgressBar();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void cmdRegistrarse_Click(object sender, EventArgs e)
         {
             AltaUsuario altaUsuario = new AltaUsuario();
             altaUsuario.Show();
+            this.Hide();
             
         }
 
