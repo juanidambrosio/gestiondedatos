@@ -28,5 +28,12 @@ namespace WindowsFormsApplication1
         {
             this.Close();
         }
+
+        private void cmdModificarUsuario_Click(object sender, EventArgs e)
+        {
+            WindowsFormsApplication1.ABM_Usuario.ModificacionUsuario mdUsuario = new WindowsFormsApplication1.ABM_Usuario.ModificacionUsuario();
+            mdUsuario.Show();
+            this.Hide();
+        }
     }
 }

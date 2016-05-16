@@ -32,6 +32,7 @@
             this.cmdSalir = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblUsuario = new System.Windows.Forms.Label();
+            this.cmdModificarUsuario = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmdIngresarUsuario
@@ -72,11 +73,22 @@
             this.lblUsuario.TabIndex = 3;
             this.lblUsuario.Text = " ";
             // 
+            // cmdModificarUsuario
+            // 
+            this.cmdModificarUsuario.Location = new System.Drawing.Point(280, 66);
+            this.cmdModificarUsuario.Name = "cmdModificarUsuario";
+            this.cmdModificarUsuario.Size = new System.Drawing.Size(111, 23);
+            this.cmdModificarUsuario.TabIndex = 4;
+            this.cmdModificarUsuario.Text = "Modificar Usuario";
+            this.cmdModificarUsuario.UseVisualStyleBackColor = true;
+            this.cmdModificarUsuario.Click += new System.EventHandler(this.cmdModificarUsuario_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(403, 301);
+            this.Controls.Add(this.cmdModificarUsuario);
             this.Controls.Add(this.lblUsuario);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmdSalir);
@@ -94,6 +106,7 @@
         private System.Windows.Forms.Button cmdSalir;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label lblUsuario;
+        private System.Windows.Forms.Button cmdModificarUsuario;
     }
 }
 
