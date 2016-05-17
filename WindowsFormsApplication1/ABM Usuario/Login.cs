@@ -24,8 +24,8 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void cmdVolver_Click(object sender, EventArgs e)
         {
-            Login log = new Login();
-            log.Show();
+            Form1 f1 = new Form1();
+            f1.Show();
             this.Hide();
         }
 

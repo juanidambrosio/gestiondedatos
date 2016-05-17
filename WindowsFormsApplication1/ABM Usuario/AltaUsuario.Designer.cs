@@ -413,7 +413,7 @@
             // lblFechaEmpresa
             // 
             this.lblFechaEmpresa.AutoSize = true;
-            this.lblFechaEmpresa.Location = new System.Drawing.Point(155, 145);
+            this.lblFechaEmpresa.Location = new System.Drawing.Point(155, 146);
             this.lblFechaEmpresa.Name = "lblFechaEmpresa";
             this.lblFechaEmpresa.Size = new System.Drawing.Size(98, 13);
             this.lblFechaEmpresa.TabIndex = 42;
@@ -446,6 +446,7 @@
             this.rbCliente.TabIndex = 46;
             this.rbCliente.Text = "Cliente";
             this.rbCliente.UseVisualStyleBackColor = true;
+            this.rbCliente.CheckedChanged += new System.EventHandler(this.rbCliente_CheckedChanged);
             // 
             // rbEmpresa
             // 

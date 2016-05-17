@@ -246,6 +246,11 @@ namespace WindowsFormsApplication1.ABM_Usuario
             
 
         }
+
+        private void rbCliente_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
