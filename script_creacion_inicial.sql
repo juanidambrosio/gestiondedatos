@@ -3,28 +3,23 @@
 create schema ROAD_TO_PROYECTO
 GO
 
+----- Funciones -----
+create function ROAD_TO_PROYECTO.SacarTildes(@Usuario nvarchar(255))
+returns nvarchar(255)
+as begin
+return (replace(replace(replace(replace(replace (@Usuario, 'á', 'a'),'é','e'),'í','i'),'ó','o'),'ú','u'))
+end
+GO
+
+create function ROAD_TO_PROYECTO.SacarDosPuntos(@DosPuntos nvarchar(255))
+returns nvarchar(255)
+as begin
+return replace(@DosPuntos,':',0)
+end
+GO
+
 ------ Creación de Tablas -----
-
---Usuario
-create table ROAD_TO_PROYECTO.Usuario (
-Usuario nvarchar(50) PRIMARY KEY,
-Contraseña nvarchar(50) NOT NULL,
-Mail nvarchar(50),
-Habilitado bit default 1,
-Nuevo bit default 1,
-Reputacion numeric(18,2),
-FechaCreacion datetime,
-LogsFallidos TinyInt
-)
-GO
-
---Rubro
-create table ROAD_TO_PROYECTO.Rubro(
-RubrId int identity(1,1) PRIMARY KEY,
-DescripCorta nvarchar(80),
-DescripLarga nvarchar(255)
-)
-GO
+PRINT 'Creando Tablas...'
 
 --Domicilio
 create table ROAD_TO_PROYECTO.Domicilio(
@@ -38,6 +33,28 @@ Localidad nvarchar(100),
 )
 GO
 
+--Usuario
+create table ROAD_TO_PROYECTO.Usuario (
+Usuario nvarchar(50) PRIMARY KEY,
+Contraseña nvarchar(50) NOT NULL,
+Mail nvarchar(50),
+Habilitado bit default 1,
+Nuevo bit default 1,
+Reputacion numeric(18,2),
+FechaCreacion datetime,
+Domicilio int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Domicilio,
+LogsFallidos TinyInt
+)
+GO
+
+--Rubro
+create table ROAD_TO_PROYECTO.Rubro(
+RubrId int identity(1,1) PRIMARY KEY,
+DescripCorta nvarchar(80),
+DescripLarga nvarchar(255)
+)
+GO
+
 --Cliente
 create table ROAD_TO_PROYECTO.Cliente (
 ClieId int identity(1,1) PRIMARY KEY,
@@ -47,7 +64,6 @@ Apellido nvarchar(255),
 Nombres nvarchar(255),
 FechaNacimiento datetime,
 Telefono numeric(18,0),
-Domicilio int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Domicilio,
 CONSTRAINT Unique_Tipo_Nro_Doc UNIQUE (TipoDocumento, NroDocumento)
 )
 GO
@@ -57,10 +73,10 @@ create table ROAD_TO_PROYECTO.Empresa(
 EmprId int identity(1,1) PRIMARY KEY,
 RazonSocial nvarchar(255),
 CUIT nvarchar(50),
+FechaCreacion datetime,
 NombreContacto nvarchar(100),
 Rubro int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Rubro,
 Telefono numeric(18,0),
-Domicilio int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Domicilio
 CONSTRAINT Unique_Tipo_Nro_Doc UNIQUE (RazonSocial, CUIT)
 ) 
 GO
@@ -101,10 +117,25 @@ GO
 --Visibilidad
 create table ROAD_TO_PROYECTO.Visibilidad(
 VisiId int PRIMARY KEY,
+Descripcion nvarchar(255),
 ComiFija numeric (18,2),
-ComiVariable numeric (18,2),
+ComiVariable numeric (18,2)
+)
+GO
+
+--Estado
+create table ROAD_TO_PROYECTO.Estado(
+EstadoId int PRIMARY KEY,
+Descripcion nvarchar(50)
+)
+GO
+
+--Tipo_Publicacion
+create table ROAD_TO_PROYECTO.Tipo_Publicacion(
+TipoPubliId int PRIMARY KEY,
+Descripcion nvarchar(255),
 EnvioHabilitado bit default 0,
-Comienvio numeric (18,2)
+Comienvio numeric (18,2) default 0
 )
 GO
 
@@ -121,7 +152,6 @@ Rubro int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Rubro NOT NULL,
 Tipo nvarchar(255) NOT NULL,
 Estado nvarchar(20) NOT NULL,
 Preguntas bit default 0,
-Costo numeric(18,2),
 UserId nvarchar(50) FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Usuario NOT NULL
 )
 GO
@@ -183,79 +213,122 @@ PRIMARY KEY (FactNro, NroRenglon)
 GO
 
 ----- Migración de Datos -----
+PRINT 'Comenzando Migración de Datos...'
+
+--Domicilios
+PRINT 'Migrando Domicilios...'
+insert into ROAD_TO_PROYECTO.Domicilio
+select publ_empresa_dom_calle, publ_empresa_nro_calle,publ_empresa_piso,publ_empresa_depto,publ_empresa_cod_postal, NULL
+from gd_esquema.Maestra
+where publ_empresa_dom_calle is not null
+group by publ_empresa_dom_calle, publ_empresa_nro_calle,publ_empresa_piso,publ_empresa_depto,publ_empresa_cod_postal
+UNION
+select Cli_Dom_Calle, Cli_Nro_Calle, Cli_Piso, Cli_Depto, Cli_Cod_Postal, NULL
+from gd_esquema.Maestra
+where Cli_Dom_Calle is not null
+group by Cli_Dom_Calle, Cli_Nro_Calle, Cli_Piso, Cli_Depto, Cli_Cod_Postal
+GO
 
 --Usuarios
+PRINT 'Asignando Usuarios...'
 insert into ROAD_TO_PROYECTO.Usuario
-select ROAD_TO_PROYECTO.SacarTildes(LOWER (Cli_Apellido+RIGHT(Cli_Nombre,1))),'password',Cli_Mail,1,0,NULL,getdate(),0 
+select ROAD_TO_PROYECTO.SacarTildes(LOWER(Cli_Apeliido+RIGHT(Cli_Nombre,1))),'password',Cli_Mail,1,0,NULL,getdate(), (select DomiId from ROAD_TO_PROYECTO.Domicilio where Calle = Cli_Dom_Calle and Numero = Cli_Nro_Calle and Piso = Cli_Piso and Depto = Cli_Depto and CodPostal = Cli_Cod_Postal), 0 
 from gd_esquema.Maestra
-where Cli_Apellido is not null and Cli_Nombre is not null
-group by Cli_Apellido,Cli_Nombre,Cli_Mail
+where Cli_Apeliido is not null and Cli_Nombre is not null
+group by Cli_Apeliido,Cli_Nombre,Cli_Mail
 UNION
-select ROAD_TO_PROYECTO.SacarDosPuntos(LOWER('razonsocial'+RIGHT(publ_empresa_razon_social,2))),'password',publ_empresa_mail,1,0,NULL,getdate(),0
+select ROAD_TO_PROYECTO.SacarDosPuntos(LOWER('razonsocial'+RIGHT(publ_empresa_razon_social,2))),'password',publ_empresa_mail,1,0,NULL,getdate(), (select DomiId from ROAD_TO_PROYECTO.Domicilio where Calle = Publ_Empresa_Dom_Calle and Numero = Publ_Empresa_Nro_Calle and Piso = Publ_Empresa_Piso and Depto = Publ_Empresa_Depto and CodPostal = Publ_Empresa_Cod_Postal), 0
 from gd_esquema.Maestra
 where publ_empresa_razon_social is not null
 group by publ_empresa_razon_social,publ_empresa_mail
 
 --Rubros
+PRINT 'Migrando Rubros...'
 insert into ROAD_TO_PROYECTO.Rubro
 select NULL,publicacion_rubro_descripcion
 from gd_esquema.Maestra
 group by Publicacion_Rubro_Descripcion
 GO
-
---Domicilios
-insert into ROAD_TO_PROYECTO.Domicilio
-select publ_cli_dom_calle,publ_cli_nro_calle,publ_cli_piso,publ_cli_depto,Publ_Cli_Cod_Postal, NULL
-from gd_esquema.Maestra
-where publ_cli_dom_calle is not null
-group by publ_cli_dom_calle,publ_cli_nro_calle,publ_cli_piso,publ_cli_depto,Publ_Cli_Cod_Postal
-UNION
-select publ_empresa_dom_calle, publ_empresa_nro_calle,publ_empresa_piso,publ_empresa_depto,publ_empresa_cod_postal, NULL
-from gd_esquema.Maestra
-where publ_empresa_dom_calle is not null
-group by publ_empresa_dom_calle, publ_empresa_nro_calle,publ_empresa_piso,publ_empresa_depto,publ_empresa_cod_postal
-GO  
--- CAPAZ HABRIA QUE VALIDAR SI YA EXISTE EL DOMICILIO PERO EN LA TABLA MAESTRA SON NADA QUE VER LOS DOM DE EMPRESA CON LOS DE CLIENTES
-
+  
 --Cliente
+PRINT 'Migrando Clientes...'
+insert into ROAD_TO_PROYECTO.Cliente
+select 'DNI', Cli_Dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac, NULL
+from gd_esquema.Maestra
+group by Cli_Dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac
+GO
+
 --Empresa
+PRINT 'Migrando Empresas...'
+insert into ROAD_TO_PROYECTO.Empresa
+select Publ_Empresa_Razon_Social, Publ_Empresa_Cuit, Publ_Empresa_Fecha_Creacion, NULL, NULL, NULL
+from gd_esquema.Maestra
+group by Publ_Empresa_Razon_Social, Publ_Empresa_Cuit, Publ_Empresa_Fecha_Creacion
+GO
+
+--Tal vez pueda determinar el rubro de la empresa segun el rubro de las publicaciones, igual es relativo
 
 --Rol
+PRINT 'Creando Roles...'
 insert into ROAD_TO_PROYECTO.Rol values('Administrador',1)
 insert into ROAD_TO_PROYECTO.Rol values('Cliente',1)
 insert into ROAD_TO_PROYECTO.Rol values('Empresa',1)
 GO
 
 --Funciones
+
 --Funciones por rol
+
 --Roles por usuario
+PRINT 'Estableciendo Roles por Usuario...'
+insert into ROAD_TO_PROYECTO.Roles_Por_Usuario
+select ROAD_TO_PROYECTO.SacarTildes(LOWER(Apellido+RIGHT(Nombres,1))), (select RolId from ROAD_TO_PROYECTO.Rol where Nombre = 'Cliente'), ClieId
+from ROAD_TO_PROYECTO.Cliente
+UNION
+select ROAD_TO_PROYECTO.SacarDosPuntos(LOWER('razonsocial'+RIGHT(RazonSocial,2))), (select RolId from ROAD_TO_PROYECTO.Rol where Nombre = 'Empresa'), EmprId
+from ROAD_TO_PROYECTO.Empresa
+GO
+
 --Visibilidad
+PRINT 'Migrando Visibilidades...'
+insert into ROAD_TO_PROYECTO.Visibilidad
+select Publicacion_Visibilidad_Desc, Publicacion_Visibilidad_Precio, Publicacion_Visibilidad_Porcentaje
+from gd_esquema.Maestra
+group by Publicacion_Visibilidad_Desc, Publicacion_Visibilidad_Precio, Publicacion_Visibilidad_Porcentaje
+GO
+
+--Estado
+PRINT 'Migrando Estados de publicaciones...'
+insert into ROAD_TO_PROYECTO.Estado values('Borrador')
+insert into ROAD_TO_PROYECTO.Estado values('Activa')
+insert into ROAD_TO_PROYECTO.Estado values('Pausada')
+insert into ROAD_TO_PROYECTO.Estado values('Finalizada')
+GO
+
+--Tipo_Publicacion
+PRINT 'Migrando Tipos de publicaciones...'
+insert into ROAD_TO_PROYECTO.Tipo_Publicacion
+select Publicacion_Tipo
+from gd_esquema.Maestra
+group by Publicacion_Tipo
+GO
+
 --Publicacion
+
 --Transaccion
+
 --Oferta
+
 --Compra
+
 --Calificacion
+
 --Factura
+
 --Item Factura
-
-
-
 
 ----- Stored Procedures -----
 
 ----- Triggers -----
 
------ Funciones -----
-create function ROAD_TO_PROYECTO.SacarTildes(@Usuario nvarchar(255))
-returns nvarchar(255)
-as begin
-return (replace(replace(replace(replace(replace (@Usuario, 'á', 'a'),'é','e'),'í','i'),'ó','o'),'ú','u'))
-end
-GO
 
-create function ROAD_TO_PROYECTO.SacarDosPuntos(@DosPuntos nvarchar(255))
-returns nvarchar(255)
-as begin
-return replace(@DosPuntos,':',0)
-end
-GO
