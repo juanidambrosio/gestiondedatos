@@ -247,6 +247,7 @@ PRINT 'Migrando Rubros...'
 insert into ROAD_TO_PROYECTO.Rubro
 select NULL,publicacion_rubro_descripcion
 from gd_esquema.Maestra
+where publicacion_rubro_descripcion is not null
 group by Publicacion_Rubro_Descripcion
 GO
   
@@ -255,6 +256,7 @@ PRINT 'Migrando Clientes...'
 insert into ROAD_TO_PROYECTO.Cliente
 select 'DNI', Cli_Dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac, NULL
 from gd_esquema.Maestra
+where Cli_Dni is not null
 group by Cli_Dni, Cli_Apeliido, Cli_Nombre, Cli_Fecha_Nac
 GO
 
@@ -263,6 +265,7 @@ PRINT 'Migrando Empresas...'
 insert into ROAD_TO_PROYECTO.Empresa
 select Publ_Empresa_Razon_Social, Publ_Empresa_Cuit, Publ_Empresa_Fecha_Creacion, NULL, NULL, NULL
 from gd_esquema.Maestra
+where Publ_Empresa_Cuit is not null
 group by Publ_Empresa_Razon_Social, Publ_Empresa_Cuit, Publ_Empresa_Fecha_Creacion
 GO
 
@@ -292,8 +295,9 @@ GO
 --Visibilidad
 PRINT 'Migrando Visibilidades...'
 insert into ROAD_TO_PROYECTO.Visibilidad
-select Publicacion_Visibilidad_Desc, Publicacion_Visibilidad_Precio, Publicacion_Visibilidad_Porcentaje
+select Publicacion_Visibilidad_Cod, Publicacion_Visibilidad_Desc, Publicacion_Visibilidad_Precio, Publicacion_Visibilidad_Porcentaje
 from gd_esquema.Maestra
+where Publicacion_Visibilidad_Cod is not null
 group by Publicacion_Visibilidad_Desc, Publicacion_Visibilidad_Precio, Publicacion_Visibilidad_Porcentaje
 GO
 
@@ -310,10 +314,18 @@ PRINT 'Migrando Tipos de publicaciones...'
 insert into ROAD_TO_PROYECTO.Tipo_Publicacion
 select Publicacion_Tipo
 from gd_esquema.Maestra
+where Publicacion_Tipo is not null
 group by Publicacion_Tipo
 GO
 
 --Publicacion
+PRINT 'Migrando publicaciones...'
+insert into ROAD_TO_PROYECTO.Publicacion
+select Publicacion_Cod, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Visibilidad_Cod, (select RubrId from ROAD_TO_PROYECTO.Rubro where publicacion_rubro_descripcion = DescripLarga), (select TipoPubliId from ROAD_TO_PROYECTO.Tipo_Publicacion where Publicacion_Tipo = Descripcion), 'CALCULAR ESTADO', 0, (select UserId from ROAD_TO_PROYECTO.Roles_Por_Usuario, ROAD_TO_PROYECTO.Cliente, ROAD_TO_PROYECTO.Empresa where (IdExterno = ClieId and NroDocumento = Publ_Cli_Dni) or (IdExterno = EmprId and CUIT = Publ_Empresa_Cuit))
+from gd_esquema.Maestra
+where Publicacion_Cod is not null
+group by Publicacion_Cod, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Visibilidad_Cod
+GO
 
 --Transaccion
 
