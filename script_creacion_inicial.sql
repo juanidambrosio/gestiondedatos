@@ -64,7 +64,7 @@ Apellido nvarchar(255),
 Nombres nvarchar(255),
 FechaNacimiento datetime,
 Telefono numeric(18,0),
-CONSTRAINT Unique_Tipo_Nro_Doc UNIQUE (TipoDocumento, NroDocumento)
+CONSTRAINT Cliente_Tipo_Nro_Doc UNIQUE (TipoDocumento, NroDocumento)
 )
 GO
 
@@ -77,7 +77,7 @@ FechaCreacion datetime,
 NombreContacto nvarchar(100),
 Rubro int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Rubro,
 Telefono numeric(18,0),
-CONSTRAINT Unique_Tipo_Nro_Doc UNIQUE (RazonSocial, CUIT)
+CONSTRAINT Empresa_Tipo_Nro_Doc UNIQUE (RazonSocial, CUIT)
 ) 
 GO
 
@@ -132,7 +132,7 @@ GO
 
 --Tipo_Publicacion
 create table ROAD_TO_PROYECTO.Tipo_Publicacion(
-TipoPubliId int PRIMARY KEY,
+TipoPubliId int identity (1,1) PRIMARY KEY,
 Descripcion nvarchar(255),
 EnvioHabilitado bit default 0,
 Comienvio numeric (18,2) default 0
@@ -150,8 +150,7 @@ Precio numeric(18,2) NOT NULL,
 Visibilidad int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Visibilidad NOT NULL,
 Rubro int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Rubro NOT NULL,
 Tipo nvarchar(255) NOT NULL,
-Estado nvarchar(20) NOT NULL,
-Preguntas bit default 0,
+Estado int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Estado NOT NULL,
 UserId nvarchar(50) FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Usuario NOT NULL
 )
 GO
@@ -229,18 +228,18 @@ where Cli_Dom_Calle is not null
 group by Cli_Dom_Calle, Cli_Nro_Calle, Cli_Piso, Cli_Depto, Cli_Cod_Postal
 GO
 
---Usuarios
+--Usuarios 
 PRINT 'Asignando Usuarios...'
 insert into ROAD_TO_PROYECTO.Usuario
-select ROAD_TO_PROYECTO.SacarTildes(LOWER(Cli_Apeliido+RIGHT(Cli_Nombre,1))),'password',Cli_Mail,1,0,NULL,getdate(), (select DomiId from ROAD_TO_PROYECTO.Domicilio where Calle = Cli_Dom_Calle and Numero = Cli_Nro_Calle and Piso = Cli_Piso and Depto = Cli_Depto and CodPostal = Cli_Cod_Postal), 0 
+select ROAD_TO_PROYECTO.SacarTildes(LOWER(Cli_Apeliido+RIGHT(Cli_Nombre,1))),'password',Cli_Mail,1,0,NULL,getdate() as Fecha, (select DomiId from ROAD_TO_PROYECTO.Domicilio where RTRIM(Calle) like RTRIM(Cli_Dom_Calle) and Numero = Cli_Nro_Calle and Piso = Cli_Piso and Depto = Cli_Depto and CodPostal = Cli_Cod_Postal) as Domicilio, 0 
 from gd_esquema.Maestra
 where Cli_Apeliido is not null and Cli_Nombre is not null
-group by Cli_Apeliido,Cli_Nombre,Cli_Mail
+group by Cli_Apeliido,Cli_Nombre,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,Cli_Piso,cli_depto,Cli_Cod_Postal
 UNION
-select ROAD_TO_PROYECTO.SacarDosPuntos(LOWER('razonsocial'+RIGHT(publ_empresa_razon_social,2))),'password',publ_empresa_mail,1,0,NULL,getdate(), (select DomiId from ROAD_TO_PROYECTO.Domicilio where Calle = Publ_Empresa_Dom_Calle and Numero = Publ_Empresa_Nro_Calle and Piso = Publ_Empresa_Piso and Depto = Publ_Empresa_Depto and CodPostal = Publ_Empresa_Cod_Postal), 0
+select ROAD_TO_PROYECTO.SacarDosPuntos(LOWER('razonsocial'+RIGHT(publ_empresa_razon_social,2))),'password',publ_empresa_mail,1,0,NULL,getdate(), (select DomiId from ROAD_TO_PROYECTO.Domicilio where RTRIM(Calle) like RTRIM(Publ_Empresa_Dom_Calle) and Numero = Publ_Empresa_Nro_Calle and Piso = Publ_Empresa_Piso and Depto = Publ_Empresa_Depto and CodPostal = Publ_Empresa_Cod_Postal), 0
 from gd_esquema.Maestra
 where publ_empresa_razon_social is not null
-group by publ_empresa_razon_social,publ_empresa_mail
+group by publ_empresa_razon_social,publ_empresa_mail, Publ_Empresa_Dom_Calle,Publ_empresa_Nro_Calle,Publ_Empresa_Piso,Publ_Empresa_Depto,Publ_Empresa_Cod_Postal
 
 --Rubros
 PRINT 'Migrando Rubros...'
@@ -267,6 +266,7 @@ select Publ_Empresa_Razon_Social, Publ_Empresa_Cuit, Publ_Empresa_Fecha_Creacion
 from gd_esquema.Maestra
 where Publ_Empresa_Cuit is not null
 group by Publ_Empresa_Razon_Social, Publ_Empresa_Cuit, Publ_Empresa_Fecha_Creacion
+order by Publ_Empresa_Razon_Social
 GO
 
 --Tal vez pueda determinar el rubro de la empresa segun el rubro de las publicaciones, igual es relativo
@@ -279,11 +279,25 @@ insert into ROAD_TO_PROYECTO.Rol values('Empresa',1)
 GO
 
 --Funciones
+PRINT 'Creando Funciones...'
+insert into ROAD_TO_PROYECTO.Funcion values('ABM Rol','Codigo en C# que habilite esta funcion')
+insert into ROAD_TO_PROYECTO.Funcion values('ABM Usuario','Codigo en C# que habilite esta funcion')
+insert into ROAD_TO_PROYECTO.Funcion values('ABM Visibilidad','Codigo en C# que habilite esta funcion')
+insert into ROAD_TO_PROYECTO.Funcion values('ABM Rubro','Codigo en C# que habilite esta funcion')
+insert into ROAD_TO_PROYECTO.Funcion values('Generar Publicación','Codigo en C# que habilite esta funcion')
+insert into ROAD_TO_PROYECTO.Funcion values('Comprar/Ofertar','Codigo en C# que habilite esta funcion')
+insert into ROAD_TO_PROYECTO.Funcion values('Historial de Cliente','Codigo en C# que habilite esta funcion')
+insert into ROAD_TO_PROYECTO.Funcion values('Calificar al Vendedor','Codigo en C# que habilite esta funcion')
+insert into ROAD_TO_PROYECTO.Funcion values('Consulta de facturas realizadas al vendedor','Codigo en C# que habilite esta funcion')
+insert into ROAD_TO_PROYECTO.Funcion values('Listado Estadístico','Codigo en C# que habilite esta funcion')
 
 --Funciones por rol
-
+PRINT 'Creando Funciones Por Rol...'
+insert into ROAD_TO_PROYECTO.Funciones_Por_Rol select RolId,FuncId from ROAD_TO_PROYECTO.Rol,ROAD_TO_PROYECTO.Funcion where Nombre = 'Administrador' and Descripcion in ('ABM Rubro','ABM Rol','ABM Visibilidad','ABM Usuario')
+insert into ROAD_TO_PROYECTO.Funciones_Por_Rol select RolId,FuncId from ROAD_TO_PROYECTO.Rol,ROAD_TO_PROYECTO.Funcion where nombre = 'Cliente' and Descripcion in ('Generar Publicación','Comprar/Ofertar','Historial de Cliente','Calificar al Vendedor','Consulta de facturas realizadas al vendedor','Listado Estadístico')
+insert into ROAD_TO_PROYECTO.Funciones_Por_Rol select RolId,FuncId from ROAD_TO_PROYECTO.Rol,ROAD_TO_PROYECTO.Funcion where nombre = 'Empresa' and Descripcion in ('Generar Publicación','Consulta de facturas realizadas al vendedor','Listado Estadístico')
 --Roles por usuario
-PRINT 'Estableciendo Roles por Usuario...'
+PRINT 'Creando Roles por Usuario...'
 insert into ROAD_TO_PROYECTO.Roles_Por_Usuario
 select ROAD_TO_PROYECTO.SacarTildes(LOWER(Apellido+RIGHT(Nombres,1))), (select RolId from ROAD_TO_PROYECTO.Rol where Nombre = 'Cliente'), ClieId
 from ROAD_TO_PROYECTO.Cliente
@@ -298,21 +312,21 @@ insert into ROAD_TO_PROYECTO.Visibilidad
 select Publicacion_Visibilidad_Cod, Publicacion_Visibilidad_Desc, Publicacion_Visibilidad_Precio, Publicacion_Visibilidad_Porcentaje
 from gd_esquema.Maestra
 where Publicacion_Visibilidad_Cod is not null
-group by Publicacion_Visibilidad_Desc, Publicacion_Visibilidad_Precio, Publicacion_Visibilidad_Porcentaje
+group by publicacion_visibilidad_cod, Publicacion_Visibilidad_Desc, Publicacion_Visibilidad_Precio, Publicacion_Visibilidad_Porcentaje
 GO
 
 --Estado
 PRINT 'Migrando Estados de publicaciones...'
-insert into ROAD_TO_PROYECTO.Estado values('Borrador')
-insert into ROAD_TO_PROYECTO.Estado values('Activa')
-insert into ROAD_TO_PROYECTO.Estado values('Pausada')
-insert into ROAD_TO_PROYECTO.Estado values('Finalizada')
+insert into ROAD_TO_PROYECTO.Estado values(1,'Borrador')
+insert into ROAD_TO_PROYECTO.Estado values(2,'Activa')
+insert into ROAD_TO_PROYECTO.Estado values(3,'Pausada')
+insert into ROAD_TO_PROYECTO.Estado values(4,'Finalizada')
 GO
 
 --Tipo_Publicacion
 PRINT 'Migrando Tipos de publicaciones...'
 insert into ROAD_TO_PROYECTO.Tipo_Publicacion
-select Publicacion_Tipo
+select Publicacion_Tipo, 0, 0
 from gd_esquema.Maestra
 where Publicacion_Tipo is not null
 group by Publicacion_Tipo
@@ -321,10 +335,10 @@ GO
 --Publicacion
 PRINT 'Migrando publicaciones...'
 insert into ROAD_TO_PROYECTO.Publicacion
-select Publicacion_Cod, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Visibilidad_Cod, (select RubrId from ROAD_TO_PROYECTO.Rubro where publicacion_rubro_descripcion = DescripLarga), (select TipoPubliId from ROAD_TO_PROYECTO.Tipo_Publicacion where Publicacion_Tipo = Descripcion), 'CALCULAR ESTADO', 0, (select UserId from ROAD_TO_PROYECTO.Roles_Por_Usuario, ROAD_TO_PROYECTO.Cliente, ROAD_TO_PROYECTO.Empresa where (IdExterno = ClieId and NroDocumento = Publ_Cli_Dni) or (IdExterno = EmprId and CUIT = Publ_Empresa_Cuit))
+select Publicacion_Cod, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Visibilidad_Cod, (select RubrId from ROAD_TO_PROYECTO.Rubro where publicacion_rubro_descripcion = DescripLarga) as Rubro, (select TipoPubliId from ROAD_TO_PROYECTO.Tipo_Publicacion where Publicacion_Tipo = Descripcion) as TipoPublicacion,3 as Estado, (select Usuario from ROAD_TO_PROYECTO.Usuario where Mail = Publ_Cli_Mail or Mail = Publ_Empresa_Mail) as Usuario
 from gd_esquema.Maestra
 where Publicacion_Cod is not null
-group by Publicacion_Cod, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Visibilidad_Cod
+group by Publicacion_Cod, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Visibilidad_Cod, Publicacion_Rubro_Descripcion,Publ_Cli_Mail, Publicacion_Tipo,Publ_Empresa_Mail
 GO
 
 --Transaccion
