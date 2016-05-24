@@ -335,17 +335,41 @@ GO
 --Publicacion
 PRINT 'Migrando publicaciones...'
 insert into ROAD_TO_PROYECTO.Publicacion
-select Publicacion_Cod, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Visibilidad_Cod, (select RubrId from ROAD_TO_PROYECTO.Rubro where publicacion_rubro_descripcion = DescripLarga) as Rubro, (select TipoPubliId from ROAD_TO_PROYECTO.Tipo_Publicacion where Publicacion_Tipo = Descripcion) as TipoPublicacion,3 as Estado, (select Usuario from ROAD_TO_PROYECTO.Usuario where Mail = Publ_Cli_Mail or Mail = Publ_Empresa_Mail) as Usuario
+select Publicacion_Cod, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Visibilidad_Cod, (select RubrId from ROAD_TO_PROYECTO.Rubro where publicacion_rubro_descripcion = DescripLarga) as Rubro, (select TipoPubliId from ROAD_TO_PROYECTO.Tipo_Publicacion where Publicacion_Tipo = Descripcion) as TipoPublicacion, 3 as Estado, (select Usuario from ROAD_TO_PROYECTO.Usuario where Mail = Publ_Cli_Mail or Mail = Publ_Empresa_Mail) as Usuario
 from gd_esquema.Maestra
 where Publicacion_Cod is not null
-group by Publicacion_Cod, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Visibilidad_Cod, Publicacion_Rubro_Descripcion,Publ_Cli_Mail, Publicacion_Tipo,Publ_Empresa_Mail
+group by Publicacion_Cod, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Visibilidad_Cod, Publicacion_Rubro_Descripcion,Publ_Cli_Mail, Publicacion_Tipo, Publ_Empresa_Mail
 GO
 
 --Transaccion
+PRINT 'Migrando transacciones...'
+insert into ROAD_TO_PROYECTO.Transaccion
+select Compra_Fecha, Publicacion_Cod, (select ClieId from ROAD_TO_PROYECTO.Cliente where Cli_Dni = NroDocumento)
+from gd_esquema.Maestra
+where Publicacion_Tipo = 'Compra Inmediata' and Compra_Fecha is not null
+group by Publicacion_Cod, Compra_Fecha, Cli_Dni
+union
+select Oferta_Fecha, Publicacion_Cod, (select ClieId from ROAD_TO_PROYECTO.Cliente where Cli_Dni = NroDocumento)
+from gd_esquema.Maestra
+where Publicacion_Tipo = 'Subasta' and Oferta_Fecha is not null
+group by Publicacion_Cod, Oferta_Fecha, Cli_Dni
+GO
 
 --Oferta
+PRINT 'Migrando ofertas...'
+insert into ROAD_TO_PROYECTO.Oferta
+select Oferta_Monto, 0, TranId
+from gd_esquema.Maestra m1, ROAD_TO_PROYECTO.Transaccion t, ROAD_TO_PROYECTO.Cliente c
+where Publicacion_Tipo = 'Subasta' and Oferta_Fecha is not null and Publicacion_Cod = PubliId and Oferta_Fecha = Fecha and t.ClieId = c.ClieId and Cli_Dni = c.NroDocumento
+group by Publicacion_Cod, Cli_Dni, Oferta_Monto, TranId
 
 --Compra
+PRINT 'Migrando compras...'
+insert into ROAD_TO_PROYECTO.Compra
+select Compra_Cantidad, TranId
+from gd_esquema.Maestra, ROAD_TO_PROYECTO.Transaccion t, ROAD_TO_PROYECTO.Cliente c
+where Publicacion_Tipo = 'Compra Inmediata' and Compra_Fecha is not null and Publicacion_Cod = PubliId and Compra_Fecha = Fecha and t.ClieId = c.ClieId and Cli_Dni = c.NroDocumento
+group by Publicacion_Cod, Cli_Dni, Compra_Cantidad, TranId
 
 --Calificacion
 
