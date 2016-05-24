@@ -18,6 +18,16 @@ return replace(@DosPuntos,':',0)
 end
 GO
 
+create function ROAD_TO_PROYECTO.OfertaGanadora(@Publicacion int, @Oferta numeric(18,2) )
+returns int 
+as begin
+IF exists (select Publicacion_Cod from gd_esquema.Maestra where publicacion_cod=@Publicacion group by publicacion_cod having count(*)= 1)
+  return 1
+ELSE IF (select max(Oferta_Monto) from gd_esquema.Maestra where Publicacion_Cod = @Publicacion) = @Oferta
+  return 1
+  return 0
+  end
+ GO
 ------ Creación de Tablas -----
 PRINT 'Creando Tablas...'
 
@@ -347,21 +357,21 @@ insert into ROAD_TO_PROYECTO.Transaccion
 select Compra_Fecha, Publicacion_Cod, (select ClieId from ROAD_TO_PROYECTO.Cliente where Cli_Dni = NroDocumento)
 from gd_esquema.Maestra
 where Publicacion_Tipo = 'Compra Inmediata' and Compra_Fecha is not null
-group by Publicacion_Cod, Compra_Fecha, Cli_Dni
+group by publicacion_cod,Compra_Fecha,cli_dni
 union
 select Oferta_Fecha, Publicacion_Cod, (select ClieId from ROAD_TO_PROYECTO.Cliente where Cli_Dni = NroDocumento)
 from gd_esquema.Maestra
 where Publicacion_Tipo = 'Subasta' and Oferta_Fecha is not null
-group by Publicacion_Cod, Oferta_Fecha, Cli_Dni
+group by Publicacion_Cod,Oferta_Fecha,Cli_Dni
 GO
 
 --Oferta
 PRINT 'Migrando ofertas...'
 insert into ROAD_TO_PROYECTO.Oferta
-select Oferta_Monto, 0, TranId
+select Oferta_Monto, ROAD_TO_PROYECTO.OfertaGanadora(Publicacion_Cod,Oferta_Monto), TranId
 from gd_esquema.Maestra m1, ROAD_TO_PROYECTO.Transaccion t, ROAD_TO_PROYECTO.Cliente c
 where Publicacion_Tipo = 'Subasta' and Oferta_Fecha is not null and Publicacion_Cod = PubliId and Oferta_Fecha = Fecha and t.ClieId = c.ClieId and Cli_Dni = c.NroDocumento
-group by Publicacion_Cod, Cli_Dni, Oferta_Monto, TranId
+group by Publicacion_Cod, Oferta_Monto, TranId,Oferta_Fecha
 
 --Compra
 PRINT 'Migrando compras...'
