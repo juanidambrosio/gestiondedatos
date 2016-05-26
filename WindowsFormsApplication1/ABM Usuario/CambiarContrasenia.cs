@@ -19,8 +19,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void cmdVolver_Click(object sender, EventArgs e)
         {
-            Login login = new Login();
-            login.Show();
+            Login.lg.Show();
             this.Hide();
         }
 
@@ -38,10 +37,14 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 txtRepetir.Text = "";
                 return;
             }
-           
-            Login login = new Login();
-            login.Show();
+
+            Login.lg.Show();
             this.Hide();
+        }
+
+        private void salirToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

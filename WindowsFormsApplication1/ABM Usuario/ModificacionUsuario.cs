@@ -60,8 +60,8 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void cmdVolver_Click(object sender, EventArgs e)
         {
-            Form1 f1 = new Form1();
-            f1.Show();
+            Form1.f1.Show();
+            
             this.Hide();
             
         }
@@ -69,6 +69,11 @@ namespace WindowsFormsApplication1.ABM_Usuario
         private void cboSeleccion_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.timer1.Start();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
