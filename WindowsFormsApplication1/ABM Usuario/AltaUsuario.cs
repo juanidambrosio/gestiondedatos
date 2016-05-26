@@ -12,9 +12,12 @@ namespace WindowsFormsApplication1.ABM_Usuario
 {
     public partial class AltaUsuario : Form
     {
+        public static AltaUsuario aus;
         public AltaUsuario()
         {
             InitializeComponent();
+            AltaUsuario.aus = this;
+
         }
 
         private void label20_Click(object sender, EventArgs e)
@@ -200,9 +203,9 @@ namespace WindowsFormsApplication1.ABM_Usuario
           } 
           
            //GUARDAR LOS DATOS DE LOS txtUsuario txtContrasenia y demas en la BDD
-          Login log = new Login();
-          log.Show();
+          Login.lg.Show();
           this.Hide();
+
                 
         }
 
@@ -240,16 +243,19 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void cmdVolver_Click(object sender, EventArgs e)
         {
-            Login log = new Login();
-            log.Show();
+            Login.lg.Show();
             this.Hide();
-            
 
         }
 
         private void rbCliente_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

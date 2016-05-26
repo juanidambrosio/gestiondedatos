@@ -12,9 +12,11 @@ namespace WindowsFormsApplication1.ABM_Usuario
 {
     public partial class Login : Form
     {
+        public static Login lg;
         public Login()
         {
             InitializeComponent();
+            Login.lg = this;
         }
 
         private void Login_Load(object sender, EventArgs e)
@@ -24,8 +26,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void cmdVolver_Click(object sender, EventArgs e)
         {
-            Form1 f1 = new Form1();
-            f1.Show();
+            Form1.f1.Show();
             this.Hide();
         }
 
@@ -34,7 +35,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             txtContrasenia.Clear();
             txtUsuario.Clear();
             this.timer1.Stop();
-            this.progressBar1.Value = 0;
+            this.toolStripProgressBar1.Value = 0;
         }
 
         private void cmdAceptar_Click(object sender, EventArgs e)
@@ -61,15 +62,16 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this.progressBar1.Increment(1);
-            if (this.progressBar1.Value == progressBar1.Maximum )
+            this.toolStripProgressBar1.Increment(1);
+            //this.progressBar1.Increment(1);
+            if (this.toolStripProgressBar1.Value == toolStripProgressBar1.Maximum )
             {
-                this.progressBar1.Value = 0;
-                Form1 f1 = new Form1();
-                f1.lblUsuario.Text = this.txtUsuario.Text;
+                this.toolStripProgressBar1.Value = 0;
                 
+                Form1.f1.lblUsuario.Text = this.txtUsuario.Text;
+                Form1.f1.Show();
                 this.timer1.Stop();
-                f1.Show();
+                
                 this.Hide();
                 //MOSTRAR LOS DATOS EN LOS RBUTTON
             }
@@ -93,6 +95,16 @@ namespace WindowsFormsApplication1.ABM_Usuario
             CambiarContrasenia cambioContrasenia = new CambiarContrasenia();
             cambioContrasenia.Show();
             this.Hide();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void toolStripProgressBar1_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

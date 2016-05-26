@@ -12,28 +12,45 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        public static Form1 f1;
         public Form1()
         {
             InitializeComponent();
+            Form1.f1 = this;
         }
 
-        private void cmdIngresarUsuario_Click(object sender, EventArgs e)
-        {
-            WindowsFormsApplication1.ABM_Usuario.Login login = new WindowsFormsApplication1.ABM_Usuario.Login();
-            login.Show();
-            this.Hide();
-        }
-
-        private void cmdSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+      
+     
 
         private void cmdModificarUsuario_Click(object sender, EventArgs e)
         {
             WindowsFormsApplication1.ABM_Usuario.ModificacionUsuario mdUsuario = new WindowsFormsApplication1.ABM_Usuario.ModificacionUsuario();
             mdUsuario.Show();
             this.Hide();
+        }
+
+        private void cmdPublicacion_Click(object sender, EventArgs e)
+        {
+            WindowsFormsApplication1.Generar_Publicación.AltaPublicacion aPub = new WindowsFormsApplication1.Generar_Publicación.AltaPublicacion();
+            aPub.Show();
+            this.Hide();
+        }
+
+        private void ingreseUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WindowsFormsApplication1.ABM_Usuario.Login login = new WindowsFormsApplication1.ABM_Usuario.Login();
+            login.Show();
+            this.Hide();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

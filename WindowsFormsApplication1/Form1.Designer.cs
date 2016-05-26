@@ -28,37 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cmdIngresarUsuario = new System.Windows.Forms.Button();
-            this.cmdSalir = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.cmdModificarUsuario = new System.Windows.Forms.Button();
+            this.cmdPublicacion = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ingreseUsuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // cmdIngresarUsuario
-            // 
-            this.cmdIngresarUsuario.Location = new System.Drawing.Point(280, 17);
-            this.cmdIngresarUsuario.Name = "cmdIngresarUsuario";
-            this.cmdIngresarUsuario.Size = new System.Drawing.Size(111, 23);
-            this.cmdIngresarUsuario.TabIndex = 0;
-            this.cmdIngresarUsuario.Text = "Ingresar Usuario";
-            this.cmdIngresarUsuario.UseVisualStyleBackColor = true;
-            this.cmdIngresarUsuario.Click += new System.EventHandler(this.cmdIngresarUsuario_Click);
-            // 
-            // cmdSalir
-            // 
-            this.cmdSalir.Location = new System.Drawing.Point(316, 266);
-            this.cmdSalir.Name = "cmdSalir";
-            this.cmdSalir.Size = new System.Drawing.Size(75, 23);
-            this.cmdSalir.TabIndex = 1;
-            this.cmdSalir.Text = "Salir";
-            this.cmdSalir.UseVisualStyleBackColor = true;
-            this.cmdSalir.Click += new System.EventHandler(this.cmdSalir_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 22);
+            this.label1.Location = new System.Drawing.Point(12, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 2;
@@ -67,7 +52,7 @@
             // lblUsuario
             // 
             this.lblUsuario.AutoSize = true;
-            this.lblUsuario.Location = new System.Drawing.Point(81, 22);
+            this.lblUsuario.Location = new System.Drawing.Point(81, 57);
             this.lblUsuario.Name = "lblUsuario";
             this.lblUsuario.Size = new System.Drawing.Size(10, 13);
             this.lblUsuario.TabIndex = 3;
@@ -75,7 +60,7 @@
             // 
             // cmdModificarUsuario
             // 
-            this.cmdModificarUsuario.Location = new System.Drawing.Point(280, 66);
+            this.cmdModificarUsuario.Location = new System.Drawing.Point(161, 57);
             this.cmdModificarUsuario.Name = "cmdModificarUsuario";
             this.cmdModificarUsuario.Size = new System.Drawing.Size(111, 23);
             this.cmdModificarUsuario.TabIndex = 4;
@@ -83,18 +68,80 @@
             this.cmdModificarUsuario.UseVisualStyleBackColor = true;
             this.cmdModificarUsuario.Click += new System.EventHandler(this.cmdModificarUsuario_Click);
             // 
+            // cmdPublicacion
+            // 
+            this.cmdPublicacion.Location = new System.Drawing.Point(161, 103);
+            this.cmdPublicacion.Name = "cmdPublicacion";
+            this.cmdPublicacion.Size = new System.Drawing.Size(111, 23);
+            this.cmdPublicacion.TabIndex = 5;
+            this.cmdPublicacion.Text = "Crear Publicacion";
+            this.cmdPublicacion.UseVisualStyleBackColor = true;
+            this.cmdPublicacion.Click += new System.EventHandler(this.cmdPublicacion_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.NavajoWhite;
+            this.menuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.usuarioToolStripMenuItem,
+            this.salirToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(387, 24);
+            this.menuStrip1.TabIndex = 6;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // usuarioToolStripMenuItem
+            // 
+            this.usuarioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ingreseUsuarioToolStripMenuItem});
+            this.usuarioToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
+            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.usuarioToolStripMenuItem.Text = "Usuario";
+            // 
+            // ingreseUsuarioToolStripMenuItem
+            // 
+            this.ingreseUsuarioToolStripMenuItem.Name = "ingreseUsuarioToolStripMenuItem";
+            this.ingreseUsuarioToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.ingreseUsuarioToolStripMenuItem.Text = "Ingrese usuario";
+            this.ingreseUsuarioToolStripMenuItem.Click += new System.EventHandler(this.ingreseUsuarioToolStripMenuItem_Click);
+            // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.NavajoWhite;
+            this.statusStrip1.Location = new System.Drawing.Point(0, 334);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(387, 22);
+            this.statusStrip1.TabIndex = 7;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(403, 301);
+            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.ClientSize = new System.Drawing.Size(387, 356);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.cmdPublicacion);
             this.Controls.Add(this.cmdModificarUsuario);
             this.Controls.Add(this.lblUsuario);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.cmdSalir);
-            this.Controls.Add(this.cmdIngresarUsuario);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -102,11 +149,15 @@
 
         #endregion
 
-        private System.Windows.Forms.Button cmdIngresarUsuario;
-        private System.Windows.Forms.Button cmdSalir;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.Button cmdModificarUsuario;
+        private System.Windows.Forms.Button cmdPublicacion;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ingreseUsuarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
     }
 }
 
