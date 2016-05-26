@@ -28,6 +28,7 @@ ELSE IF (select max(Oferta_Monto) from gd_esquema.Maestra where Publicacion_Cod 
   return 0
   end
  GO
+
 ------ Creación de Tablas -----
 PRINT 'Creando Tablas...'
 
@@ -135,7 +136,7 @@ GO
 
 --Estado
 create table ROAD_TO_PROYECTO.Estado(
-EstadoId int PRIMARY KEY,
+EstadoId int identity(1,1) PRIMARY KEY,
 Descripcion nvarchar(50)
 )
 GO
@@ -189,8 +190,8 @@ GO
 
 --Factura
 create table ROAD_TO_PROYECTO.Factura(
-FactNro numeric(18,0) identity(1,1) PRIMARY KEY,
-TranId int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Transaccion,
+FactNro numeric(18,0) PRIMARY KEY,
+PubliId int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Publicacion,
 Fecha datetime,
 Monto numeric(18,2),
 FormaPago nvarchar(255),
@@ -314,10 +315,10 @@ GO
 
 --Estado
 PRINT 'Migrando Estados de publicaciones...'
-insert into ROAD_TO_PROYECTO.Estado values(1,'Borrador')
-insert into ROAD_TO_PROYECTO.Estado values(2,'Activa')
-insert into ROAD_TO_PROYECTO.Estado values(3,'Pausada')
-insert into ROAD_TO_PROYECTO.Estado values(4,'Finalizada')
+insert into ROAD_TO_PROYECTO.Estado values('Borrador')
+insert into ROAD_TO_PROYECTO.Estado values('Activa')
+insert into ROAD_TO_PROYECTO.Estado values('Pausada')
+insert into ROAD_TO_PROYECTO.Estado values('Finalizada')
 GO
 
 --Tipo_Publicacion
@@ -343,7 +344,7 @@ PRINT 'Migrando transacciones...'
 insert into ROAD_TO_PROYECTO.Transaccion
 select 'Compra', Compra_Fecha, Compra_Cantidad, null, null, Publicacion_Cod, (select ClieId from ROAD_TO_PROYECTO.Cliente where Cli_Dni = NroDocumento)
 from gd_esquema.Maestra
-where Publicacion_Tipo = 'Compra Inmediata' and Compra_Fecha is not null
+where Publicacion_Tipo = 'Compra Inmediata' and Compra_Fecha is not null 
 group by publicacion_cod, Compra_Fecha, Compra_Cantidad, Cli_Dni
 union
 select 'Oferta', Oferta_Fecha, 1, Oferta_Monto, 0, Publicacion_Cod, (select ClieId from ROAD_TO_PROYECTO.Cliente where Cli_Dni = NroDocumento)
@@ -360,10 +361,50 @@ where TipoTransac = 'Oferta' and TranId in (select top 1 t2.TranId
 											order by t2.PubliId, t2.Monto desc)
 
 --Calificacion
+insert into ROAD_TO_PROYECTO.Calificacion
+select Calificacion_Codigo, t.TranId,Calificacion_Cant_Estrellas,Calificacion_Descripcion
+from gd_esquema.Maestra gd,ROAD_TO_PROYECTO.TRANSACCION t,ROAD_TO_PROYECTO.Cliente c
+where t.PubliId = gd.Publicacion_Cod and t.clieid = c.ClieId and c.NroDocumento = gd.Cli_Dni and t.fecha = Compra_Fecha and t.cantidad = Compra_Cantidad and gd.Calificacion_Cant_Estrellas is not null and (t.ganadora = 1 or t.tipotransac = 'Compra') 
+GO
+--FALTA SACAR 97 REGISTROS QUE TIENEN DUPLICADA LA TRANSACCION
 
 --Factura
+insert into ROAD_TO_PROYECTO.Factura
+select gd.Factura_Nro,Publicacion_Cod, gd.factura_fecha,gd.factura_total, gd.forma_pago_desc
+from gd_esquema.Maestra gd
+where  Factura_nro is not null 
+group by factura_nro,Factura_Fecha,Factura_Total,Forma_Pago_Desc,Publicacion_Cod
+GO
+
+--FUNCIONES PARA MIGRAR ITEMS
+ create function ROAD_TO_PROYECTO.VerificarRenglon(@NroFactura numeric(18,0))
+ returns int
+ as begin
+ declare @Num int = 1
+ return  + (select count(distinct FactNro) from ROAD_TO_PROYECTO.Item_Factura where FactNro = @NroFactura)
+ end
+ GO
+
+create function ROAD_TO_PROYECTO.EspecificarDetalle(@Cantidad numeric(18,0), @Monto numeric(18,2), @PrecioVisibilidad numeric(18,2), @PorcentajeComision numeric(18,2), @PrecioPublicacion numeric(18,2))
+returns nvarchar(255)
+as begin
+if @Monto = @PrecioVisibilidad
+return 'Precio por tipo publicación'
+else if ROUND(@Monto,0) = ROUND(@PrecioPublicacion * @PorcentajeComision * @Cantidad,0)
+ or ROUND(@Monto,0) = ROUND(@PrecioPublicacion * @PorcentajeComision * @Cantidad,0,1)
+ or ROUND(@Monto,0,1) = ROUND(@PrecioPublicacion * @PorcentajeComision * @Cantidad,0)
+ or ROUND(@Monto,0,1) = ROUND(@PrecioPublicacion * @PorcentajeComision * @Cantidad,0,1)
+return 'Comisión por productos vendidos'
+return NULL
+end 
+GO
 
 --Item Factura
+insert into ROAD_TO_PROYECTO.Item_Factura i
+select f.FactNro,ROAD_TO_PROYECTO.VerificarRenglon(f.FactNro), gd.Item_Factura_Cantidad,ROAD_TO_PROYECTO.EspecificarDetalle(gd.Item_Factura_Cantidad,gd.Item_Factura_Monto,gd.Publicacion_Visibilidad_Precio,gd.Publicacion_Visibilidad_Porcentaje,gd.Publicacion_Precio), gd.Item_Factura_Monto
+from gd_esquema.Maestra gd,ROAD_TO_PROYECTO.Factura f
+where gd.Factura_Nro is not null and f.FactNro = gd.Factura_Nro and ROAD_TO_PROYECTO.EspecificarDetalle(gd.Item_Factura_Cantidad,gd.Item_Factura_Monto,gd.Publicacion_Visibilidad_Precio,gd.Publicacion_Visibilidad_Porcentaje,gd.Publicacion_Precio) is not null
+
 
 ----- Stored Procedures -----
 
