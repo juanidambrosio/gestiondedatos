@@ -40,14 +40,29 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void cmdAceptar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtUsuario.Text) || 
-                string.IsNullOrEmpty(txtContrasenia.Text))
+            string cadenaDeErrores = "Debe completar los siguientes campos: \r";
+            int huboError=0;
+            if (string.IsNullOrEmpty(txtUsuario.Text))
             {
-                MessageBox.Show("Debe completar la informacion","ERROR",MessageBoxButtons.OK,MessageBoxIcon.Exclamation,MessageBoxDefaultButton.Button1);
-                
-            
-             return;
+                cadenaDeErrores += " Usuario \r" ;
+                huboError++;
             }
+            if(string.IsNullOrEmpty(txtContrasenia.Text))
+            {
+                cadenaDeErrores += " Contrasenia \r" ;
+                huboError++;
+            }
+
+            if(huboError!= 0)
+            {
+                MessageBox.Show(cadenaDeErrores,"ERROR",MessageBoxButtons.OK,MessageBoxIcon.Exclamation,MessageBoxDefaultButton.Button1);
+                return;
+            }
+                
+              
+            
+             
+            
             //if (txtUsuario.Text ESTA EN LA BDD && txtContrasenia.Text ESTA EN LA BDD){
 
             this.timer1.Start();   

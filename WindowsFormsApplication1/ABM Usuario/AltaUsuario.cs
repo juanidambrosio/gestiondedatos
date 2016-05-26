@@ -162,45 +162,146 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void cmdAceptar_Click(object sender, EventArgs e)
         {
+            string cadenaDeErrores = "Debe completar los siguientes campos: \r";
+            string cadenaDeErrorTipo = "Debe seleccionar un tipo de Usuario";
+            
+
             if(rbCliente.Checked== false && rbEmpresa.Checked == false)
             {
-                MessageBox.Show("Debe seleccionar un tipo de Usuario", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                MessageBox.Show(cadenaDeErrorTipo, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                 return;
             }
 
 
-            if(rbCliente.Checked== true &&
-                ((string.IsNullOrEmpty(txtApellidoCliente.Text)) ||
-                (string.IsNullOrEmpty(txtNombreCliente.Text)) ||
-                (string.IsNullOrEmpty(txtDNICliente.Text)) ||
-                (string.IsNullOrEmpty(txtTelCliente.Text)) ||
-                (string.IsNullOrEmpty(txtTipoCliente.Text))))
+            if(rbCliente.Checked== true)
+                   
             {
-                MessageBox.Show("Debe completar todos los campos obligatorios", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                return;
-            }
-            if (rbEmpresa.Checked == true &&
-               ((string.IsNullOrEmpty(txtCUITEmpresa.Text)) ||
-               (string.IsNullOrEmpty(txtNombreContEmpresa.Text)) ||
-               (string.IsNullOrEmpty(txtRazonEmpresa.Text)) ||
-               (string.IsNullOrEmpty(txtTelEmpresa.Text))))
+                if (string.IsNullOrEmpty(txtUsuario.Text))
+                {
+                    cadenaDeErrores += " Usuario \r";
+                }
+                if(string.IsNullOrEmpty(txtPassword.Text))
+                {
+                    cadenaDeErrores += " Password \r";
+                }
+                if(string.IsNullOrEmpty(txtMail.Text))
+                {
+                    cadenaDeErrores += " Mail \r";
+                }
                 
-            {
-                MessageBox.Show("Debe completar todos los campos obligatorios", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                if(string.IsNullOrEmpty(txtApellidoCliente.Text))
+                {
+                    cadenaDeErrores += " Apellido \r";
+                }
+                if(string.IsNullOrEmpty(txtNombreCliente.Text))
+                {
+                    cadenaDeErrores += " Nombre \r";
+                }
+                if(string.IsNullOrEmpty(txtDNICliente.Text))
+                {
+                    cadenaDeErrores += " DNI \r";
+                }
+                if(string.IsNullOrEmpty(txtTelCliente.Text)) 
+                {
+                    cadenaDeErrores += " Telefono \r";
+                }
+                if(string.IsNullOrEmpty(txtTipoCliente.Text))
+                {
+                    cadenaDeErrores += " Tipo \r";
+                }
+
+                if (string.IsNullOrEmpty(txtCodPos.Text)) 
+                {
+                    cadenaDeErrores += " CodigoPostal \r";
+                }
+                if (string.IsNullOrEmpty(txtDpto.Text))
+                {
+                    cadenaDeErrores += " Departamento \r";
+                }
+                if (string.IsNullOrEmpty(txtLocalidad.Text)) 
+                {
+                    cadenaDeErrores += " Localidad \r";
+                }
+                if (string.IsNullOrEmpty(txtPiso.Text))
+                {
+                    cadenaDeErrores += " Piso \r";
+                }
+                if (string.IsNullOrEmpty(txtNumero.Text))
+                {
+                    cadenaDeErrores += " Numero \r";
+                }
+                if (string.IsNullOrEmpty(txtCalle.Text))
+                 {
+                    cadenaDeErrores += " Calle \r";
+                }
+
+
+                MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                 return;
             }
-          if((rbEmpresa.Checked == true || rbCliente.Checked == true)
-              &&(((string.IsNullOrEmpty(txtCodPos.Text)) ||
-               (string.IsNullOrEmpty(txtDpto.Text)) ||
-               (string.IsNullOrEmpty(txtLocalidad.Text)) ||
-               (string.IsNullOrEmpty(txtPiso.Text)) ||
-               (string.IsNullOrEmpty(txtNumero.Text))||
-               (string.IsNullOrEmpty(txtCalle.Text)))))
+            if (rbEmpresa.Checked == true)
               
-          {
-              MessageBox.Show("Debe completar todos los campos obligatorios", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-              return;
-          } 
+            {
+                if (string.IsNullOrEmpty(txtUsuario.Text))
+                {
+                    cadenaDeErrores += " Usuario \r";
+                }
+                if (string.IsNullOrEmpty(txtPassword.Text))
+                {
+                    cadenaDeErrores += " Password \r";
+                }
+                if (string.IsNullOrEmpty(txtMail.Text))
+                {
+                    cadenaDeErrores += " Mail \r";
+                }
+                if(string.IsNullOrEmpty(txtCUITEmpresa.Text)) 
+                {
+                    cadenaDeErrores += " CUIT \r";
+                }
+                if(string.IsNullOrEmpty(txtNombreContEmpresa.Text)) 
+                {
+                    cadenaDeErrores += " Nombre de Contacto \r";
+                }
+
+                if(string.IsNullOrEmpty(txtRazonEmpresa.Text))
+                {
+                    cadenaDeErrores += " Razon Social \r";
+                }
+                if(string.IsNullOrEmpty(txtTelEmpresa.Text))
+                {
+                    cadenaDeErrores += " Telefono \r";
+                }
+                if (string.IsNullOrEmpty(txtCodPos.Text)) 
+                {
+                    cadenaDeErrores += " CodigoPostal \r";
+                }
+                if (string.IsNullOrEmpty(txtDpto.Text))
+                {
+                    cadenaDeErrores += " Departamento \r";
+                }
+                if (string.IsNullOrEmpty(txtLocalidad.Text)) 
+                {
+                    cadenaDeErrores += " Localidad \r";
+                }
+                if (string.IsNullOrEmpty(txtPiso.Text))
+                {
+                    cadenaDeErrores += " Piso \r";
+                }
+                if (string.IsNullOrEmpty(txtNumero.Text))
+                {
+                    cadenaDeErrores += " Numero \r";
+                }
+                if (string.IsNullOrEmpty(txtCalle.Text))
+                {
+                    cadenaDeErrores += " Calle \r";
+                }
+
+                MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                return;
+        
+            }
+         
+
           
            //GUARDAR LOS DATOS DE LOS txtUsuario txtContrasenia y demas en la BDD
           Login.lg.Show();

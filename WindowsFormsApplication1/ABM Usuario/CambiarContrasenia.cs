@@ -25,14 +25,37 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void cmdAceptar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtContrasenia.Text) || string.IsNullOrEmpty(txtRepetir.Text) || string.IsNullOrEmpty(txtUsuario.Text))
+            string cadenaDeErrores = "Debe completar los siguientes campos: \r";
+            string cadenaDeErrorContrasenias = "Las contrasenias no coinciden";
+            int huboError = 0;
+            if (string.IsNullOrEmpty(txtUsuario.Text))
             {
-                MessageBox.Show("Debe completar todos los campos", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                cadenaDeErrores += " Usuario \r";
+                huboError++;
+            }
+            if (string.IsNullOrEmpty(txtContrasenia.Text))
+            {
+                cadenaDeErrores += " Contrasenia \r";
+                huboError++;
+            }
+
+
+            if(string.IsNullOrEmpty(txtRepetir.Text))
+            {
+                cadenaDeErrores += " Repetir la contrasenia \r";
+                huboError++;
+            }
+          
+            if (huboError != 0)
+            {
+                MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                huboError = 0;
                 return;
             }
+           
             if(this.txtContrasenia.Text != this.txtRepetir.Text)
             {
-                MessageBox.Show("Las contrasenias no coinciden", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                MessageBox.Show(cadenaDeErrorContrasenias, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                 txtContrasenia.Text = "";
                 txtRepetir.Text = "";
                 return;

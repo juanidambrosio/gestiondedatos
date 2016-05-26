@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.cmdVolver = new System.Windows.Forms.Button();
             this.cboRubro = new System.Windows.Forms.ComboBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,11 +62,15 @@
             // cboRubro
             // 
             this.cboRubro.FormattingEnabled = true;
+            this.cboRubro.Items.AddRange(new object[] {
+            "Galletitas",
+            "Coca cola"});
             this.cboRubro.Location = new System.Drawing.Point(40, 56);
             this.cboRubro.Name = "cboRubro";
             this.cboRubro.Size = new System.Drawing.Size(121, 21);
             this.cboRubro.TabIndex = 2;
             this.cboRubro.Text = "Seleccione un rubro";
+            this.cboRubro.SelectedIndexChanged += new System.EventHandler(this.cboRubro_SelectedIndexChanged);
             // 
             // statusStrip1
             // 
@@ -93,6 +99,10 @@
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // AltaRubro
             // 
@@ -124,5 +134,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+        private System.Windows.Forms.Timer timer1;
     }
 }

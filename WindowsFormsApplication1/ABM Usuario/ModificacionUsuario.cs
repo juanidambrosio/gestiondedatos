@@ -19,42 +19,22 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void ModificacionUsuario_Load(object sender, EventArgs e)
         {
-            
-            rbNombreCliente.Visible = false;
-            rbApellidoCliente.Visible = false;
-            rbMailCliente.Visible = false;
-            rbDNI.Visible = false;        
-                          
-            rbRazonEmpresa.Visible = false;
-            rbCUITEmpresa.Visible = false;
-            rbEmail.Visible = false;
+
+            chkApellido.Visible = false;
+            chkEmailCliente.Visible = false;
+            chkMailCl.Visible = false;
+            chkNombreC.Visible = false;
+
+            chkRazonSocial.Visible = false;
+            chkEmailEmpresa.Visible = false;
+            chkCUITEmpresa.Visible = false;
+        
             
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if(cboSeleccion.SelectedItem.ToString() == "Cliente")
-            {
-                rbNombreCliente.Visible = true;
-                rbApellidoCliente.Visible = true;
-                rbMailCliente.Visible = true;
-                rbDNI.Visible = true;
-
-                rbRazonEmpresa.Visible = false;
-                rbCUITEmpresa.Visible = false;
-                rbEmail.Visible = false;
-            }
-            if(cboSeleccion.SelectedItem.ToString() == "Empresa")
-            {
-                rbRazonEmpresa.Visible = true;
-                rbCUITEmpresa.Visible = true;
-                rbEmail.Visible = true;
-
-                rbNombreCliente.Visible = false;
-                rbApellidoCliente.Visible = false;
-                rbMailCliente.Visible = false;
-                rbDNI.Visible = false;
-            }
+          
             //FALTA EL FILTRADO
         }
 
@@ -68,7 +48,30 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void cboSeleccion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.timer1.Start();
+            if (cboSeleccion.SelectedItem.ToString() == "Cliente")
+            {
+                chkApellido.Visible = true;
+                chkEmailCliente.Visible = true;
+                chkMailCl.Visible = true;
+                chkNombreC.Visible = true;
+
+
+                chkRazonSocial.Visible = false;
+                chkEmailEmpresa.Visible = false;
+                chkCUITEmpresa.Visible = false;
+            }
+            if (cboSeleccion.SelectedItem.ToString() == "Empresa")
+            {
+                chkRazonSocial.Visible = true;
+                chkEmailEmpresa.Visible = true;
+                chkCUITEmpresa.Visible = true;
+
+                chkApellido.Visible = false;
+                chkEmailCliente.Visible = false;
+                chkMailCl.Visible = false;
+                chkNombreC.Visible = false;
+
+            }
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)

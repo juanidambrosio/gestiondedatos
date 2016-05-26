@@ -52,5 +52,10 @@ namespace WindowsFormsApplication1
         {
 
         }
+
+        private void desconectarseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lblUsuario.Text = "";
+        }
     }
 }

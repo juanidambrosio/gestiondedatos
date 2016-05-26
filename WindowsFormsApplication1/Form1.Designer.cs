@@ -37,6 +37,7 @@
             this.ingreseUsuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.desconectarseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,7 +95,8 @@
             // usuarioToolStripMenuItem
             // 
             this.usuarioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ingreseUsuarioToolStripMenuItem});
+            this.ingreseUsuarioToolStripMenuItem,
+            this.desconectarseToolStripMenuItem});
             this.usuarioToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
             this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
@@ -123,6 +125,13 @@
             this.statusStrip1.Size = new System.Drawing.Size(387, 22);
             this.statusStrip1.TabIndex = 7;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // desconectarseToolStripMenuItem
+            // 
+            this.desconectarseToolStripMenuItem.Name = "desconectarseToolStripMenuItem";
+            this.desconectarseToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.desconectarseToolStripMenuItem.Text = "Desconectarse";
+            this.desconectarseToolStripMenuItem.Click += new System.EventHandler(this.desconectarseToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -158,6 +167,7 @@
         private System.Windows.Forms.ToolStripMenuItem ingreseUsuarioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripMenuItem desconectarseToolStripMenuItem;
     }
 }
 

@@ -34,6 +34,18 @@ namespace WindowsFormsApplication1.ABM_Rubro
         {
 
             this.Close();
+        }
+
+        private void cboRubro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.lblRubroSe.Text = cboRubro.SelectedItem.ToString();
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+       
+            
         }     
     }
 }

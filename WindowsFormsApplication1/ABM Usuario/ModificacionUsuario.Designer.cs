@@ -32,19 +32,19 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cboSeleccion = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.rbApellidoCliente = new System.Windows.Forms.RadioButton();
-            this.rbDNI = new System.Windows.Forms.RadioButton();
-            this.rbMailCliente = new System.Windows.Forms.RadioButton();
-            this.rbNombreCliente = new System.Windows.Forms.RadioButton();
-            this.rbRazonEmpresa = new System.Windows.Forms.RadioButton();
-            this.rbCUITEmpresa = new System.Windows.Forms.RadioButton();
-            this.rbEmail = new System.Windows.Forms.RadioButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.cmdVolver = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.chkRazonSocial = new System.Windows.Forms.CheckBox();
+            this.chkCUITEmpresa = new System.Windows.Forms.CheckBox();
+            this.chkEmailCliente = new System.Windows.Forms.CheckBox();
+            this.chkEmailEmpresa = new System.Windows.Forms.CheckBox();
+            this.chkApellido = new System.Windows.Forms.CheckBox();
+            this.chkNombreC = new System.Windows.Forms.CheckBox();
+            this.chkMailCl = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,86 +77,9 @@
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label2.Location = new System.Drawing.Point(12, 197);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(163, 214);
+            this.label2.Size = new System.Drawing.Size(163, 174);
             this.label2.TabIndex = 4;
             this.label2.Text = "Filtrar por..";
-            // 
-            // rbApellidoCliente
-            // 
-            this.rbApellidoCliente.AutoSize = true;
-            this.rbApellidoCliente.Location = new System.Drawing.Point(33, 282);
-            this.rbApellidoCliente.Name = "rbApellidoCliente";
-            this.rbApellidoCliente.Size = new System.Drawing.Size(62, 17);
-            this.rbApellidoCliente.TabIndex = 5;
-            this.rbApellidoCliente.TabStop = true;
-            this.rbApellidoCliente.Text = "Apellido";
-            this.rbApellidoCliente.UseVisualStyleBackColor = true;
-            // 
-            // rbDNI
-            // 
-            this.rbDNI.AutoSize = true;
-            this.rbDNI.Location = new System.Drawing.Point(33, 324);
-            this.rbDNI.Name = "rbDNI";
-            this.rbDNI.Size = new System.Drawing.Size(44, 17);
-            this.rbDNI.TabIndex = 6;
-            this.rbDNI.TabStop = true;
-            this.rbDNI.Text = "DNI";
-            this.rbDNI.UseVisualStyleBackColor = true;
-            // 
-            // rbMailCliente
-            // 
-            this.rbMailCliente.AutoSize = true;
-            this.rbMailCliente.Location = new System.Drawing.Point(33, 365);
-            this.rbMailCliente.Name = "rbMailCliente";
-            this.rbMailCliente.Size = new System.Drawing.Size(50, 17);
-            this.rbMailCliente.TabIndex = 7;
-            this.rbMailCliente.TabStop = true;
-            this.rbMailCliente.Text = "Email";
-            this.rbMailCliente.UseVisualStyleBackColor = true;
-            // 
-            // rbNombreCliente
-            // 
-            this.rbNombreCliente.AutoSize = true;
-            this.rbNombreCliente.Location = new System.Drawing.Point(33, 242);
-            this.rbNombreCliente.Name = "rbNombreCliente";
-            this.rbNombreCliente.Size = new System.Drawing.Size(62, 17);
-            this.rbNombreCliente.TabIndex = 8;
-            this.rbNombreCliente.TabStop = true;
-            this.rbNombreCliente.Text = "Nombre";
-            this.rbNombreCliente.UseVisualStyleBackColor = true;
-            // 
-            // rbRazonEmpresa
-            // 
-            this.rbRazonEmpresa.AutoSize = true;
-            this.rbRazonEmpresa.Location = new System.Drawing.Point(34, 242);
-            this.rbRazonEmpresa.Name = "rbRazonEmpresa";
-            this.rbRazonEmpresa.Size = new System.Drawing.Size(88, 17);
-            this.rbRazonEmpresa.TabIndex = 9;
-            this.rbRazonEmpresa.TabStop = true;
-            this.rbRazonEmpresa.Text = "Razon Social";
-            this.rbRazonEmpresa.UseVisualStyleBackColor = true;
-            // 
-            // rbCUITEmpresa
-            // 
-            this.rbCUITEmpresa.AutoSize = true;
-            this.rbCUITEmpresa.Location = new System.Drawing.Point(33, 282);
-            this.rbCUITEmpresa.Name = "rbCUITEmpresa";
-            this.rbCUITEmpresa.Size = new System.Drawing.Size(50, 17);
-            this.rbCUITEmpresa.TabIndex = 10;
-            this.rbCUITEmpresa.TabStop = true;
-            this.rbCUITEmpresa.Text = "CUIT";
-            this.rbCUITEmpresa.UseVisualStyleBackColor = true;
-            // 
-            // rbEmail
-            // 
-            this.rbEmail.AutoSize = true;
-            this.rbEmail.Location = new System.Drawing.Point(34, 324);
-            this.rbEmail.Name = "rbEmail";
-            this.rbEmail.Size = new System.Drawing.Size(50, 17);
-            this.rbEmail.TabIndex = 11;
-            this.rbEmail.TabStop = true;
-            this.rbEmail.Text = "Email";
-            this.rbEmail.UseVisualStyleBackColor = true;
             // 
             // timer1
             // 
@@ -168,13 +91,13 @@
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label3.Location = new System.Drawing.Point(237, 29);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(323, 382);
+            this.label3.Size = new System.Drawing.Size(323, 342);
             this.label3.TabIndex = 12;
             this.label3.Text = "Resultados";
             // 
             // cmdVolver
             // 
-            this.cmdVolver.Location = new System.Drawing.Point(161, 430);
+            this.cmdVolver.Location = new System.Drawing.Point(146, 397);
             this.cmdVolver.Name = "cmdVolver";
             this.cmdVolver.Size = new System.Drawing.Size(186, 23);
             this.cmdVolver.TabIndex = 13;
@@ -190,42 +113,112 @@
             this.salirToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(588, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(565, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.BackColor = System.Drawing.Color.NavajoWhite;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 470);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(588, 22);
-            this.statusStrip1.TabIndex = 15;
-            this.statusStrip1.Text = "statusStrip1";
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.NavajoWhite;
+            this.statusStrip1.Location = new System.Drawing.Point(0, 439);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(565, 22);
+            this.statusStrip1.TabIndex = 15;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // chkRazonSocial
+            // 
+            this.chkRazonSocial.AutoSize = true;
+            this.chkRazonSocial.Location = new System.Drawing.Point(33, 224);
+            this.chkRazonSocial.Name = "chkRazonSocial";
+            this.chkRazonSocial.Size = new System.Drawing.Size(89, 17);
+            this.chkRazonSocial.TabIndex = 16;
+            this.chkRazonSocial.Text = "Razon Social";
+            this.chkRazonSocial.UseVisualStyleBackColor = true;
+            // 
+            // chkCUITEmpresa
+            // 
+            this.chkCUITEmpresa.AutoSize = true;
+            this.chkCUITEmpresa.Location = new System.Drawing.Point(34, 259);
+            this.chkCUITEmpresa.Name = "chkCUITEmpresa";
+            this.chkCUITEmpresa.Size = new System.Drawing.Size(51, 17);
+            this.chkCUITEmpresa.TabIndex = 17;
+            this.chkCUITEmpresa.Text = "CUIT";
+            this.chkCUITEmpresa.UseVisualStyleBackColor = true;
+            // 
+            // chkEmailCliente
+            // 
+            this.chkEmailCliente.AutoSize = true;
+            this.chkEmailCliente.Location = new System.Drawing.Point(34, 294);
+            this.chkEmailCliente.Name = "chkEmailCliente";
+            this.chkEmailCliente.Size = new System.Drawing.Size(45, 17);
+            this.chkEmailCliente.TabIndex = 18;
+            this.chkEmailCliente.Text = "DNI";
+            this.chkEmailCliente.UseVisualStyleBackColor = true;
+            // 
+            // chkEmailEmpresa
+            // 
+            this.chkEmailEmpresa.AutoSize = true;
+            this.chkEmailEmpresa.Location = new System.Drawing.Point(34, 294);
+            this.chkEmailEmpresa.Name = "chkEmailEmpresa";
+            this.chkEmailEmpresa.Size = new System.Drawing.Size(51, 17);
+            this.chkEmailEmpresa.TabIndex = 19;
+            this.chkEmailEmpresa.Text = "Email";
+            this.chkEmailEmpresa.UseVisualStyleBackColor = true;
+            // 
+            // chkApellido
+            // 
+            this.chkApellido.AutoSize = true;
+            this.chkApellido.Location = new System.Drawing.Point(34, 259);
+            this.chkApellido.Name = "chkApellido";
+            this.chkApellido.Size = new System.Drawing.Size(63, 17);
+            this.chkApellido.TabIndex = 20;
+            this.chkApellido.Text = "Apellido";
+            this.chkApellido.UseVisualStyleBackColor = true;
+            // 
+            // chkNombreC
+            // 
+            this.chkNombreC.AutoSize = true;
+            this.chkNombreC.Location = new System.Drawing.Point(34, 224);
+            this.chkNombreC.Name = "chkNombreC";
+            this.chkNombreC.Size = new System.Drawing.Size(63, 17);
+            this.chkNombreC.TabIndex = 21;
+            this.chkNombreC.Text = "Nombre";
+            this.chkNombreC.UseVisualStyleBackColor = true;
+            // 
+            // chkMailCl
+            // 
+            this.chkMailCl.AutoSize = true;
+            this.chkMailCl.Location = new System.Drawing.Point(34, 326);
+            this.chkMailCl.Name = "chkMailCl";
+            this.chkMailCl.Size = new System.Drawing.Size(51, 17);
+            this.chkMailCl.TabIndex = 22;
+            this.chkMailCl.Text = "Email";
+            this.chkMailCl.UseVisualStyleBackColor = true;
             // 
             // ModificacionUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(588, 492);
+            this.ClientSize = new System.Drawing.Size(565, 461);
+            this.Controls.Add(this.chkMailCl);
+            this.Controls.Add(this.chkNombreC);
+            this.Controls.Add(this.chkApellido);
+            this.Controls.Add(this.chkEmailEmpresa);
+            this.Controls.Add(this.chkEmailCliente);
+            this.Controls.Add(this.chkCUITEmpresa);
+            this.Controls.Add(this.chkRazonSocial);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.cmdVolver);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.rbEmail);
-            this.Controls.Add(this.rbCUITEmpresa);
-            this.Controls.Add(this.rbRazonEmpresa);
-            this.Controls.Add(this.rbNombreCliente);
-            this.Controls.Add(this.rbMailCliente);
-            this.Controls.Add(this.rbDNI);
-            this.Controls.Add(this.rbApellidoCliente);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cboSeleccion);
             this.Controls.Add(this.label1);
@@ -246,18 +239,18 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cboSeleccion;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton rbApellidoCliente;
-        private System.Windows.Forms.RadioButton rbDNI;
-        private System.Windows.Forms.RadioButton rbMailCliente;
-        private System.Windows.Forms.RadioButton rbNombreCliente;
-        private System.Windows.Forms.RadioButton rbRazonEmpresa;
-        private System.Windows.Forms.RadioButton rbCUITEmpresa;
-        private System.Windows.Forms.RadioButton rbEmail;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button cmdVolver;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.CheckBox chkRazonSocial;
+        private System.Windows.Forms.CheckBox chkCUITEmpresa;
+        private System.Windows.Forms.CheckBox chkEmailCliente;
+        private System.Windows.Forms.CheckBox chkEmailEmpresa;
+        private System.Windows.Forms.CheckBox chkApellido;
+        private System.Windows.Forms.CheckBox chkNombreC;
+        private System.Windows.Forms.CheckBox chkMailCl;
     }
 }
