@@ -160,7 +160,7 @@ FechaFin datetime NOT NULL,
 Precio numeric(18,2) NOT NULL,
 Visibilidad int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Visibilidad NOT NULL,
 Rubro int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Rubro NOT NULL,
-Tipo nvarchar(255) NOT NULL,
+Tipo nvarchar(255) FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Tipo_Publicacion NOT NULL,
 Estado int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Estado NOT NULL,
 UserId nvarchar(50) FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Usuario NOT NULL
 )
@@ -200,12 +200,12 @@ GO
 
 --Item_Factura
 create table ROAD_TO_PROYECTO.Item_Factura(
+ItemId int PRIMARY KEY,
 FactNro numeric(18,0) FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Factura,
-NroRenglon int,
 Cantidad numeric(18,0),
 Detalle nvarchar(255),
 Monto numeric(18,2)
-PRIMARY KEY (FactNro, NroRenglon)
+PRIMARY KEY (ItemId)
 )
 GO
 
@@ -377,13 +377,6 @@ group by factura_nro,Factura_Fecha,Factura_Total,Forma_Pago_Desc,Publicacion_Cod
 GO
 
 --FUNCIONES PARA MIGRAR ITEMS
- create function ROAD_TO_PROYECTO.VerificarRenglon(@NroFactura numeric(18,0))
- returns int
- as begin
- declare @Num int = 1
- return  + (select count(distinct FactNro) from ROAD_TO_PROYECTO.Item_Factura where FactNro = @NroFactura)
- end
- GO
 
 create function ROAD_TO_PROYECTO.EspecificarDetalle(@Cantidad numeric(18,0), @Monto numeric(18,2), @PrecioVisibilidad numeric(18,2), @PorcentajeComision numeric(18,2), @PrecioPublicacion numeric(18,2))
 returns nvarchar(255)
@@ -401,11 +394,28 @@ GO
 
 --Item Factura
 insert into ROAD_TO_PROYECTO.Item_Factura i
-select f.FactNro,ROAD_TO_PROYECTO.VerificarRenglon(f.FactNro), gd.Item_Factura_Cantidad,ROAD_TO_PROYECTO.EspecificarDetalle(gd.Item_Factura_Cantidad,gd.Item_Factura_Monto,gd.Publicacion_Visibilidad_Precio,gd.Publicacion_Visibilidad_Porcentaje,gd.Publicacion_Precio), gd.Item_Factura_Monto
+select f.FactNro, gd.Item_Factura_Cantidad,ROAD_TO_PROYECTO.EspecificarDetalle(gd.Item_Factura_Cantidad,gd.Item_Factura_Monto,gd.Publicacion_Visibilidad_Precio,gd.Publicacion_Visibilidad_Porcentaje,gd.Publicacion_Precio), gd.Item_Factura_Monto
 from gd_esquema.Maestra gd,ROAD_TO_PROYECTO.Factura f
 where gd.Factura_Nro is not null and f.FactNro = gd.Factura_Nro and ROAD_TO_PROYECTO.EspecificarDetalle(gd.Item_Factura_Cantidad,gd.Item_Factura_Monto,gd.Publicacion_Visibilidad_Precio,gd.Publicacion_Visibilidad_Porcentaje,gd.Publicacion_Precio) is not null
-
+GO
 
 ----- Stored Procedures -----
+--Listado Roles
+CREATE PROCEDURE ROAD_TO_PROYECTO.ListaRoles
+as
+begin
+select RolId, Nombre 
+from ROAD_TO_PROYECTO.Rol
+end
+GO
+
+--Listado Rubros
+CREATE PROCEDURE ROAD_TO_PROYECTO.ListaRubros
+as
+begin
+select RubrId,DescripLarga
+from ROAD_TO_PROYECTO.Rubro
+end
+GO
 
 ----- Triggers -----
