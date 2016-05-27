@@ -366,7 +366,6 @@ select Calificacion_Codigo, t.TranId,Calificacion_Cant_Estrellas,Calificacion_De
 from gd_esquema.Maestra gd,ROAD_TO_PROYECTO.TRANSACCION t,ROAD_TO_PROYECTO.Cliente c
 where t.PubliId = gd.Publicacion_Cod and t.clieid = c.ClieId and c.NroDocumento = gd.Cli_Dni and t.fecha = Compra_Fecha and t.cantidad = Compra_Cantidad and gd.Calificacion_Cant_Estrellas is not null and (t.ganadora = 1 or t.tipotransac = 'Compra') 
 GO
---FALTA SACAR 97 REGISTROS QUE TIENEN DUPLICADA LA TRANSACCION
 
 --Factura
 insert into ROAD_TO_PROYECTO.Factura
@@ -406,8 +405,14 @@ as
 begin
 select RolId, Nombre 
 from ROAD_TO_PROYECTO.Rol
+where Habilitado = 1
 end
 GO
+
+--Alta Rol
+CREATE PROCEDURE ROAD_TO_PROYECTO.AltaRol
+@Nombre nvarchar(255)
+@Funcion
 
 --Listado Rubros
 CREATE PROCEDURE ROAD_TO_PROYECTO.ListaRubros
@@ -417,5 +422,6 @@ select RubrId,DescripLarga
 from ROAD_TO_PROYECTO.Rubro
 end
 GO
+
 
 ----- Triggers -----
