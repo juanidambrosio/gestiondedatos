@@ -62,9 +62,6 @@
             // cboRubro
             // 
             this.cboRubro.FormattingEnabled = true;
-            this.cboRubro.Items.AddRange(new object[] {
-            "Galletitas",
-            "Coca cola"});
             this.cboRubro.Location = new System.Drawing.Point(40, 56);
             this.cboRubro.Name = "cboRubro";
             this.cboRubro.Size = new System.Drawing.Size(121, 21);
