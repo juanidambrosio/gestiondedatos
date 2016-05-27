@@ -422,16 +422,20 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.ListaRubros
 	end
 GO
 
-/*CREATE PROCEDURE ROAD_TO_PROYECTO.Usuario_Login
+CREATE PROCEDURE ROAD_TO_PROYECTO.Usuario_Login
 	@username nvarchar(255),
 	@password nvarchar(255)
 	as
 	begin 
-		select top 1 * 
-		from ROAD_TO_PROYECTO.Usuario
+		select r.Nombre, f.Descripcion
+		from ROAD_TO_PROYECTO.Usuario u, ROAD_TO_PROYECTO.Roles_Por_Usuario rpu, ROAD_TO_PROYECTO.Rol r, ROAD_TO_PROYECTO.Funciones_Por_Rol fpr, ROAD_TO_PROYECTO.Funcion f
 		where Usuario = @username and Contraseña = @password
+		and u.Usuario = rpu.UserId
+		and rpu.RolId = r.RolId
+		and r.RolId = fpr.RolId
+		and fpr.FuncId = f.FuncId
 	end
-GO*/
+GO
 
 
 ----- Triggers -----
