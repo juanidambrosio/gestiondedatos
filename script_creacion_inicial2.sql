@@ -427,10 +427,15 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Usuario_Logs_Fallidos
 	@Contraseña nvarchar(255)
 	as
 	begin
+	if(select habilitado from ROAD_TO_PROYECTO.Usuario where @Usuario = Usuario)=1
+	begin
 		update ROAD_TO_PROYECTO.Usuario set LogsFallidos = LogsFallidos + 1
 		where Usuario = @Usuario and Contraseña != @Contraseña
 		update ROAD_TO_PROYECTO.Usuario set LogsFallidos = 0
 		where Usuario = @Usuario and Contraseña = @Contraseña
+	end
+		update ROAD_TO_PROYECTO.Usuario set Habilitado = 0
+		where LogsFallidos = 3
 	end
 GO
 
@@ -440,15 +445,16 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Usuario_Login
 	as
 	begin 
 		execute ROAD_TO_PROYECTO.Usuario_Logs_Fallidos @Usuario = @username, @Contraseña = @password
-		select r.Nombre, f.Descripcion
-		from ROAD_TO_PROYECTO.Usuario u, ROAD_TO_PROYECTO.Roles_Por_Usuario rpu, ROAD_TO_PROYECTO.Rol r, ROAD_TO_PROYECTO.Funciones_Por_Rol fpr, ROAD_TO_PROYECTO.Funcion f
+		select u.Usuario as username, u.Contraseña as password, u.Habilitado as habilitado, rpu.RolId as rol 
+		from ROAD_TO_PROYECTO.Usuario u, ROAD_TO_PROYECTO.Roles_Por_Usuario rpu
 		where Usuario = @username and Contraseña = @password
 		and u.Usuario = rpu.UserId
-		and rpu.RolId = r.RolId
-		and r.RolId = fpr.RolId
-		and fpr.FuncId = f.FuncId
+		
 	end
 GO
 
+select *
+from ROAD_TO_PROYECTO.Usuario
+GO
 
 ----- Triggers -----

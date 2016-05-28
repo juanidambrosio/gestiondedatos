@@ -7,15 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace WindowsFormsApplication1.ABM_Usuario
 {
     public partial class Login : Form
     {
+        public int intentos_fallidos;
+        public bool necesita_logueo;
+        public SHA256 mySHA256 = SHA256Managed.Create();
+      
         public static Login lg;
         public Login()
         {
+
             InitializeComponent();
+            intentos_fallidos=0;
             Login.lg = this;
         }
 
@@ -41,44 +50,52 @@ namespace WindowsFormsApplication1.ABM_Usuario
         private void cmdAceptar_Click(object sender, EventArgs e)
         {
             string cadenaDeErrores = "Debe completar los siguientes campos: \r";
-            int huboError=0;
+            int huboError = 0;
             if (string.IsNullOrEmpty(txtUsuario.Text))
             {
-                cadenaDeErrores += " Usuario \r" ;
+                cadenaDeErrores += " Usuario \r";
                 huboError++;
             }
-            if(string.IsNullOrEmpty(txtContrasenia.Text))
+            if (string.IsNullOrEmpty(txtContrasenia.Text))
             {
-                cadenaDeErrores += " Contrasenia \r" ;
+                cadenaDeErrores += " Contrasenia \r";
                 huboError++;
             }
 
-            if(huboError!= 0)
+            if (huboError != 0)
             {
-                MessageBox.Show(cadenaDeErrores,"ERROR",MessageBoxButtons.OK,MessageBoxIcon.Exclamation,MessageBoxDefaultButton.Button1);
+                MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                 return;
             }
-                
-              
-            
-             
-            
-            //if (txtUsuario.Text ESTA EN LA BDD && txtContrasenia.Text ESTA EN LA BDD){
 
-            this.timer1.Start();   
-             
-             // }
-             // else
-             //{
-            // MessageBox.Show("Informacion incorrecta del usuario","ERROR",MessageBoxButtons.OK,MessageBoxIcon.Exclamation,MessageBoxDefaultButton.Button1);   
-             //}
-             //
+            //string hash = this.encriptacion(txtContrasenia.Text);
+            UsuarioDOA doa = new UsuarioDOA();
+            Usuario user = doa.Login(txtUsuario.Text, txtContrasenia.Text);
+            if (user == null)
+            {
+                MessageBox.Show("Datos incorrectos", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+              
+
+                return;
+            }
+            else if (!user.Habilitado)
+            {
+                MessageBox.Show("Usuario bloqueado", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                return;
+                //doa.Bloquear(txtUsuario.Text);
+            }
+           
+               // Program.UsuarioLogueado = user;
+               // Program.UsuarioLogueado.EsAdmin = necesita_logueo;
+
+                this.timer1.Start();              
+//            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             this.toolStripProgressBar1.Increment(1);
-            //this.progressBar1.Increment(1);
+        
             if (this.toolStripProgressBar1.Value == toolStripProgressBar1.Maximum )
             {
                 this.toolStripProgressBar1.Value = 0;
@@ -88,7 +105,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 this.timer1.Stop();
                 
                 this.Hide();
-                //MOSTRAR LOS DATOS EN LOS RBUTTON
+                
             }
         }
 
@@ -120,6 +137,21 @@ namespace WindowsFormsApplication1.ABM_Usuario
         private void toolStripProgressBar1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public string encriptacion(string input)
+        {
+            SHA256CryptoServiceProvider provider = new SHA256CryptoServiceProvider();
+
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            byte[] hashedBytes = provider.ComputeHash(inputBytes);
+
+            StringBuilder output = new StringBuilder();
+
+            for (int i = 0; i < hashedBytes.Length; i++)
+                output.Append(hashedBytes[i].ToString("x2").ToLower());
+
+            return output.ToString();
         }
 
     }
