@@ -46,8 +46,8 @@ GO
 
 --Usuario
 create table ROAD_TO_PROYECTO.Usuario (
-Usuario nvarchar(50) PRIMARY KEY,
-Contraseña nvarchar(50) NOT NULL,
+Usuario nvarchar(255) PRIMARY KEY,
+Contraseña nvarchar(255) NOT NULL,
 Mail nvarchar(50),
 Habilitado bit default 1,
 Nuevo bit default 1,
@@ -118,7 +118,7 @@ GO
 
 --Roles_Por_Usuario
 create table ROAD_TO_PROYECTO.Roles_Por_Usuario(
-UserId nvarchar(50) FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Usuario,
+UserId nvarchar(255) FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Usuario,
 RolId int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Rol,
 IdExterno int,
 PRIMARY KEY (UserId, RolId)
@@ -162,7 +162,7 @@ Visibilidad int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Visibilidad NOT NULL,
 Rubro int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Rubro NOT NULL,
 Tipo int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Tipo_Publicacion NOT NULL,
 Estado int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Estado NOT NULL,
-UserId nvarchar(50) FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Usuario NOT NULL
+UserId nvarchar(255) FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Usuario NOT NULL
 )
 GO
 
@@ -453,8 +453,108 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Usuario_Login
 	end
 GO
 
-select *
-from ROAD_TO_PROYECTO.Usuario
+CREATE PROCEDURE ROAD_TO_PROYECTO.Alta_Domicilio
+	@Calle nvarchar(100),
+	@Numero numeric(18,0),
+	@Piso numeric(18,0),
+	@Depto nvarchar(50),
+	@CodPostal nvarchar(50),
+	@Localidad nvarchar(100)
+	as
+	begin
+		if(not exists(select * from ROAD_TO_PROYECTO.Domicilio where @Calle = Calle and @Numero = Numero and @Piso = Piso and @Depto = Depto and @CodPostal = CodPostal and @Localidad = Localidad))
+		insert into ROAD_TO_PROYECTO.Domicilio
+		values (@Calle, @Numero, @Piso, @Depto, @CodPostal, @Localidad)
+	end
+GO
+
+CREATE PROCEDURE ROAD_TO_PROYECTO.Alta_Cliente_Empresa
+	@Usuario nvarchar(255),
+	@RolAsignado nvarchar(255),
+	@TipoDocumento nvarchar(5),
+	@NroDocumento numeric(18,0),
+	@Apellido nvarchar(255),
+	@Nombres nvarchar(255),
+	@FechaNacimiento datetime,
+	@Telefono1 numeric(18,0),
+	@RazonSocial nvarchar(255),
+	@CUIT nvarchar(50),
+	@FechaCreacion datetime,
+	@NombreContacto nvarchar(100),
+	@Rubro int,
+	@Telefono2 numeric(18,0)
+
+	as
+	begin
+		declare	@IdExterno int
+
+		if(@RolAsignado = 'Cliente')
+		begin
+			insert into ROAD_TO_PROYECTO.Cliente (TipoDocumento, NroDocumento, Apellido, Nombres, FechaNacimiento, Telefono)
+			values (@TipoDocumento, @NroDocumento, @Apellido, @Nombres, @FechaNacimiento, @Telefono1)
+			
+			select @IdExterno = SCOPE_IDENTITY()
+
+			insert into ROAD_TO_PROYECTO.Roles_Por_Usuario (UserId, RolId, IdExterno)
+			values (@Usuario, (select RolId from ROAD_TO_PROYECTO.Rol r where r.Nombre = @RolAsignado), @IdExterno)
+		end
+		if(@RolAsignado = 'Empresa')
+		begin
+			insert into ROAD_TO_PROYECTO.Empresa (RazonSocial, CUIT, FechaCreacion, NombreContacto, Rubro, Telefono)
+			values (@RazonSocial, @CUIT, @FechaCreacion, @NombreContacto, (select RubrId from ROAD_TO_PROYECTO.Rubro r where r.DescripLarga = @Rubro), @Telefono2)
+			
+			select @IdExterno = SCOPE_IDENTITY()
+
+			insert into ROAD_TO_PROYECTO.Roles_Por_Usuario (UserId, RolId, IdExterno)
+			values (@Usuario, (select RolId from ROAD_TO_PROYECTO.Rol r where r.Nombre = @RolAsignado), @IdExterno)
+		end
+	end
+GO
+
+CREATE PROCEDURE ROAD_TO_PROYECTO.Alta_Usuario
+	@Usuario nvarchar(255),
+	@Contraseña nvarchar(255),
+	@Mail nvarchar(50),
+	@RolAsignado nvarchar(255)
+	as
+	begin
+		if(not exists(select * from ROAD_TO_PROYECTO.Usuario u where u.Usuario = @Usuario))
+		begin
+			insert into ROAD_TO_PROYECTO.Usuario (Usuario, Contraseña, Mail, Habilitado, Nuevo, Reputacion, FechaCreacion,/*Domicilio,*/ LogsFallidos)
+			values (@Usuario, @Contraseña, @Mail, 1, 1, null, GETDATE(), 0)
+		end
+	end
+GO
+
+CREATE PROCEDURE ROAD_TO_PROYECTO.Domicilio_Usuario
+	@Usuario nvarchar(255),
+	@Calle nvarchar(100),
+	@Numero numeric(18,0),
+	@Piso numeric(18,0),
+	@Depto nvarchar(50),
+	@CodPostal nvarchar(50),
+	@Localidad nvarchar(100)
+	as
+	begin
+		update ROAD_TO_PROYECTO.Usuario 
+		set Domicilio = (select top 1 DomiId from ROAD_TO_PROYECTO.Domicilio
+						where Calle = @Calle and Numero = @Numero and Piso = @Piso and Depto = @Depto and CodPostal = @CodPostal and Localidad = @Localidad)
+		where Usuario = @Usuario
+	end
+GO
+
+CREATE PROCEDURE ROAD_TO_PROYECTO.Cambiar_Contraseña
+	@Usuario nvarchar(255),
+	@Contraseña nvarchar(255),
+	@ContraseñaNueva nvarchar(255)
+	as
+	begin
+		if(exists(select * from ROAD_TO_PROYECTO.Usuario where @Usuario = Usuario and @Contraseña = Contraseña))
+		begin
+			update ROAD_TO_PROYECTO.Usuario set Contraseña = @ContraseñaNueva
+			where @Usuario = Usuario and @Contraseña = Contraseña
+		end
+	end
 GO
 
 ----- Triggers -----
