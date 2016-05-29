@@ -419,6 +419,7 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.ListaRubros
 	begin
 		select DescripLarga
 		from ROAD_TO_PROYECTO.Rubro
+		order by DescripLarga
 	end
 GO
 
@@ -606,6 +607,52 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Cambiar_Contraseña
 			update ROAD_TO_PROYECTO.Usuario set Contraseña = @ContraseñaNueva
 			where @Usuario = Usuario and @Contraseña = Contraseña
 		end
+	end
+GO
+
+CREATE PROCEDURE ROAD_TO_PROYECTO.Buscar_Cliente
+	@Mail nvarchar(50),
+	@TipoDocumento nvarchar(5),
+	@NroDocumento numeric(18,0),
+	@Apellido nvarchar(255),
+	@Nombres nvarchar(255)
+	as
+	begin
+		--update u set Habilitado = 0
+		select u.Usuario, u.Mail, c.TipoDocumento, c.NroDocumento, c.Apellido, c.Nombres
+		from ROAD_TO_PROYECTO.Usuario u, ROAD_TO_PROYECTO.Cliente c, ROAD_TO_PROYECTO.Roles_Por_Usuario rpu
+		where rpu.UserId = u.Usuario and rpu.RolId = (select RolId from ROAD_TO_PROYECTO.Rol r where r.Nombre = 'Cliente') and rpu.IdExterno = c.ClieId
+		and c.Nombres like '%'+ @Nombres +'%'
+		and c.Apellido like '%'+ @Apellido +'%'
+		and c.TipoDocumento = @TipoDocumento
+		and c.NroDocumento = @NroDocumento
+		and u.Mail like '%'+ @Mail +'%'
+	end
+GO
+
+CREATE PROCEDURE ROAD_TO_PROYECTO.Buscar_Empresa
+	@RazonSocial nvarchar(255),
+	@CUIT nvarchar(50),
+	@Mail nvarchar(50)
+	as
+	begin
+		--update u set Habilitado = 0
+		select u.Usuario, u.Mail, e.RazonSocial, e.CUIT
+		from ROAD_TO_PROYECTO.Usuario u, ROAD_TO_PROYECTO.Empresa e, ROAD_TO_PROYECTO.Roles_Por_Usuario rpu
+		where rpu.UserId = u.Usuario and rpu.RolId = (select RolId from ROAD_TO_PROYECTO.Rol r where r.Nombre = 'Empresa') and rpu.IdExterno = e.EmprId
+		and e.RazonSocial like '%'+ @RazonSocial +'%'
+		and e.CUIT = @CUIT
+		and u.Mail like '%'+ @Mail +'%'
+	end
+GO
+
+CREATE PROCEDURE ROAD_TO_PROYECTO.Baja_Usuario
+	@Usuario nvarchar(255)
+	as
+	begin
+		update u set Habilitado = 0
+		from ROAD_TO_PROYECTO.Usuario u
+		where u.Usuario = @Usuario
 	end
 GO
 
