@@ -51,6 +51,10 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 this.txtNombreContEmpresa.Text = "";
                 this.txtRazonEmpresa.Text = "";
                 this.txtTelEmpresa.Text = "";
+
+                this.cmdRubroEmpresa.Visible = false;
+                this.lblRubroEmpresa.Visible = false;
+                this.lblRubroSel.Text = "";
                              
                
 
@@ -116,6 +120,8 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 this.txtNombreCliente.Visible = false;
                 this.txtTelCliente.Visible = false;
                 this.txtTipoCliente.Visible = false;
+
+                
             }
             if (this.rbEmpresa.Checked == false)
             {

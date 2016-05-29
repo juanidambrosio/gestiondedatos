@@ -46,8 +46,8 @@ namespace WindowsFormsApplication1.Generar_Publicación
             {
                 lblDescripcion.Visible = true;
                 lblRubro.Visible = true;
-                //lblRubroSe.Visible = true;
-                chkPreguntas.Visible = true;
+               
+               
                 dtpFin.Visible = true;
                 cmdRubro.Visible = true;
                 txtDescripcion.Visible = true;
@@ -59,14 +59,19 @@ namespace WindowsFormsApplication1.Generar_Publicación
                 lblStockInmediata.Visible = false;
                 txtStockInmediata.Visible = false;
 
-
+                lblPrecio.Visible = false;
+                txtPrecio.Visible = false;
                 
                 label3.Visible = true;
                 label4.Visible = true;
                 label5.Visible = true;
                 label6.Visible = true;
-                label7.Visible = true;
+               
                 label8.Visible = true;
+
+                lblVisibilidad.Visible = true;
+                lblVisSel.Visible = true;
+                cmdSelVis.Visible = true;
 
             }
 
@@ -75,7 +80,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
                 lblDescripcion.Visible = true;
                 lblRubro.Visible = true;
                 lblRubroSe.Visible = true;
-                chkPreguntas.Visible = true;
+             
                 dtpFin.Visible = true;
                 cmdRubro.Visible = true;
                 txtDescripcion.Visible = true;
@@ -86,26 +91,35 @@ namespace WindowsFormsApplication1.Generar_Publicación
 
                 lblStockInmediata.Visible = true;
                 txtStockInmediata.Visible = true;
-
+                txtPrecio.Visible = true;
               
                 label3.Visible = true;
                 label4.Visible = true;
                 label5.Visible = true;
                 label6.Visible = true;
-                label7.Visible = true;
+                lblPrecio.Visible = true;
                 label8.Visible = true;
+
+                lblVisibilidad.Visible = true;
+                lblVisSel.Visible = true;
+                cmdSelVis.Visible = true;
             }
             timer1.Start();
         }
 
         private void AltaPublicacion_Load(object sender, EventArgs e)
         {
-            
+            lblPrecio.Visible = false;
+            txtPrecio.Visible = false;
+
+            lblVisibilidad.Visible = false;
+            lblVisSel.Visible = false;
+            cmdSelVis.Visible = false;
             
             lblDescripcion.Visible = false;
             lblRubro.Visible = false;
             lblRubroSe.Visible = false;
-            chkPreguntas.Visible = false;
+           
             dtpFin.Visible = false;          
             cmdRubro.Visible = false;
             txtDescripcion.Visible = false;
@@ -122,7 +136,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
             label4.Visible = false;
             label5.Visible = false;
             label6.Visible = false;
-            label7.Visible = false;
+            lblPrecio.Visible = false;
             label8.Visible = false;
         }
 
@@ -169,11 +183,18 @@ namespace WindowsFormsApplication1.Generar_Publicación
                 {
                     cadenaDeErrores += " Rubro \r";
                 }
-
-                if(chkPreguntas.Checked == false)
+                if (string.IsNullOrEmpty(lblVisSel.Text))
                 {
-                    cadenaDeErrores += " Aceptacion de preguntas\r";
-                }    
+                    cadenaDeErrores += "Visibilidad \r";
+                }
+                if (string.IsNullOrEmpty(txtPrecio.Text))
+                {
+                    cadenaDeErrores += " Precio \r";
+                }
+
+              
+
+               
                 MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                 return;
             }
@@ -193,11 +214,12 @@ namespace WindowsFormsApplication1.Generar_Publicación
                 {
                     cadenaDeErrores += " Rubro \r";
                 }
-
-                if (chkPreguntas.Checked == false)
+                if (string.IsNullOrEmpty(lblVisSel.Text))
                 {
-                    cadenaDeErrores += " Aceptacion de preguntas\r";
+                    cadenaDeErrores += "Visibilidad \r";
                 }
+
+            
                 MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                 return;
             }     
@@ -212,7 +234,8 @@ namespace WindowsFormsApplication1.Generar_Publicación
             txtDescripcion.Text = "";
             txtStockInmediata.Text = "";
             txtValorSubasta.Text = "";
-            chkPreguntas.Checked = false;
+            txtPrecio.Text = "";
+            
             
             cboTipo.SelectedIndex = -1;
             cboTipo.Text = "Seleccione un tipo";

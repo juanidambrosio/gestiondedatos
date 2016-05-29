@@ -42,7 +42,6 @@
             this.dtpFin = new System.Windows.Forms.DateTimePicker();
             this.cboTipo = new System.Windows.Forms.ComboBox();
             this.lblRubroSe = new System.Windows.Forms.Label();
-            this.chkPreguntas = new System.Windows.Forms.CheckBox();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.txtValorSubasta = new System.Windows.Forms.TextBox();
             this.txtStockInmediata = new System.Windows.Forms.TextBox();
@@ -55,8 +54,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblPrecio = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.txtPrecio = new System.Windows.Forms.TextBox();
+            this.lblVisibilidad = new System.Windows.Forms.Label();
+            this.lblVisSel = new System.Windows.Forms.Label();
+            this.cmdSelVis = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -129,7 +132,7 @@
             // 
             // cmdRubro
             // 
-            this.cmdRubro.Location = new System.Drawing.Point(309, 185);
+            this.cmdRubro.Location = new System.Drawing.Point(309, 190);
             this.cmdRubro.Name = "cmdRubro";
             this.cmdRubro.Size = new System.Drawing.Size(75, 23);
             this.cmdRubro.TabIndex = 7;
@@ -159,7 +162,7 @@
             // 
             // dtpFin
             // 
-            this.dtpFin.Location = new System.Drawing.Point(150, 151);
+            this.dtpFin.Location = new System.Drawing.Point(158, 151);
             this.dtpFin.Name = "dtpFin";
             this.dtpFin.Size = new System.Drawing.Size(153, 20);
             this.dtpFin.TabIndex = 10;
@@ -184,16 +187,6 @@
             this.lblRubroSe.Name = "lblRubroSe";
             this.lblRubroSe.Size = new System.Drawing.Size(0, 13);
             this.lblRubroSe.TabIndex = 12;
-            // 
-            // chkPreguntas
-            // 
-            this.chkPreguntas.AutoSize = true;
-            this.chkPreguntas.Location = new System.Drawing.Point(150, 232);
-            this.chkPreguntas.Name = "chkPreguntas";
-            this.chkPreguntas.Size = new System.Drawing.Size(116, 17);
-            this.chkPreguntas.TabIndex = 13;
-            this.chkPreguntas.Text = "Permitir preguntas?";
-            this.chkPreguntas.UseVisualStyleBackColor = true;
             // 
             // txtDescripcion
             // 
@@ -293,14 +286,14 @@
             this.label6.TabIndex = 23;
             this.label6.Text = "(*)";
             // 
-            // label7
+            // lblPrecio
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(127, 232);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(17, 13);
-            this.label7.TabIndex = 24;
-            this.label7.Text = "(*)";
+            this.lblPrecio.AutoSize = true;
+            this.lblPrecio.Location = new System.Drawing.Point(94, 275);
+            this.lblPrecio.Name = "lblPrecio";
+            this.lblPrecio.Size = new System.Drawing.Size(50, 13);
+            this.lblPrecio.TabIndex = 24;
+            this.lblPrecio.Text = "(*)Precio:";
             // 
             // label8
             // 
@@ -311,14 +304,51 @@
             this.label8.TabIndex = 25;
             this.label8.Text = "(*) Campos obligatorios";
             // 
+            // txtPrecio
+            // 
+            this.txtPrecio.Location = new System.Drawing.Point(158, 268);
+            this.txtPrecio.Name = "txtPrecio";
+            this.txtPrecio.Size = new System.Drawing.Size(100, 20);
+            this.txtPrecio.TabIndex = 26;
+            // 
+            // lblVisibilidad
+            // 
+            this.lblVisibilidad.AutoSize = true;
+            this.lblVisibilidad.Location = new System.Drawing.Point(78, 228);
+            this.lblVisibilidad.Name = "lblVisibilidad";
+            this.lblVisibilidad.Size = new System.Drawing.Size(66, 13);
+            this.lblVisibilidad.TabIndex = 27;
+            this.lblVisibilidad.Text = "(*)Visibilidad:";
+            // 
+            // lblVisSel
+            // 
+            this.lblVisSel.AutoSize = true;
+            this.lblVisSel.Location = new System.Drawing.Point(158, 228);
+            this.lblVisSel.Name = "lblVisSel";
+            this.lblVisSel.Size = new System.Drawing.Size(0, 13);
+            this.lblVisSel.TabIndex = 28;
+            // 
+            // cmdSelVis
+            // 
+            this.cmdSelVis.Location = new System.Drawing.Point(309, 228);
+            this.cmdSelVis.Name = "cmdSelVis";
+            this.cmdSelVis.Size = new System.Drawing.Size(75, 23);
+            this.cmdSelVis.TabIndex = 29;
+            this.cmdSelVis.Text = "Seleccionar";
+            this.cmdSelVis.UseVisualStyleBackColor = true;
+            // 
             // AltaPublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(418, 394);
+            this.Controls.Add(this.cmdSelVis);
+            this.Controls.Add(this.lblVisSel);
+            this.Controls.Add(this.lblVisibilidad);
+            this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.lblPrecio);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -328,7 +358,6 @@
             this.Controls.Add(this.txtStockInmediata);
             this.Controls.Add(this.txtValorSubasta);
             this.Controls.Add(this.txtDescripcion);
-            this.Controls.Add(this.chkPreguntas);
             this.Controls.Add(this.lblRubroSe);
             this.Controls.Add(this.cboTipo);
             this.Controls.Add(this.dtpFin);
@@ -368,7 +397,6 @@
         private System.Windows.Forms.Button cmdAceptar;
         private System.Windows.Forms.DateTimePicker dtpFin;
         private System.Windows.Forms.ComboBox cboTipo;
-        private System.Windows.Forms.CheckBox chkPreguntas;
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.TextBox txtValorSubasta;
         private System.Windows.Forms.TextBox txtStockInmediata;
@@ -382,7 +410,11 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblPrecio;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtPrecio;
+        private System.Windows.Forms.Label lblVisibilidad;
+        private System.Windows.Forms.Label lblVisSel;
+        private System.Windows.Forms.Button cmdSelVis;
     }
 }
