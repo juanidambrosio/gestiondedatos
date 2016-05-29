@@ -496,6 +496,7 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Alta_Cliente
 	@FechaNacimiento datetime,
 	@Telefono numeric(18,0),
 
+
 	@Calle nvarchar(100),
 	@Numero numeric(18,0),
 	@Piso numeric(18,0),
@@ -532,7 +533,7 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Alta_Empresa
 	@CUIT nvarchar(50),
 	@FechaCreacion datetime,
 	@NombreContacto nvarchar(100),
-	@Rubro int,
+	@Rubro nvarchar(255),
 	@Telefono numeric(18,0),
 
 	@Calle nvarchar(100),
@@ -655,5 +656,7 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Baja_Usuario
 		where u.Usuario = @Usuario
 	end
 GO
+
+
 
 ----- Triggers -----

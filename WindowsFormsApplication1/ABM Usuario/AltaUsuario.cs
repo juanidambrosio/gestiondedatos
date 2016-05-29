@@ -7,15 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace WindowsFormsApplication1.ABM_Usuario
 {
     public partial class AltaUsuario : Form
     {
         public static AltaUsuario aus;
+        private int huboError = 0;
         public AltaUsuario()
         {
             InitializeComponent();
+           
             AltaUsuario.aus = this;
 
         }
@@ -62,6 +67,11 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 this.txtNombreContEmpresa.Visible = true;
                 this.txtRazonEmpresa.Visible = true;
                 this.txtTelEmpresa.Visible = true;
+
+                this.cmdRubroEmpresa.Visible = true;
+                this.lblRubroEmpresa.Visible = true;
+                this.lblRubroSel.Visible = true;
+            
 
                 this.txtApellidoCliente.Text = "";
                 this.txtDNICliente.Text = "";
@@ -123,6 +133,10 @@ namespace WindowsFormsApplication1.ABM_Usuario
          }
         private void AltaUsuario_Load(object sender, EventArgs e)
         {
+            
+            this.cmdRubroEmpresa.Visible = false;
+            this.lblRubroEmpresa.Visible = false;
+            this.lblRubroSel.Visible = false;
             this.lblApellidoCliente.Visible = false;
             this.lblNombreCliente.Visible = false;
             this.lblFechaNacCliente.Visible = false;
@@ -179,128 +193,185 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 if (string.IsNullOrEmpty(txtUsuario.Text))
                 {
                     cadenaDeErrores += " Usuario \r";
+                    huboError++;
                 }
                 if(string.IsNullOrEmpty(txtPassword.Text))
                 {
                     cadenaDeErrores += " Password \r";
+                    huboError++;
                 }
                 if(string.IsNullOrEmpty(txtMail.Text))
                 {
                     cadenaDeErrores += " Mail \r";
+                    huboError++;
                 }
                 
                 if(string.IsNullOrEmpty(txtApellidoCliente.Text))
                 {
                     cadenaDeErrores += " Apellido \r";
+                    huboError++;
                 }
                 if(string.IsNullOrEmpty(txtNombreCliente.Text))
                 {
                     cadenaDeErrores += " Nombre \r";
+                    huboError++;
                 }
                 if(string.IsNullOrEmpty(txtDNICliente.Text))
                 {
                     cadenaDeErrores += " DNI \r";
+                    huboError++;
                 }
                 if(string.IsNullOrEmpty(txtTelCliente.Text)) 
                 {
                     cadenaDeErrores += " Telefono \r";
+                    huboError++;
                 }
                 if(string.IsNullOrEmpty(txtTipoCliente.Text))
                 {
                     cadenaDeErrores += " Tipo \r";
+                    huboError++;
                 }
 
                 if (string.IsNullOrEmpty(txtCodPos.Text)) 
                 {
                     cadenaDeErrores += " CodigoPostal \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(txtDpto.Text))
                 {
                     cadenaDeErrores += " Departamento \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(txtLocalidad.Text)) 
                 {
-                    cadenaDeErrores += " Localidad \r";
+                    cadenaDeErrores += " Localidad \r"; 
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(txtPiso.Text))
                 {
                     cadenaDeErrores += " Piso \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(txtNumero.Text))
                 {
                     cadenaDeErrores += " Numero \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(txtCalle.Text))
                  {
                     cadenaDeErrores += " Calle \r";
+                    huboError++;
+                }
+                
+
+                if (huboError != 0)
+                {
+                    MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    huboError = 0;
+                    return;
                 }
 
+                string hash = this.encriptacion(txtPassword.Text);
+                UsuarioDOA doa = new UsuarioDOA();
+                doa.crearCliente("Cliente",txtUsuario.Text, hash, txtMail.Text, txtApellidoCliente.Text, txtNombreCliente.Text, int.Parse(txtDNICliente.Text), int.Parse(txtTelCliente.Text), txtTipoCliente.Text, txtCodPos.Text,txtDpto.Text,txtLocalidad.Text,int.Parse(txtPiso.Text),int.Parse(txtNumero.Text),txtCalle.Text,dtpCreacion.Value);
 
-                MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                return;
+                
             }
             if (rbEmpresa.Checked == true)
-              
+          
             {
                 if (string.IsNullOrEmpty(txtUsuario.Text))
                 {
                     cadenaDeErrores += " Usuario \r";
+                    huboError++;
+
                 }
                 if (string.IsNullOrEmpty(txtPassword.Text))
                 {
                     cadenaDeErrores += " Password \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(txtMail.Text))
                 {
                     cadenaDeErrores += " Mail \r";
+                    huboError++;
                 }
                 if(string.IsNullOrEmpty(txtCUITEmpresa.Text)) 
                 {
                     cadenaDeErrores += " CUIT \r";
+                    huboError++;
                 }
                 if(string.IsNullOrEmpty(txtNombreContEmpresa.Text)) 
                 {
                     cadenaDeErrores += " Nombre de Contacto \r";
+                    huboError++;
                 }
 
                 if(string.IsNullOrEmpty(txtRazonEmpresa.Text))
                 {
                     cadenaDeErrores += " Razon Social \r";
+                    huboError++;
                 }
+                       
                 if(string.IsNullOrEmpty(txtTelEmpresa.Text))
                 {
                     cadenaDeErrores += " Telefono \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(txtCodPos.Text)) 
                 {
                     cadenaDeErrores += " CodigoPostal \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(txtDpto.Text))
                 {
                     cadenaDeErrores += " Departamento \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(txtLocalidad.Text)) 
                 {
                     cadenaDeErrores += " Localidad \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(txtPiso.Text))
                 {
                     cadenaDeErrores += " Piso \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(txtNumero.Text))
                 {
                     cadenaDeErrores += " Numero \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(txtCalle.Text))
                 {
                     cadenaDeErrores += " Calle \r";
+                    huboError++;
                 }
 
-                MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                return;
+                if (string.IsNullOrEmpty(lblRubroSel.Text))
+                {
+                    cadenaDeErrores += "Rubro \r";
+                    huboError++;
+                }
+
+                if (huboError != 0)
+                {
+                    MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    huboError = 0;
+                    return;
+                }
+
+
+                string hash = this.encriptacion(txtPassword.Text);
+                UsuarioDOA doa = new UsuarioDOA();
+                
+                doa.crearEmpresa("Empresa",txtUsuario.Text,hash,txtMail.Text,txtCUITEmpresa.Text,txtNombreContEmpresa.Text,txtRazonEmpresa.Text,int.Parse(txtTelEmpresa.Text),txtCodPos.Text,txtDpto.Text,txtLocalidad.Text,int.Parse(txtPiso.Text),int.Parse(txtNumero.Text),txtCalle.Text,dtpCreacion.Value,lblRubroSel.Text);
         
             }
+
          
+        
 
           
            //GUARDAR LOS DATOS DE LOS txtUsuario txtContrasenia y demas en la BDD
@@ -308,6 +379,21 @@ namespace WindowsFormsApplication1.ABM_Usuario
           this.Hide();
 
                 
+        }
+
+        public string encriptacion(string input)
+        {
+            SHA256CryptoServiceProvider provider = new SHA256CryptoServiceProvider();
+
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            byte[] hashedBytes = provider.ComputeHash(inputBytes);
+
+            StringBuilder output = new StringBuilder();
+
+            for (int i = 0; i < hashedBytes.Length; i++)
+                output.Append(hashedBytes[i].ToString("x2").ToLower());
+
+            return output.ToString();
         }
 
         private void cmdBorrar_Click(object sender, EventArgs e)
@@ -333,6 +419,11 @@ namespace WindowsFormsApplication1.ABM_Usuario
             this.txtNombreContEmpresa.Text = "";
             this.txtRazonEmpresa.Text = "";
             this.txtTelEmpresa.Text = "";
+            this.cmdRubroEmpresa.Visible = false;
+            this.lblRubroEmpresa.Visible = false;
+
+            this.lblRubroSel.Text = "";
+            
 
             this.dtpCreacion.Visible = false;
 
@@ -357,6 +448,16 @@ namespace WindowsFormsApplication1.ABM_Usuario
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cmdRubroEmpresa_Click(object sender, EventArgs e)
+        {
+            
+            WindowsFormsApplication1.ABM_Rubro.AltaRubro arubro = new WindowsFormsApplication1.ABM_Rubro.AltaRubro();
+            arubro.lblLlamada.Text = "0";
+            
+            arubro.Show();
+            this.Hide();
         }
     }
 }

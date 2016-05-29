@@ -16,6 +16,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
         public AltaPublicacion()
         {
             InitializeComponent();
+            
             AltaPublicacion.ap1 = this;
             
         }
@@ -30,6 +31,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
         private void cmdRubro_Click(object sender, EventArgs e)
         {
             WindowsFormsApplication1.ABM_Rubro.AltaRubro arubro = new WindowsFormsApplication1.ABM_Rubro.AltaRubro();
+            arubro.lblLlamada.Text = "1";
             arubro.Show();
             this.Hide();
         }
@@ -44,7 +46,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
             {
                 lblDescripcion.Visible = true;
                 lblRubro.Visible = true;
-                lblRubroSe.Visible = true;
+                //lblRubroSe.Visible = true;
                 chkPreguntas.Visible = true;
                 dtpFin.Visible = true;
                 cmdRubro.Visible = true;
@@ -98,6 +100,8 @@ namespace WindowsFormsApplication1.Generar_Publicación
 
         private void AltaPublicacion_Load(object sender, EventArgs e)
         {
+            
+            
             lblDescripcion.Visible = false;
             lblRubro.Visible = false;
             lblRubroSe.Visible = false;
@@ -212,6 +216,11 @@ namespace WindowsFormsApplication1.Generar_Publicación
             
             cboTipo.SelectedIndex = -1;
             cboTipo.Text = "Seleccione un tipo";
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

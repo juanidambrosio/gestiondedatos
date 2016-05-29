@@ -69,6 +69,7 @@
             this.label1.Size = new System.Drawing.Size(376, 286);
             this.label1.TabIndex = 0;
             this.label1.Text = "Creacion de publicacion";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // lblDescripcion
             // 

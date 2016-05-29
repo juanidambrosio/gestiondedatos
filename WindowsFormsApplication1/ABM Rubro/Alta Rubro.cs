@@ -45,10 +45,32 @@ namespace WindowsFormsApplication1.ABM_Rubro
         {
             if (cboRubro.SelectedIndex == -1)
             {
-                WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.lblRubroSe.Text = "";
+                if (lblLlamada.Text == "0") 
+                {
+                    WindowsFormsApplication1.ABM_Usuario.AltaUsuario.aus.lblRubroSel.Text = "";
+                    WindowsFormsApplication1.ABM_Usuario.AltaUsuario.aus.Show();
+                    return;
+                }
+                if ( lblLlamada.Text == "1")
+                {
+                    WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.lblRubroSe.Text = "";
+                    WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.Show();
+                    return;
+                }
+
+                
             }
-            WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.Show();
-            this.Hide();
+            if (lblLlamada.Text == "0")
+            {
+                WindowsFormsApplication1.ABM_Usuario.AltaUsuario.aus.Show();
+                this.Hide();
+            }
+            if (lblLlamada.Text == "1")
+            {
+                WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.Show();
+                this.Hide();
+            }
+            
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -59,8 +81,18 @@ namespace WindowsFormsApplication1.ABM_Rubro
 
         private void cboRubro_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-           WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.lblRubroSe.Text = cboRubro.SelectedValue.ToString();
+            if (this.lblLlamada.Text == "0")
+            {
+                
+                WindowsFormsApplication1.ABM_Usuario.AltaUsuario.aus.lblRubroSel.Text = cboRubro.SelectedValue.ToString();
+                WindowsFormsApplication1.ABM_Usuario.AltaUsuario.aus.lblRubroSel.Visible = true;
+            }
+            if (this.lblLlamada.Text == "1")
+            {
+                WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.lblRubroSe.Text = cboRubro.SelectedValue.ToString();
+                WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.lblRubroSe.Visible = true;
+            }   
+           
         }
 
         private void timer1_Tick(object sender, EventArgs e)

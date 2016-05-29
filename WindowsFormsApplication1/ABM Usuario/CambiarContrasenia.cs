@@ -7,6 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.IO;
+
 
 namespace WindowsFormsApplication1.ABM_Usuario
 {
@@ -33,6 +37,11 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 cadenaDeErrores += " Usuario \r";
                 huboError++;
             }
+            if (string.IsNullOrEmpty(txtActual.Text))
+            {
+                cadenaDeErrores += " Contraseña actual\r";
+                huboError++;
+            }
             if (string.IsNullOrEmpty(txtContrasenia.Text))
             {
                 cadenaDeErrores += " Contrasenia \r";
@@ -45,6 +54,8 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 cadenaDeErrores += " Repetir la contrasenia \r";
                 huboError++;
             }
+
+            
           
             if (huboError != 0)
             {
@@ -61,8 +72,27 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 return;
             }
 
+            string hash1 = this.encriptacion(txtContrasenia.Text);
+            string hash2 = this.encriptacion(txtActual.Text);
+            UsuarioDOA doa = new UsuarioDOA();
+            doa.cambiarContrasenia(txtUsuario.Text, hash1, hash2);
             Login.lg.Show();
             this.Hide();
+        }
+
+        public string encriptacion(string input)
+        {
+            SHA256CryptoServiceProvider provider = new SHA256CryptoServiceProvider();
+
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            byte[] hashedBytes = provider.ComputeHash(inputBytes);
+
+            StringBuilder output = new StringBuilder();
+
+            for (int i = 0; i < hashedBytes.Length; i++)
+                output.Append(hashedBytes[i].ToString("x2").ToLower());
+
+            return output.ToString();
         }
 
         private void salirToolStripMenuItem_Click_1(object sender, EventArgs e)

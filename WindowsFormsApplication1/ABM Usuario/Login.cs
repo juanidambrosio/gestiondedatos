@@ -68,9 +68,9 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 return;
             }
 
-            //string hash = this.encriptacion(txtContrasenia.Text);
+            string hash = this.encriptacion(txtContrasenia.Text);
             UsuarioDOA doa = new UsuarioDOA();
-            Usuario user = doa.Login(txtUsuario.Text, txtContrasenia.Text);
+            Usuario user = doa.Login(txtUsuario.Text, hash);
             if (user == null)
             {
                 MessageBox.Show("Datos incorrectos", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);

@@ -82,6 +82,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblRubroEmpresa = new System.Windows.Forms.Label();
+            this.lblRubroSel = new System.Windows.Forms.Label();
+            this.cmdRubroEmpresa = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,7 +104,7 @@
             this.lblCampos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblCampos.Location = new System.Drawing.Point(126, 42);
             this.lblCampos.Name = "lblCampos";
-            this.lblCampos.Size = new System.Drawing.Size(354, 438);
+            this.lblCampos.Size = new System.Drawing.Size(368, 491);
             this.lblCampos.TabIndex = 3;
             this.lblCampos.Text = "(*) Campos obligatorios";
             // 
@@ -165,9 +168,9 @@
             this.lblTipoDNICliente.AutoSize = true;
             this.lblTipoDNICliente.Location = new System.Drawing.Point(187, 199);
             this.lblTipoDNICliente.Name = "lblTipoDNICliente";
-            this.lblTipoDNICliente.Size = new System.Drawing.Size(63, 13);
+            this.lblTipoDNICliente.Size = new System.Drawing.Size(67, 13);
             this.lblTipoDNICliente.TabIndex = 10;
-            this.lblTipoDNICliente.Text = "(*)Tipo DNI:";
+            this.lblTipoDNICliente.Text = "(*)Tipo DOC:";
             // 
             // lblNroDocCliente
             // 
@@ -233,7 +236,7 @@
             // 
             this.lblDom.AllowDrop = true;
             this.lblDom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblDom.Location = new System.Drawing.Point(143, 267);
+            this.lblDom.Location = new System.Drawing.Point(143, 303);
             this.lblDom.Name = "lblDom";
             this.lblDom.Size = new System.Drawing.Size(286, 200);
             this.lblDom.TabIndex = 19;
@@ -242,7 +245,7 @@
             // lblCalle
             // 
             this.lblCalle.AutoSize = true;
-            this.lblCalle.Location = new System.Drawing.Point(209, 295);
+            this.lblCalle.Location = new System.Drawing.Point(209, 340);
             this.lblCalle.Name = "lblCalle";
             this.lblCalle.Size = new System.Drawing.Size(33, 13);
             this.lblCalle.TabIndex = 20;
@@ -251,7 +254,7 @@
             // lblNum
             // 
             this.lblNum.AutoSize = true;
-            this.lblNum.Location = new System.Drawing.Point(194, 318);
+            this.lblNum.Location = new System.Drawing.Point(194, 363);
             this.lblNum.Name = "lblNum";
             this.lblNum.Size = new System.Drawing.Size(50, 13);
             this.lblNum.TabIndex = 21;
@@ -260,7 +263,7 @@
             // lblPiso
             // 
             this.lblPiso.AutoSize = true;
-            this.lblPiso.Location = new System.Drawing.Point(209, 345);
+            this.lblPiso.Location = new System.Drawing.Point(209, 390);
             this.lblPiso.Name = "lblPiso";
             this.lblPiso.Size = new System.Drawing.Size(33, 13);
             this.lblPiso.TabIndex = 22;
@@ -269,7 +272,7 @@
             // lblDpto
             // 
             this.lblDpto.AutoSize = true;
-            this.lblDpto.Location = new System.Drawing.Point(163, 367);
+            this.lblDpto.Location = new System.Drawing.Point(163, 412);
             this.lblDpto.Name = "lblDpto";
             this.lblDpto.Size = new System.Drawing.Size(80, 13);
             this.lblDpto.TabIndex = 23;
@@ -278,7 +281,7 @@
             // lblLocal
             // 
             this.lblLocal.AutoSize = true;
-            this.lblLocal.Location = new System.Drawing.Point(184, 422);
+            this.lblLocal.Location = new System.Drawing.Point(184, 467);
             this.lblLocal.Name = "lblLocal";
             this.lblLocal.Size = new System.Drawing.Size(59, 13);
             this.lblLocal.TabIndex = 24;
@@ -287,7 +290,7 @@
             // lblCodPos
             // 
             this.lblCodPos.AutoSize = true;
-            this.lblCodPos.Location = new System.Drawing.Point(165, 396);
+            this.lblCodPos.Location = new System.Drawing.Point(165, 441);
             this.lblCodPos.Name = "lblCodPos";
             this.lblCodPos.Size = new System.Drawing.Size(78, 13);
             this.lblCodPos.TabIndex = 25;
@@ -356,42 +359,42 @@
             // 
             // txtCalle
             // 
-            this.txtCalle.Location = new System.Drawing.Point(253, 292);
+            this.txtCalle.Location = new System.Drawing.Point(253, 337);
             this.txtCalle.Name = "txtCalle";
             this.txtCalle.Size = new System.Drawing.Size(100, 20);
             this.txtCalle.TabIndex = 34;
             // 
             // txtNumero
             // 
-            this.txtNumero.Location = new System.Drawing.Point(253, 318);
+            this.txtNumero.Location = new System.Drawing.Point(253, 363);
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(100, 20);
             this.txtNumero.TabIndex = 35;
             // 
             // txtPiso
             // 
-            this.txtPiso.Location = new System.Drawing.Point(253, 344);
+            this.txtPiso.Location = new System.Drawing.Point(253, 389);
             this.txtPiso.Name = "txtPiso";
             this.txtPiso.Size = new System.Drawing.Size(100, 20);
             this.txtPiso.TabIndex = 36;
             // 
             // txtDpto
             // 
-            this.txtDpto.Location = new System.Drawing.Point(253, 367);
+            this.txtDpto.Location = new System.Drawing.Point(253, 412);
             this.txtDpto.Name = "txtDpto";
             this.txtDpto.Size = new System.Drawing.Size(100, 20);
             this.txtDpto.TabIndex = 37;
             // 
             // txtCodPos
             // 
-            this.txtCodPos.Location = new System.Drawing.Point(253, 396);
+            this.txtCodPos.Location = new System.Drawing.Point(253, 441);
             this.txtCodPos.Name = "txtCodPos";
             this.txtCodPos.Size = new System.Drawing.Size(100, 20);
             this.txtCodPos.TabIndex = 38;
             // 
             // txtLocalidad
             // 
-            this.txtLocalidad.Location = new System.Drawing.Point(253, 422);
+            this.txtLocalidad.Location = new System.Drawing.Point(253, 467);
             this.txtLocalidad.Name = "txtLocalidad";
             this.txtLocalidad.Size = new System.Drawing.Size(100, 20);
             this.txtLocalidad.TabIndex = 39;
@@ -408,11 +411,11 @@
             // lblCUITEmpresa
             // 
             this.lblCUITEmpresa.AutoSize = true;
-            this.lblCUITEmpresa.Location = new System.Drawing.Point(201, 158);
+            this.lblCUITEmpresa.Location = new System.Drawing.Point(195, 158);
             this.lblCUITEmpresa.Name = "lblCUITEmpresa";
-            this.lblCUITEmpresa.Size = new System.Drawing.Size(48, 13);
+            this.lblCUITEmpresa.Size = new System.Drawing.Size(57, 13);
             this.lblCUITEmpresa.TabIndex = 41;
-            this.lblCUITEmpresa.Text = "(*) CUIT:";
+            this.lblCUITEmpresa.Text = "(*) C.U.I.T:";
             // 
             // lblFechaEmpresa
             // 
@@ -426,7 +429,7 @@
             // lblNombreEmpresa
             // 
             this.lblNombreEmpresa.AutoSize = true;
-            this.lblNombreEmpresa.Location = new System.Drawing.Point(146, 199);
+            this.lblNombreEmpresa.Location = new System.Drawing.Point(149, 199);
             this.lblNombreEmpresa.Name = "lblNombreEmpresa";
             this.lblNombreEmpresa.Size = new System.Drawing.Size(106, 13);
             this.lblNombreEmpresa.TabIndex = 43;
@@ -522,18 +525,48 @@
             // statusStrip1
             // 
             this.statusStrip1.BackColor = System.Drawing.Color.NavajoWhite;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 499);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 547);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(533, 22);
             this.statusStrip1.TabIndex = 54;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblRubroEmpresa
+            // 
+            this.lblRubroEmpresa.AutoSize = true;
+            this.lblRubroEmpresa.Location = new System.Drawing.Point(204, 272);
+            this.lblRubroEmpresa.Name = "lblRubroEmpresa";
+            this.lblRubroEmpresa.Size = new System.Drawing.Size(49, 13);
+            this.lblRubroEmpresa.TabIndex = 55;
+            this.lblRubroEmpresa.Text = "(*)Rubro:";
+            // 
+            // lblRubroSel
+            // 
+            this.lblRubroSel.AutoSize = true;
+            this.lblRubroSel.Location = new System.Drawing.Point(255, 272);
+            this.lblRubroSel.Name = "lblRubroSel";
+            this.lblRubroSel.Size = new System.Drawing.Size(0, 13);
+            this.lblRubroSel.TabIndex = 56;
+            // 
+            // cmdRubroEmpresa
+            // 
+            this.cmdRubroEmpresa.Location = new System.Drawing.Point(371, 267);
+            this.cmdRubroEmpresa.Name = "cmdRubroEmpresa";
+            this.cmdRubroEmpresa.Size = new System.Drawing.Size(75, 23);
+            this.cmdRubroEmpresa.TabIndex = 57;
+            this.cmdRubroEmpresa.Text = "Seleccionar";
+            this.cmdRubroEmpresa.UseVisualStyleBackColor = true;
+            this.cmdRubroEmpresa.Click += new System.EventHandler(this.cmdRubroEmpresa_Click);
             // 
             // AltaUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(533, 521);
+            this.ClientSize = new System.Drawing.Size(533, 569);
+            this.Controls.Add(this.cmdRubroEmpresa);
+            this.Controls.Add(this.lblRubroSel);
+            this.Controls.Add(this.lblRubroEmpresa);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.cmdVolver);
             this.Controls.Add(this.txtTelEmpresa);
@@ -651,5 +684,8 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.Label lblRubroEmpresa;
+        private System.Windows.Forms.Button cmdRubroEmpresa;
+        public System.Windows.Forms.Label lblRubroSel;
     }
 }

@@ -36,6 +36,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lblLlamada = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,12 +102,22 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // lblLlamada
+            // 
+            this.lblLlamada.AutoSize = true;
+            this.lblLlamada.Location = new System.Drawing.Point(193, 227);
+            this.lblLlamada.Name = "lblLlamada";
+            this.lblLlamada.Size = new System.Drawing.Size(0, 13);
+            this.lblLlamada.TabIndex = 5;
+            this.lblLlamada.Visible = false;
+            // 
             // AltaRubro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(274, 295);
+            this.Controls.Add(this.lblLlamada);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.cboRubro);
@@ -132,5 +143,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.Label lblLlamada;
     }
 }

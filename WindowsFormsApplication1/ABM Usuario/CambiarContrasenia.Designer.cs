@@ -40,6 +40,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtActual = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,35 +49,35 @@
             // 
             this.label1.AllowDrop = true;
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Location = new System.Drawing.Point(12, 44);
+            this.label1.Location = new System.Drawing.Point(12, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(248, 172);
+            this.label1.Size = new System.Drawing.Size(291, 216);
             this.label1.TabIndex = 0;
             // 
             // txtUsuario
             // 
-            this.txtUsuario.Location = new System.Drawing.Point(139, 90);
+            this.txtUsuario.Location = new System.Drawing.Point(124, 81);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(100, 20);
             this.txtUsuario.TabIndex = 1;
             // 
             // txtContrasenia
             // 
-            this.txtContrasenia.Location = new System.Drawing.Point(139, 135);
+            this.txtContrasenia.Location = new System.Drawing.Point(124, 151);
             this.txtContrasenia.Name = "txtContrasenia";
             this.txtContrasenia.Size = new System.Drawing.Size(100, 20);
             this.txtContrasenia.TabIndex = 2;
             // 
             // txtRepetir
             // 
-            this.txtRepetir.Location = new System.Drawing.Point(139, 180);
+            this.txtRepetir.Location = new System.Drawing.Point(124, 197);
             this.txtRepetir.Name = "txtRepetir";
             this.txtRepetir.Size = new System.Drawing.Size(100, 20);
             this.txtRepetir.TabIndex = 3;
             // 
             // cmdAceptar
             // 
-            this.cmdAceptar.Location = new System.Drawing.Point(12, 231);
+            this.cmdAceptar.Location = new System.Drawing.Point(12, 284);
             this.cmdAceptar.Name = "cmdAceptar";
             this.cmdAceptar.Size = new System.Drawing.Size(121, 23);
             this.cmdAceptar.TabIndex = 4;
@@ -85,7 +87,7 @@
             // 
             // cmdVolver
             // 
-            this.cmdVolver.Location = new System.Drawing.Point(141, 231);
+            this.cmdVolver.Location = new System.Drawing.Point(184, 284);
             this.cmdVolver.Name = "cmdVolver";
             this.cmdVolver.Size = new System.Drawing.Size(119, 23);
             this.cmdVolver.TabIndex = 5;
@@ -96,7 +98,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 93);
+            this.label2.Location = new System.Drawing.Point(17, 84);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(101, 13);
             this.label2.TabIndex = 6;
@@ -105,7 +107,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(69, 137);
+            this.label3.Location = new System.Drawing.Point(54, 154);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 13);
             this.label3.TabIndex = 7;
@@ -114,7 +116,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(40, 183);
+            this.label4.Location = new System.Drawing.Point(17, 200);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(101, 13);
             this.label4.TabIndex = 8;
@@ -123,9 +125,9 @@
             // statusStrip1
             // 
             this.statusStrip1.BackColor = System.Drawing.Color.NavajoWhite;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 264);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 313);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(281, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(315, 22);
             this.statusStrip1.TabIndex = 9;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -137,7 +139,7 @@
             this.salirToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(281, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(315, 24);
             this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -148,12 +150,30 @@
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click_1);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(22, 120);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(96, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Contraseña actual:";
+            // 
+            // txtActual
+            // 
+            this.txtActual.Location = new System.Drawing.Point(124, 113);
+            this.txtActual.Name = "txtActual";
+            this.txtActual.Size = new System.Drawing.Size(100, 20);
+            this.txtActual.TabIndex = 12;
+            // 
             // CambiarContrasenia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(281, 286);
+            this.ClientSize = new System.Drawing.Size(315, 335);
+            this.Controls.Add(this.txtActual);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.label4);
@@ -189,6 +209,8 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtActual;
 
     }
 }
