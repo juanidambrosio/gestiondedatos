@@ -104,10 +104,7 @@ namespace WindowsFormsApplication1
             usuario.Password = reader["password"].ToString();
             usuario.Habilitado = Convert.ToBoolean(reader["habilitado"].ToString());
             usuario.Id_rol = (int)reader["rol"];
-            System.Console.Write(usuario.Username);
-            System.Console.Write(usuario.Password);
-            System.Console.Write(usuario.Habilitado);
-            System.Console.Write(usuario.Id_rol);
+          
             return usuario;
         }
 

@@ -35,9 +35,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ingreseUsuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.desconectarseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.desconectarseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmdVerVisibilidad = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -109,6 +110,13 @@
             this.ingreseUsuarioToolStripMenuItem.Text = "Ingrese usuario";
             this.ingreseUsuarioToolStripMenuItem.Click += new System.EventHandler(this.ingreseUsuarioToolStripMenuItem_Click);
             // 
+            // desconectarseToolStripMenuItem
+            // 
+            this.desconectarseToolStripMenuItem.Name = "desconectarseToolStripMenuItem";
+            this.desconectarseToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.desconectarseToolStripMenuItem.Text = "Desconectarse";
+            this.desconectarseToolStripMenuItem.Click += new System.EventHandler(this.desconectarseToolStripMenuItem_Click);
+            // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -126,12 +134,15 @@
             this.statusStrip1.TabIndex = 7;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // desconectarseToolStripMenuItem
+            // cmdVerVisibilidad
             // 
-            this.desconectarseToolStripMenuItem.Name = "desconectarseToolStripMenuItem";
-            this.desconectarseToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.desconectarseToolStripMenuItem.Text = "Desconectarse";
-            this.desconectarseToolStripMenuItem.Click += new System.EventHandler(this.desconectarseToolStripMenuItem_Click);
+            this.cmdVerVisibilidad.Location = new System.Drawing.Point(161, 151);
+            this.cmdVerVisibilidad.Name = "cmdVerVisibilidad";
+            this.cmdVerVisibilidad.Size = new System.Drawing.Size(111, 23);
+            this.cmdVerVisibilidad.TabIndex = 8;
+            this.cmdVerVisibilidad.Text = "Ver visibilidad";
+            this.cmdVerVisibilidad.UseVisualStyleBackColor = true;
+            this.cmdVerVisibilidad.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
@@ -139,6 +150,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(387, 356);
+            this.Controls.Add(this.cmdVerVisibilidad);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.cmdPublicacion);
             this.Controls.Add(this.cmdModificarUsuario);
@@ -168,6 +180,7 @@
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripMenuItem desconectarseToolStripMenuItem;
+        private System.Windows.Forms.Button cmdVerVisibilidad;
     }
 }
 

@@ -657,6 +657,20 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Baja_Usuario
 	end
 GO
 
+CREATE PROCEDURE ROAD_TO_PROYECTO.Comisiones_Visibilidad
+	as
+	begin
+		select Descripcion from ROAD_TO_PROYECTO.Visibilidad order by Descripcion
+	end
+GO
+
+CREATE PROCEDURE ROAD_TO_PROYECTO.Comisiones_Valores
+	@Visibilidad nvarchar(255)
+	as
+	begin
+		select ComiFija, ComiVariable from ROAD_TO_PROYECTO.Visibilidad where Descripcion = @Visibilidad
+	end
+GO
 
 
 ----- Triggers -----
