@@ -397,26 +397,64 @@ from gd_esquema.Maestra gd,ROAD_TO_PROYECTO.Factura f
 where gd.Factura_Nro is not null and f.FactNro = gd.Factura_Nro and ROAD_TO_PROYECTO.EspecificarDetalle(gd.Item_Factura_Cantidad,gd.Item_Factura_Monto,gd.Publicacion_Visibilidad_Precio,gd.Publicacion_Visibilidad_Porcentaje,gd.Publicacion_Precio) is not null
 GO
 
+----- Otras Funciones -----
+
 ----- Stored Procedures -----
 --Listado Roles
 CREATE PROCEDURE ROAD_TO_PROYECTO.ListaRoles
-	as
-	begin
+	as begin
 		select RolId, Nombre 
 		from ROAD_TO_PROYECTO.Rol
-		where Habilitado = 1
 	end
 GO
 
 --Alta Rol
---CREATE PROCEDURE ROAD_TO_PROYECTO.AltaRol
---@Nombre nvarchar(255)
---@Funcion
+CREATE PROCEDURE ROAD_TO_PROYECTO.AltaRol
+@Nombre nvarchar(255)
+as begin
+if not exists (select Nombre from ROAD_TO_PROYECTO.Rol where Nombre = @Nombre)
+insert into ROAD_TO_PROYECTO.Rol values(@Nombre,1)
+end
+GO
+
+--Asignar una funcion a un rol
+CREATE PROCEDURE ROAD_TO_PROYECTO.AsignarFuncionARol
+@Rol nvarchar(255),
+@Funcion nvarchar(255)
+as begin
+declare @RolId int = (select rolid from ROAD_TO_PROYECTO.Rol where Nombre = @Rol)
+declare @FuncId int = (select funcid from ROAD_TO_PROYECTO.Funcion where Descripcion = @Funcion)
+
+if not exists(select FuncId from ROAD_TO_PROYECTO.Funciones_Por_Rol where RolId = @RolId and FuncId = @FuncId)
+insert into ROAD_TO_PROYECTO.Funciones_Por_Rol values (@RolId,@FuncId)
+end
+GO
+
+--Desasignar una funcion a un rol
+CREATE PROCEDURE ROAD_TO_PROYECTO.DesasignarFuncionARol
+@Rol nvarchar(255),
+@Funcion nvarchar(255)
+as begin
+declare @RolId int = (select rolid from ROAD_TO_PROYECTO.Rol where Nombre = @Rol)
+declare @FuncId int = (select funcid from ROAD_TO_PROYECTO.Funcion where Descripcion = @Funcion)
+
+if exists(select FuncId from ROAD_TO_PROYECTO.Funciones_Por_Rol where RolId = @RolId and FuncId = @FuncId)
+delete ROAD_TO_PROYECTO.Funciones_Por_Rol where FuncId = @FuncId and RolId = @RolId
+end
+GO 
+
+--Dar de baja un rol
+CREATE PROCEDURE ROAD_TO_PROYECTO.BajaRol
+@Rol int
+as begin
+update ROAD_TO_PROYECTO.Rol set Habilitado = 0 where RolId = @Rol
+delete ROAD_TO_PROYECTO.Roles_Por_Usuario where RolId = @Rol
+end
+GO
 
 --Listado Rubros
 CREATE PROCEDURE ROAD_TO_PROYECTO.ListaRubros
-	as
-	begin
+	as begin
 		select DescripLarga
 		from ROAD_TO_PROYECTO.Rubro
 		order by DescripLarga
@@ -463,7 +501,7 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Alta_Domicilio
 	@Localidad nvarchar(100)
 	as
 	begin
-		if(not exists(select * from ROAD_TO_PROYECTO.Domicilio where @Calle = Calle and @Numero = Numero and @Piso = Piso and @Depto = Depto and @CodPostal = CodPostal and @Localidad = Localidad))
+		if not exists(select * from ROAD_TO_PROYECTO.Domicilio where @Calle = Calle and @Numero = Numero and @Piso = Piso and @Depto = Depto and @CodPostal = CodPostal and @Localidad = Localidad)
 		insert into ROAD_TO_PROYECTO.Domicilio (Calle, Numero, Piso, Depto, CodPostal, Localidad)
 		values (@Calle, @Numero, @Piso, @Depto, @CodPostal, @Localidad)
 	end
@@ -476,7 +514,7 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Alta_Rol_Usuario
 
 	as
 	begin
-		if(not exists(select * from ROAD_TO_PROYECTO.Roles_Por_Usuario rpu where rpu.UserId = @Usuario and rpu.RolId = (select RolId from ROAD_TO_PROYECTO.Rol r where r.Nombre = @RolAsignado)))
+		if not exists(select rpu.UserId,rpu.RolId from ROAD_TO_PROYECTO.Roles_Por_Usuario rpu where rpu.UserId = @Usuario and rpu.RolId = (select RolId from ROAD_TO_PROYECTO.Rol r where r.Nombre = @RolAsignado))
 		begin
 			insert into ROAD_TO_PROYECTO.Roles_Por_Usuario (UserId, RolId, IdExterno)
 			values (@Usuario, (select RolId from ROAD_TO_PROYECTO.Rol r where r.Nombre = @RolAsignado), @IdExterno)
@@ -509,7 +547,7 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Alta_Cliente
 		declare	@IdExterno int
 		if(@RolAsignado = 'Cliente')
 		begin
-			if(not exists(select * from ROAD_TO_PROYECTO.Cliente c where c.TipoDocumento = @TipoDocumento and c.NroDocumento = @NroDocumento))	
+			if not exists(select c.NroDocumento from ROAD_TO_PROYECTO.Cliente c where c.TipoDocumento = @TipoDocumento and c.NroDocumento = @NroDocumento)
 			begin
 				execute ROAD_TO_PROYECTO.Alta_Usuario @Usuario = @Usuario, @Contraseña = @Contraseña, @Mail = @Mail, @RolAsignado = @RolAsignado
 									
@@ -549,7 +587,7 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Alta_Empresa
 
 		if(@RolAsignado = 'Empresa')
 		begin
-			if(not exists(select * from ROAD_TO_PROYECTO.Empresa e where e.CUIT = @CUIT and e.RazonSocial = @RazonSocial))
+			if not exists(select e.EmprId from ROAD_TO_PROYECTO.Empresa e where e.CUIT = @CUIT and e.RazonSocial = @RazonSocial)
 			begin
 				execute ROAD_TO_PROYECTO.Alta_Usuario @Usuario = @Usuario, @Contraseña = @Contraseña, @Mail = @Mail, @RolAsignado = @RolAsignado
 				
@@ -571,7 +609,7 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Alta_Usuario
 	@RolAsignado nvarchar(255)
 	as
 	begin
-		if(not exists(select * from ROAD_TO_PROYECTO.Usuario u where u.Usuario = @Usuario))
+		if(not exists(select u.Usuario from ROAD_TO_PROYECTO.Usuario u where u.Usuario = @Usuario))
 		begin
 			insert into ROAD_TO_PROYECTO.Usuario (Usuario, Contraseña, Mail, Habilitado, Nuevo, Reputacion, FechaCreacion,/*Domicilio,*/ LogsFallidos)
 			values (@Usuario, @Contraseña, @Mail, 1, 1, null, GETDATE(), 0)
@@ -603,7 +641,7 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Cambiar_Contraseña
 	@ContraseñaNueva nvarchar(255)
 	as
 	begin
-		if(exists(select * from ROAD_TO_PROYECTO.Usuario where @Usuario = Usuario and @Contraseña = Contraseña))
+		if exists(select Usuario,Contraseña from ROAD_TO_PROYECTO.Usuario where @Usuario = Usuario and @Contraseña = Contraseña)
 		begin
 			update ROAD_TO_PROYECTO.Usuario set Contraseña = @ContraseñaNueva
 			where @Usuario = Usuario and @Contraseña = Contraseña
@@ -671,6 +709,7 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Comisiones_Valores
 		select ComiFija, ComiVariable from ROAD_TO_PROYECTO.Visibilidad where Descripcion = @Visibilidad
 	end
 GO
+
 
 
 ----- Triggers -----
