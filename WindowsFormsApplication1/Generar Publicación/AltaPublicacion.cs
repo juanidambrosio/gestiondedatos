@@ -245,5 +245,12 @@ namespace WindowsFormsApplication1.Generar_Publicación
         {
 
         }
+
+        private void cmdSelVis_Click(object sender, EventArgs e)
+        {
+            WindowsFormsApplication1.ABM_Visibilidad.Form1 setVisibilidad = new WindowsFormsApplication1.ABM_Visibilidad.Form1();
+            setVisibilidad.Show();
+            this.Hide();
+        }
     }
 }

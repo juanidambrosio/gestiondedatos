@@ -336,6 +336,7 @@
             this.cmdSelVis.TabIndex = 29;
             this.cmdSelVis.Text = "Seleccionar";
             this.cmdSelVis.UseVisualStyleBackColor = true;
+            this.cmdSelVis.Click += new System.EventHandler(this.cmdSelVis_Click);
             // 
             // AltaPublicacion
             // 
@@ -414,7 +415,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtPrecio;
         private System.Windows.Forms.Label lblVisibilidad;
-        private System.Windows.Forms.Label lblVisSel;
         private System.Windows.Forms.Button cmdSelVis;
+        public System.Windows.Forms.Label lblVisSel;
     }
 }

@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
+
 namespace WindowsFormsApplication1.ABM_Visibilidad
 {
     public partial class Form1 : Form
     {
 
-        SqlConnection cnn;
+        //SqlConnection cnn;
         SqlCommand cmd;
-        SqlCommand cmd2;
         SqlDataReader sdr;
         SqlDataAdapter adapter;
         private DataBase db;
@@ -31,7 +31,6 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
         {
             panelComs.Visible = false;
 
-            //cnn = new SqlConnection(@"Data Source=localhost\SQLSERVER2012;Initial Catalog=GD1C2016;Persist Security Info=True;User ID=gd;Password=gd2016");
             cmd = new SqlCommand("ROAD_TO_PROYECTO.Comisiones_Visibilidad", db.Connection);
             cmd.CommandType = CommandType.StoredProcedure;
             adapter = new SqlDataAdapter(cmd);
@@ -63,12 +62,13 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
                 textBoxTipo.Enabled = false;
                 textBoxProd.Enabled = false;
 
-                cmd2 = new SqlCommand("ROAD_TO_PROYECTO.Comisiones_Valores", db.Connection);
-                cmd2.CommandType = CommandType.StoredProcedure;
-                cmd2.Parameters.AddWithValue("@Visibilidad", SqlDbType.NVarChar).Value = cboTipoVis.SelectedValue.ToString();
-                
-                sdr = cmd2.ExecuteReader();
-                while(sdr.Read()){
+                cmd = new SqlCommand("ROAD_TO_PROYECTO.Comisiones_Valores", db.Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Visibilidad", SqlDbType.NVarChar).Value = cboTipoVis.SelectedValue.ToString();
+
+                sdr = cmd.ExecuteReader();
+                while (sdr.Read())
+                {
                     textBoxTipo.Text = sdr["ComiFija"].ToString();
                     textBoxProd.Text = sdr["ComiVariable"].ToString();
                 }
@@ -85,6 +85,25 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
             {
                 panelEnvio.Visible = true;
             }
+        }
+
+        private void eliminarVisibilidad_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmdCrearVis_Click(object sender, EventArgs e)
+        {
+            WindowsFormsApplication1.ABM_Visibilidad.AgregarVisibilidad newVisibilidad = new WindowsFormsApplication1.ABM_Visibilidad.AgregarVisibilidad();
+            newVisibilidad.Show();
+            this.Hide();
+        }
+
+        private void cmdAceptarComisiones_Click(object sender, EventArgs e)
+        {
+            WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.lblVisSel.Text = cboTipoVis.SelectedValue.ToString();
+            WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.Show();
+            this.Hide();
         }
 
     }

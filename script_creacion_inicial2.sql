@@ -792,6 +792,18 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Ofertar_Publicacion
 	end
 GO
 
+CREATE PROCEDURE ROAD_TO_PROYECTO.Agregar_Visibilidad
+	@VisiId int,
+	@Descripcion nvarchar(255),
+	@ComiFija numeric(18,2),
+	@ComiVariable numeric(18,2)
+	as begin
+		insert into ROAD_TO_PROYECTO.Visibilidad
+		(VisiId, Descripcion, ComiFija, ComiVariable)
+		values (@VisiId, @Descripcion, @ComiFija, @ComiVariable)
+	end
+GO
+
 ----- Triggers -----
 CREATE TRIGGER ROAD_TO_PROYECTO.Actualizar_Stock_y_Facturar on ROAD_TO_PROYECTO.Transaccion after insert
 	as begin

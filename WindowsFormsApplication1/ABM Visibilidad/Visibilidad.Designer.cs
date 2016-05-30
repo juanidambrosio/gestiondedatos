@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             this.panelComs = new System.Windows.Forms.Panel();
-            this.cmdAceptarComisiones = new System.Windows.Forms.Button();
-            this.textBoxEnvio = new System.Windows.Forms.TextBox();
+            this.panelEnvio = new System.Windows.Forms.Panel();
             this.comEnvio = new System.Windows.Forms.Label();
+            this.textBoxEnvio = new System.Windows.Forms.TextBox();
+            this.cbEnvio = new System.Windows.Forms.CheckBox();
+            this.cmdAceptarComisiones = new System.Windows.Forms.Button();
             this.textBoxProd = new System.Windows.Forms.TextBox();
             this.comProd = new System.Windows.Forms.Label();
             this.textBoxTipo = new System.Windows.Forms.TextBox();
@@ -39,15 +41,13 @@
             this.cboTipoVis = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.eliminarVisibilidad = new System.Windows.Forms.Button();
-            this.crearVisibilidad = new System.Windows.Forms.Button();
+            this.cmdEliminarVis = new System.Windows.Forms.Button();
+            this.cmdCrearVis = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.cbEnvio = new System.Windows.Forms.CheckBox();
-            this.panelEnvio = new System.Windows.Forms.Panel();
             this.panelComs.SuspendLayout();
+            this.panelEnvio.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panelEnvio.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelComs
@@ -64,21 +64,14 @@
             this.panelComs.Size = new System.Drawing.Size(190, 221);
             this.panelComs.TabIndex = 0;
             // 
-            // cmdAceptarComisiones
+            // panelEnvio
             // 
-            this.cmdAceptarComisiones.Location = new System.Drawing.Point(98, 186);
-            this.cmdAceptarComisiones.Name = "cmdAceptarComisiones";
-            this.cmdAceptarComisiones.Size = new System.Drawing.Size(75, 23);
-            this.cmdAceptarComisiones.TabIndex = 8;
-            this.cmdAceptarComisiones.Text = "Aceptar";
-            this.cmdAceptarComisiones.UseVisualStyleBackColor = true;
-            // 
-            // textBoxEnvio
-            // 
-            this.textBoxEnvio.Location = new System.Drawing.Point(6, 19);
-            this.textBoxEnvio.Name = "textBoxEnvio";
-            this.textBoxEnvio.Size = new System.Drawing.Size(59, 20);
-            this.textBoxEnvio.TabIndex = 7;
+            this.panelEnvio.Controls.Add(this.comEnvio);
+            this.panelEnvio.Controls.Add(this.textBoxEnvio);
+            this.panelEnvio.Location = new System.Drawing.Point(10, 133);
+            this.panelEnvio.Name = "panelEnvio";
+            this.panelEnvio.Size = new System.Drawing.Size(170, 47);
+            this.panelEnvio.TabIndex = 3;
             // 
             // comEnvio
             // 
@@ -88,6 +81,34 @@
             this.comEnvio.Size = new System.Drawing.Size(163, 13);
             this.comEnvio.TabIndex = 6;
             this.comEnvio.Text = "Comisión por envío del producto:";
+            // 
+            // textBoxEnvio
+            // 
+            this.textBoxEnvio.Location = new System.Drawing.Point(6, 19);
+            this.textBoxEnvio.Name = "textBoxEnvio";
+            this.textBoxEnvio.Size = new System.Drawing.Size(59, 20);
+            this.textBoxEnvio.TabIndex = 7;
+            // 
+            // cbEnvio
+            // 
+            this.cbEnvio.AutoSize = true;
+            this.cbEnvio.Location = new System.Drawing.Point(14, 104);
+            this.cbEnvio.Name = "cbEnvio";
+            this.cbEnvio.Size = new System.Drawing.Size(77, 17);
+            this.cbEnvio.TabIndex = 9;
+            this.cbEnvio.Text = "Con Envío";
+            this.cbEnvio.UseVisualStyleBackColor = true;
+            this.cbEnvio.CheckedChanged += new System.EventHandler(this.cbEnvio_CheckedChanged);
+            // 
+            // cmdAceptarComisiones
+            // 
+            this.cmdAceptarComisiones.Location = new System.Drawing.Point(98, 186);
+            this.cmdAceptarComisiones.Name = "cmdAceptarComisiones";
+            this.cmdAceptarComisiones.Size = new System.Drawing.Size(75, 23);
+            this.cmdAceptarComisiones.TabIndex = 8;
+            this.cmdAceptarComisiones.Text = "Aceptar";
+            this.cmdAceptarComisiones.UseVisualStyleBackColor = true;
+            this.cmdAceptarComisiones.Click += new System.EventHandler(this.cmdAceptarComisiones_Click);
             // 
             // textBoxProd
             // 
@@ -141,30 +162,32 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.eliminarVisibilidad);
-            this.panel2.Controls.Add(this.crearVisibilidad);
+            this.panel2.Controls.Add(this.cmdEliminarVis);
+            this.panel2.Controls.Add(this.cmdCrearVis);
             this.panel2.Location = new System.Drawing.Point(221, 13);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 96);
             this.panel2.TabIndex = 1;
             // 
-            // eliminarVisibilidad
+            // cmdEliminarVis
             // 
-            this.eliminarVisibilidad.Location = new System.Drawing.Point(39, 57);
-            this.eliminarVisibilidad.Name = "eliminarVisibilidad";
-            this.eliminarVisibilidad.Size = new System.Drawing.Size(131, 23);
-            this.eliminarVisibilidad.TabIndex = 1;
-            this.eliminarVisibilidad.Text = "Eliminar Visibilidad";
-            this.eliminarVisibilidad.UseVisualStyleBackColor = true;
+            this.cmdEliminarVis.Location = new System.Drawing.Point(39, 57);
+            this.cmdEliminarVis.Name = "cmdEliminarVis";
+            this.cmdEliminarVis.Size = new System.Drawing.Size(131, 23);
+            this.cmdEliminarVis.TabIndex = 1;
+            this.cmdEliminarVis.Text = "Eliminar Visibilidad";
+            this.cmdEliminarVis.UseVisualStyleBackColor = true;
+            this.cmdEliminarVis.Click += new System.EventHandler(this.eliminarVisibilidad_Click);
             // 
-            // crearVisibilidad
+            // cmdCrearVis
             // 
-            this.crearVisibilidad.Location = new System.Drawing.Point(39, 15);
-            this.crearVisibilidad.Name = "crearVisibilidad";
-            this.crearVisibilidad.Size = new System.Drawing.Size(131, 23);
-            this.crearVisibilidad.TabIndex = 0;
-            this.crearVisibilidad.Text = "Crear Visibilidad";
-            this.crearVisibilidad.UseVisualStyleBackColor = true;
+            this.cmdCrearVis.Location = new System.Drawing.Point(39, 15);
+            this.cmdCrearVis.Name = "cmdCrearVis";
+            this.cmdCrearVis.Size = new System.Drawing.Size(131, 23);
+            this.cmdCrearVis.TabIndex = 0;
+            this.cmdCrearVis.Text = "Crear Visibilidad";
+            this.cmdCrearVis.UseVisualStyleBackColor = true;
+            this.cmdCrearVis.Click += new System.EventHandler(this.cmdCrearVis_Click);
             // 
             // panel3
             // 
@@ -174,26 +197,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(188, 96);
             this.panel3.TabIndex = 2;
-            // 
-            // cbEnvio
-            // 
-            this.cbEnvio.AutoSize = true;
-            this.cbEnvio.Location = new System.Drawing.Point(14, 104);
-            this.cbEnvio.Name = "cbEnvio";
-            this.cbEnvio.Size = new System.Drawing.Size(77, 17);
-            this.cbEnvio.TabIndex = 9;
-            this.cbEnvio.Text = "Con Envío";
-            this.cbEnvio.UseVisualStyleBackColor = true;
-            this.cbEnvio.CheckedChanged += new System.EventHandler(this.cbEnvio_CheckedChanged);
-            // 
-            // panelEnvio
-            // 
-            this.panelEnvio.Controls.Add(this.comEnvio);
-            this.panelEnvio.Controls.Add(this.textBoxEnvio);
-            this.panelEnvio.Location = new System.Drawing.Point(10, 133);
-            this.panelEnvio.Name = "panelEnvio";
-            this.panelEnvio.Size = new System.Drawing.Size(170, 47);
-            this.panelEnvio.TabIndex = 3;
             // 
             // Form1
             // 
@@ -208,11 +211,11 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panelComs.ResumeLayout(false);
             this.panelComs.PerformLayout();
+            this.panelEnvio.ResumeLayout(false);
+            this.panelEnvio.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panelEnvio.ResumeLayout(false);
-            this.panelEnvio.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -223,8 +226,8 @@
         private System.Windows.Forms.ComboBox cboTipoVis;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button eliminarVisibilidad;
-        private System.Windows.Forms.Button crearVisibilidad;
+        private System.Windows.Forms.Button cmdEliminarVis;
+        private System.Windows.Forms.Button cmdCrearVis;
         private System.Windows.Forms.Button cmdAceptarComisiones;
         private System.Windows.Forms.TextBox textBoxEnvio;
         private System.Windows.Forms.Label comEnvio;
