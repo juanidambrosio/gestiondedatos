@@ -31,7 +31,9 @@ namespace WindowsFormsApplication1
 
         private void cmdPublicacion_Click(object sender, EventArgs e)
         {
+            
             WindowsFormsApplication1.Generar_Publicación.AltaPublicacion aPub = new WindowsFormsApplication1.Generar_Publicación.AltaPublicacion();
+            aPub.lblUsername.Text = lblUsuario.Text;
             aPub.Show();
             this.Hide();
         }

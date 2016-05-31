@@ -60,6 +60,7 @@
             this.lblVisibilidad = new System.Windows.Forms.Label();
             this.lblVisSel = new System.Windows.Forms.Label();
             this.cmdSelVis = new System.Windows.Forms.Button();
+            this.lblUsername = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -220,7 +221,7 @@
             this.salirToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(418, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(419, 24);
             this.menuStrip1.TabIndex = 17;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -235,9 +236,9 @@
             // statusStrip1
             // 
             this.statusStrip1.BackColor = System.Drawing.Color.NavajoWhite;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 372);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 374);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(418, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(419, 22);
             this.statusStrip1.TabIndex = 18;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -338,12 +339,22 @@
             this.cmdSelVis.UseVisualStyleBackColor = true;
             this.cmdSelVis.Click += new System.EventHandler(this.cmdSelVis_Click);
             // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Location = new System.Drawing.Point(476, 237);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(0, 13);
+            this.lblUsername.TabIndex = 30;
+            this.lblUsername.Visible = false;
+            // 
             // AltaPublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(418, 394);
+            this.ClientSize = new System.Drawing.Size(419, 396);
+            this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.cmdSelVis);
             this.Controls.Add(this.lblVisSel);
             this.Controls.Add(this.lblVisibilidad);
@@ -417,5 +428,6 @@
         private System.Windows.Forms.Label lblVisibilidad;
         private System.Windows.Forms.Button cmdSelVis;
         public System.Windows.Forms.Label lblVisSel;
+        public System.Windows.Forms.Label lblUsername;
     }
 }

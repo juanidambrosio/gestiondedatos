@@ -13,6 +13,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
     public partial class AltaPublicacion : Form
     {
         public static AltaPublicacion ap1;
+        private int huboError = 0;
         public AltaPublicacion()
         {
             InitializeComponent();
@@ -172,56 +173,75 @@ namespace WindowsFormsApplication1.Generar_Publicación
                 if(string.IsNullOrEmpty(txtDescripcion.Text))
                 {
                     cadenaDeErrores += " Descripcion \r";
+                    huboError++;
                 }
 
                 if(string.IsNullOrEmpty(txtStockInmediata.Text))
                 {
                     cadenaDeErrores += " Stock \r";
+                    huboError++;
                 }
 
                 if(string.IsNullOrEmpty(lblRubroSe.Text))
                 {
                     cadenaDeErrores += " Rubro \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(lblVisSel.Text))
                 {
                     cadenaDeErrores += "Visibilidad \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(txtPrecio.Text))
                 {
                     cadenaDeErrores += " Precio \r";
+                    huboError++;
                 }
 
-              
+                if (huboError != 0)
+                {
+                    MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    return;
+                }
+                PublicacionDOA doa = new PublicacionDOA();
+               // doa.crearPublicacion();
 
                
-                MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                return;
+                
             }
             if (cboTipo.SelectedItem.ToString() == "Subasta")
             {
                 if (string.IsNullOrEmpty(txtDescripcion.Text))
                 {
                     cadenaDeErrores += " Descripcion \r";
+                    huboError++;
                 }
 
                 if (string.IsNullOrEmpty(txtValorSubasta.Text))
                 {
                     cadenaDeErrores += " Valor Inicial de la subasta \r";
+                    huboError++;
                 }
 
                 if (string.IsNullOrEmpty(lblRubroSe.Text))
                 {
                     cadenaDeErrores += " Rubro \r";
+                    huboError++;
                 }
                 if (string.IsNullOrEmpty(lblVisSel.Text))
                 {
                     cadenaDeErrores += "Visibilidad \r";
+                    huboError++;
                 }
 
-            
-                MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                return;
+                if (huboError != 0) 
+                {
+                    MessageBox.Show(cadenaDeErrores, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    return;
+                }
+                PublicacionDOA doa = new PublicacionDOA();
+                
+                doa.crearPublicacion(txtDescripcion.Text, 1,dtpFin.Value,int.Parse(txtValorSubasta.Text),lblVisSel.Text,lblRubroSe.Text,cboTipo.SelectedItem.ToString(), lblUsername.Text);
             }     
             
             WindowsFormsApplication1.Form1.f1.Show();

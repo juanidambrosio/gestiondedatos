@@ -16,15 +16,21 @@ namespace WindowsFormsApplication1
             db = DataBase.GetInstance();
         }
 
-       /* public void crearSubasta(string cliente, string usuario, string password, string mail, string apellido, string nombre, int DOC, int telefono, string tipoDOC, string codPos, string Dpto, string localidad, int piso, int numero, string calle, DateTime nacimiento)
+        public void crearPublicacion(string descripcion, int stock, DateTime fechainicio, int precio, string visidesc, string rubrodesc, string tipodesc, string vendedor)
         {
-            SqlCommand cmd = new SqlCommand("ROAD_TO_PROYECTO.Alta_Cliente", db.Connection);
+            SqlCommand cmd = new SqlCommand("ROAD_TO_PROYECTO.Alta_Publicacion", db.Connection);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@RolAsignado", SqlDbType.NVarChar).Value = cliente;
-           
+            cmd.Parameters.AddWithValue("@Descipcion", SqlDbType.NVarChar).Value = descripcion;
+            cmd.Parameters.AddWithValue("@Stock", SqlDbType.NVarChar).Value = stock;
+            cmd.Parameters.AddWithValue("@FechaInicio", SqlDbType.NVarChar).Value = fechainicio;
+            cmd.Parameters.AddWithValue("@Precio", SqlDbType.NVarChar).Value = precio;
+            cmd.Parameters.AddWithValue("@VisiDesc", SqlDbType.NVarChar).Value = visidesc;
+            cmd.Parameters.AddWithValue("@RubroDesc", SqlDbType.NVarChar).Value = rubrodesc;
+            cmd.Parameters.AddWithValue("@TipoDesc", SqlDbType.NVarChar).Value = tipodesc;
+            cmd.Parameters.AddWithValue("@VendedorId", SqlDbType.NVarChar).Value = vendedor;
             cmd.ExecuteNonQuery();
 
-        }*/
+        }
 
     } 
 
