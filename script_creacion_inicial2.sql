@@ -795,14 +795,35 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Ofertar_Publicacion
 GO
 
 CREATE PROCEDURE ROAD_TO_PROYECTO.Agregar_Visibilidad
-	@VisiId int,
 	@Descripcion nvarchar(255),
 	@ComiFija numeric(18,2),
 	@ComiVariable numeric(18,2)
 	as begin
+		declare @VisiIdAnterior int, @VisiId int
+		select top 1 @VisiIdAnterior = VisiId from ROAD_TO_PROYECTO.Visibilidad order by VisiId desc
+		set @VisiId = @VisiIdAnterior +1
+
 		insert into ROAD_TO_PROYECTO.Visibilidad
 		(VisiId, Descripcion, ComiFija, ComiVariable)
 		values (@VisiId, @Descripcion, @ComiFija, @ComiVariable)
+	end
+GO
+
+CREATE PROCEDURE ROAD_TO_PROYECTO.Eliminar_Visibilidad
+	@Descripcion nvarchar(255)
+	as begin
+		delete from Visibilidad where Descripcion = @Descripcion
+	end
+GO
+
+CREATE PROCEDURE ROAD_TO_PROYECTO.Update_Visibilidad
+	@Descripcion nvarchar(255),
+	@ComiFija numeric(18,2),
+	@ComiVariable numeric(18,2)
+	as begin
+		update ROAD_TO_PROYECTO.Visibilidad
+		set ComiFija = @ComiFija, ComiVariable = @ComiVariable
+		where Descripcion = @Descripcion
 	end
 GO
 

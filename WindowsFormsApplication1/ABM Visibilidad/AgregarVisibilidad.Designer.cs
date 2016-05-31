@@ -36,6 +36,8 @@
             this.tbComiFija = new System.Windows.Forms.TextBox();
             this.tbComiVariable = new System.Windows.Forms.TextBox();
             this.cmdAceptarVis = new System.Windows.Forms.Button();
+            this.cmdLimpiar = new System.Windows.Forms.Button();
+            this.cmdVolverComs = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -97,7 +99,7 @@
             // 
             // cmdAceptarVis
             // 
-            this.cmdAceptarVis.Location = new System.Drawing.Point(183, 218);
+            this.cmdAceptarVis.Location = new System.Drawing.Point(27, 227);
             this.cmdAceptarVis.Name = "cmdAceptarVis";
             this.cmdAceptarVis.Size = new System.Drawing.Size(75, 23);
             this.cmdAceptarVis.TabIndex = 7;
@@ -105,11 +107,33 @@
             this.cmdAceptarVis.UseVisualStyleBackColor = true;
             this.cmdAceptarVis.Click += new System.EventHandler(this.cmdAceptarVis_Click);
             // 
+            // cmdLimpiar
+            // 
+            this.cmdLimpiar.Location = new System.Drawing.Point(112, 227);
+            this.cmdLimpiar.Name = "cmdLimpiar";
+            this.cmdLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.cmdLimpiar.TabIndex = 8;
+            this.cmdLimpiar.Text = "Limpiar";
+            this.cmdLimpiar.UseVisualStyleBackColor = true;
+            this.cmdLimpiar.Click += new System.EventHandler(this.cmdLimpiar_Click);
+            // 
+            // cmdVolverComs
+            // 
+            this.cmdVolverComs.Location = new System.Drawing.Point(199, 227);
+            this.cmdVolverComs.Name = "cmdVolverComs";
+            this.cmdVolverComs.Size = new System.Drawing.Size(75, 23);
+            this.cmdVolverComs.TabIndex = 9;
+            this.cmdVolverComs.Text = "Volver";
+            this.cmdVolverComs.UseVisualStyleBackColor = true;
+            this.cmdVolverComs.Click += new System.EventHandler(this.cmdVolverComs_Click);
+            // 
             // AgregarVisibilidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.cmdVolverComs);
+            this.Controls.Add(this.cmdLimpiar);
             this.Controls.Add(this.cmdAceptarVis);
             this.Controls.Add(this.tbComiVariable);
             this.Controls.Add(this.tbComiFija);
@@ -135,5 +159,7 @@
         private System.Windows.Forms.TextBox tbComiFija;
         private System.Windows.Forms.TextBox tbComiVariable;
         private System.Windows.Forms.Button cmdAceptarVis;
+        private System.Windows.Forms.Button cmdLimpiar;
+        private System.Windows.Forms.Button cmdVolverComs;
     }
 }
