@@ -38,12 +38,14 @@
             this.cmdAceptarVis = new System.Windows.Forms.Button();
             this.cmdLimpiar = new System.Windows.Forms.Button();
             this.cmdVolverComs = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbEnvio = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(48, 25);
+            this.label1.Location = new System.Drawing.Point(48, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(179, 13);
             this.label1.TabIndex = 0;
@@ -52,7 +54,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 58);
+            this.label2.Location = new System.Drawing.Point(24, 42);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 1;
@@ -61,7 +63,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 111);
+            this.label3.Location = new System.Drawing.Point(24, 83);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(159, 13);
             this.label3.TabIndex = 2;
@@ -70,7 +72,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(24, 163);
+            this.label4.Location = new System.Drawing.Point(24, 126);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(153, 13);
             this.label4.TabIndex = 3;
@@ -78,21 +80,21 @@
             // 
             // tbDescripcion
             // 
-            this.tbDescripcion.Location = new System.Drawing.Point(27, 75);
+            this.tbDescripcion.Location = new System.Drawing.Point(27, 57);
             this.tbDescripcion.Name = "tbDescripcion";
             this.tbDescripcion.Size = new System.Drawing.Size(114, 20);
             this.tbDescripcion.TabIndex = 4;
             // 
             // tbComiFija
             // 
-            this.tbComiFija.Location = new System.Drawing.Point(27, 128);
+            this.tbComiFija.Location = new System.Drawing.Point(27, 98);
             this.tbComiFija.Name = "tbComiFija";
             this.tbComiFija.Size = new System.Drawing.Size(74, 20);
             this.tbComiFija.TabIndex = 5;
             // 
             // tbComiVariable
             // 
-            this.tbComiVariable.Location = new System.Drawing.Point(27, 189);
+            this.tbComiVariable.Location = new System.Drawing.Point(27, 141);
             this.tbComiVariable.Name = "tbComiVariable";
             this.tbComiVariable.Size = new System.Drawing.Size(74, 20);
             this.tbComiVariable.TabIndex = 6;
@@ -127,11 +129,29 @@
             this.cmdVolverComs.UseVisualStyleBackColor = true;
             this.cmdVolverComs.Click += new System.EventHandler(this.cmdVolverComs_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(27, 168);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(98, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Comisión por envío";
+            // 
+            // tbEnvio
+            // 
+            this.tbEnvio.Location = new System.Drawing.Point(27, 184);
+            this.tbEnvio.Name = "tbEnvio";
+            this.tbEnvio.Size = new System.Drawing.Size(74, 20);
+            this.tbEnvio.TabIndex = 11;
+            // 
             // AgregarVisibilidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.tbEnvio);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.cmdVolverComs);
             this.Controls.Add(this.cmdLimpiar);
             this.Controls.Add(this.cmdAceptarVis);
@@ -161,5 +181,7 @@
         private System.Windows.Forms.Button cmdAceptarVis;
         private System.Windows.Forms.Button cmdLimpiar;
         private System.Windows.Forms.Button cmdVolverComs;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbEnvio;
     }
 }

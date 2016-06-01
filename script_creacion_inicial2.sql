@@ -229,7 +229,7 @@ GO
 --Usuarios 
 PRINT 'Asignando Usuarios...'
 insert into ROAD_TO_PROYECTO.Usuario
-select ROAD_TO_PROYECTO.SacarTildes(LOWER(Cli_Apeliido+RIGHT(Cli_Nombre,1))), CONVERT(nvarchar(255), HASHBYTES('SHA2_256', 'password')),Cli_Mail,1,0,NULL,getdate() as Fecha, (select DomiId from ROAD_TO_PROYECTO.Domicilio where RTRIM(Calle) like RTRIM(Cli_Dom_Calle) and Numero = Cli_Nro_Calle and Piso = Cli_Piso and Depto = Cli_Depto and CodPostal = Cli_Cod_Postal) as Domicilio, 0 
+select ROAD_TO_PROYECTO.SacarTildes(LOWER(Cli_Apeliido+RIGHT(Cli_Nombre,1))), SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('SHA2_256', 'password')), 3, 255),Cli_Mail,1,0,NULL,getdate() as Fecha, (select DomiId from ROAD_TO_PROYECTO.Domicilio where RTRIM(Calle) like RTRIM(Cli_Dom_Calle) and Numero = Cli_Nro_Calle and Piso = Cli_Piso and Depto = Cli_Depto and CodPostal = Cli_Cod_Postal) as Domicilio, 0 
 from gd_esquema.Maestra
 where Cli_Apeliido is not null and Cli_Nombre is not null
 group by Cli_Apeliido,Cli_Nombre,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,Cli_Piso,cli_depto,Cli_Cod_Postal
@@ -311,6 +311,16 @@ select Publicacion_Visibilidad_Cod, Publicacion_Visibilidad_Desc, Publicacion_Vi
 from gd_esquema.Maestra
 where Publicacion_Visibilidad_Cod is not null
 group by publicacion_visibilidad_cod, Publicacion_Visibilidad_Desc, Publicacion_Visibilidad_Precio, Publicacion_Visibilidad_Porcentaje
+GO
+
+update ROAD_TO_PROYECTO.Visibilidad
+set ComiEnvio = 0.05
+where VisiId = 10002 or VisiId = 10003
+GO
+
+update ROAD_TO_PROYECTO.Visibilidad
+set ComiEnvio = 0.01
+where VisiId = 10004 or VisiId = 10005
 GO
 
 --Estado

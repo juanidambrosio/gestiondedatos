@@ -14,6 +14,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
     {
         public static AltaPublicacion ap1;
         private int huboError = 0;
+        public bool envioHabilitado;
         public AltaPublicacion()
         {
             InitializeComponent();
@@ -241,7 +242,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
                 }
                 PublicacionDOA doa = new PublicacionDOA();
                 
-                doa.crearPublicacion(txtDescripcion.Text, 1,dtpFin.Value,int.Parse(txtValorSubasta.Text),lblVisSel.Text,lblRubroSe.Text,cboTipo.SelectedItem.ToString(), lblUsername.Text);
+                doa.crearPublicacion(txtDescripcion.Text, 1,dtpFin.Value,int.Parse(txtValorSubasta.Text),lblVisSel.Text,lblRubroSe.Text,cboTipo.SelectedItem.ToString(), lblUsername.Text, envioHabilitado);
             }     
             
             WindowsFormsApplication1.Form1.f1.Show();

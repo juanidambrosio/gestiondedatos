@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelComs = new System.Windows.Forms.Panel();
+            this.cmdUpdateVis = new System.Windows.Forms.Button();
             this.panelEnvio = new System.Windows.Forms.Panel();
             this.comEnvio = new System.Windows.Forms.Label();
             this.textBoxEnvio = new System.Windows.Forms.TextBox();
@@ -41,11 +42,10 @@
             this.cboTipoVis = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.cmdModVis = new System.Windows.Forms.Button();
             this.cmdEliminarVis = new System.Windows.Forms.Button();
             this.cmdCrearVis = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.cmdModVis = new System.Windows.Forms.Button();
-            this.cmdUpdateVis = new System.Windows.Forms.Button();
             this.panelComs.SuspendLayout();
             this.panelEnvio.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -66,6 +66,17 @@
             this.panelComs.Name = "panelComs";
             this.panelComs.Size = new System.Drawing.Size(190, 221);
             this.panelComs.TabIndex = 0;
+            // 
+            // cmdUpdateVis
+            // 
+            this.cmdUpdateVis.Location = new System.Drawing.Point(16, 186);
+            this.cmdUpdateVis.Name = "cmdUpdateVis";
+            this.cmdUpdateVis.Size = new System.Drawing.Size(75, 23);
+            this.cmdUpdateVis.TabIndex = 3;
+            this.cmdUpdateVis.Text = "Aceptar";
+            this.cmdUpdateVis.UseVisualStyleBackColor = true;
+            this.cmdUpdateVis.Visible = false;
+            this.cmdUpdateVis.Click += new System.EventHandler(this.cmdUpdateVis_Click);
             // 
             // panelEnvio
             // 
@@ -173,6 +184,16 @@
             this.panel2.Size = new System.Drawing.Size(200, 135);
             this.panel2.TabIndex = 1;
             // 
+            // cmdModVis
+            // 
+            this.cmdModVis.Location = new System.Drawing.Point(39, 52);
+            this.cmdModVis.Name = "cmdModVis";
+            this.cmdModVis.Size = new System.Drawing.Size(131, 23);
+            this.cmdModVis.TabIndex = 2;
+            this.cmdModVis.Text = "Modificar Visibilidad";
+            this.cmdModVis.UseVisualStyleBackColor = true;
+            this.cmdModVis.Click += new System.EventHandler(this.cmdModVis_Click);
+            // 
             // cmdEliminarVis
             // 
             this.cmdEliminarVis.Location = new System.Drawing.Point(39, 89);
@@ -201,27 +222,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(188, 96);
             this.panel3.TabIndex = 2;
-            // 
-            // cmdModVis
-            // 
-            this.cmdModVis.Location = new System.Drawing.Point(39, 52);
-            this.cmdModVis.Name = "cmdModVis";
-            this.cmdModVis.Size = new System.Drawing.Size(131, 23);
-            this.cmdModVis.TabIndex = 2;
-            this.cmdModVis.Text = "Modificar Visibilidad";
-            this.cmdModVis.UseVisualStyleBackColor = true;
-            this.cmdModVis.Click += new System.EventHandler(this.cmdModVis_Click);
-            // 
-            // cmdUpdateVis
-            // 
-            this.cmdUpdateVis.Location = new System.Drawing.Point(112, 100);
-            this.cmdUpdateVis.Name = "cmdUpdateVis";
-            this.cmdUpdateVis.Size = new System.Drawing.Size(75, 23);
-            this.cmdUpdateVis.TabIndex = 3;
-            this.cmdUpdateVis.Text = "Aceptar";
-            this.cmdUpdateVis.UseVisualStyleBackColor = true;
-            this.cmdUpdateVis.Visible = false;
-            this.cmdUpdateVis.Click += new System.EventHandler(this.cmdUpdateVis_Click);
             // 
             // Form1
             // 

@@ -56,6 +56,7 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
                 cmdEliminarVis.Visible = true;
                 textBoxTipo.Enabled = false;
                 textBoxProd.Enabled = false;
+                textBoxEnvio.Enabled = false;
 
                 cmd = new SqlCommand("ROAD_TO_PROYECTO.Comisiones_Valores", db.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -66,6 +67,7 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
                 {
                     textBoxTipo.Text = sdr["ComiFija"].ToString();
                     textBoxProd.Text = sdr["ComiVariable"].ToString();
+                    textBoxEnvio.Text = sdr["ComiEnvio"].ToString();
                 }
                 sdr.Close();
             }
@@ -121,6 +123,10 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
         private void cmdAceptarComisiones_Click(object sender, EventArgs e)
         {
             WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.lblVisSel.Text = cboTipoVis.SelectedValue.ToString();
+            if (cbEnvio.Checked == true)
+            {
+                WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.envioHabilitado = true;
+            }
             WindowsFormsApplication1.Generar_Publicación.AltaPublicacion.ap1.Show();
             this.Hide();
         }
@@ -129,7 +135,9 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
         {
             textBoxProd.Enabled = true;
             textBoxTipo.Enabled = true;
-            cbEnvio.Visible = false;
+            textBoxEnvio.Enabled = true;
+            //cbEnvio.Visible = false;
+            textBoxEnvio.Visible = true;
             cmdCrearVis.Visible = false;
             cmdEliminarVis.Visible = false;
             cmdAceptarComisiones.Visible = false;
@@ -143,6 +151,7 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
             cmd.Parameters.AddWithValue("@Descripcion", SqlDbType.NVarChar).Value = cboTipoVis.SelectedValue.ToString();
             cmd.Parameters.AddWithValue("@ComiFija", SqlDbType.Int).Value = textBoxTipo.Text;
             cmd.Parameters.AddWithValue("@ComiVariable", SqlDbType.Int).Value = textBoxProd.Text;
+            cmd.Parameters.AddWithValue("@ComiEnvio", SqlDbType.Int).Value = textBoxEnvio.Text;
             cmd.ExecuteNonQuery();
             MessageBox.Show("Elemento modificado", "LISTO", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
 

@@ -15,7 +15,6 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
     {
 
         SqlCommand cmd;
-        SqlDataReader sdr;
         private DataBase db;
 
         public AgregarVisibilidad()
@@ -26,13 +25,14 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
 
         private void cmdAceptarVis_Click(object sender, EventArgs e)
         {
-            if (tbDescripcion.Text != "" && tbComiFija.Text != "" && tbComiVariable.Text != "")
+            if (tbDescripcion.Text != "" && tbComiFija.Text != "" && tbComiVariable.Text != "" && tbEnvio.Text != "")
             {
                 cmd = new SqlCommand("ROAD_TO_PROYECTO.Agregar_Visibilidad", db.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Descripcion", SqlDbType.NVarChar).Value = tbDescripcion.Text;
                 cmd.Parameters.AddWithValue("@ComiFija", SqlDbType.Int).Value = tbComiFija.Text;
                 cmd.Parameters.AddWithValue("@ComiVariable", SqlDbType.Int).Value = tbComiVariable.Text;
+                cmd.Parameters.AddWithValue("@ComiEnvio", SqlDbType.Int).Value = tbEnvio.Text;
                 cmd.ExecuteNonQuery();
 
                 Form1.visibilidad.Show();
@@ -51,6 +51,7 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
             tbDescripcion.Text = "";
             tbComiFija.Text = "";
             tbComiVariable.Text = "";
+            tbEnvio.Text = "";
         }
 
         private void cmdVolverComs_Click(object sender, EventArgs e)
