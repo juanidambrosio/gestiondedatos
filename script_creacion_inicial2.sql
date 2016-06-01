@@ -130,7 +130,8 @@ create table ROAD_TO_PROYECTO.Visibilidad(
 VisiId int PRIMARY KEY,
 Descripcion nvarchar(255),
 ComiFija numeric (18,2),
-ComiVariable numeric (18,2)
+ComiVariable numeric (18,2),
+ComiEnvio numeric (18,2) default 0
 )
 GO
 
@@ -144,9 +145,7 @@ GO
 --Tipo_Publicacion
 create table ROAD_TO_PROYECTO.Tipo_Publicacion(
 TipoPubliId int identity (1,1) PRIMARY KEY,
-Descripcion nvarchar(255),
-EnvioHabilitado bit default 0,
-Comienvio numeric (18,2) default 0
+Descripcion nvarchar(255)
 )
 GO
 
@@ -162,7 +161,8 @@ Visibilidad int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Visibilidad NOT NULL,
 Rubro int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Rubro NOT NULL,
 Tipo int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Tipo_Publicacion NOT NULL,
 Estado int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Estado NOT NULL,
-UserId nvarchar(255) FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Usuario NOT NULL
+UserId nvarchar(255) FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Usuario NOT NULL,
+EnvioHabilitado bit default 0
 )
 GO
 
@@ -175,7 +175,8 @@ Cantidad numeric(18,0),
 Monto numeric(18,2),
 Ganadora bit default 0,
 PubliId int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Publicacion,
-ClieId int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Cliente
+ClieId int FOREIGN KEY REFERENCES ROAD_TO_PROYECTO.Cliente,
+ConEnvio bit default 0
 )
 GO
 
@@ -228,7 +229,7 @@ GO
 --Usuarios 
 PRINT 'Asignando Usuarios...'
 insert into ROAD_TO_PROYECTO.Usuario
-select ROAD_TO_PROYECTO.SacarTildes(LOWER(Cli_Apeliido+RIGHT(Cli_Nombre,1))),'password',Cli_Mail,1,0,NULL,getdate() as Fecha, (select DomiId from ROAD_TO_PROYECTO.Domicilio where RTRIM(Calle) like RTRIM(Cli_Dom_Calle) and Numero = Cli_Nro_Calle and Piso = Cli_Piso and Depto = Cli_Depto and CodPostal = Cli_Cod_Postal) as Domicilio, 0 
+select ROAD_TO_PROYECTO.SacarTildes(LOWER(Cli_Apeliido+RIGHT(Cli_Nombre,1))), CONVERT(nvarchar(255), HASHBYTES('SHA2_256', 'password')),Cli_Mail,1,0,NULL,getdate() as Fecha, (select DomiId from ROAD_TO_PROYECTO.Domicilio where RTRIM(Calle) like RTRIM(Cli_Dom_Calle) and Numero = Cli_Nro_Calle and Piso = Cli_Piso and Depto = Cli_Depto and CodPostal = Cli_Cod_Postal) as Domicilio, 0 
 from gd_esquema.Maestra
 where Cli_Apeliido is not null and Cli_Nombre is not null
 group by Cli_Apeliido,Cli_Nombre,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,Cli_Piso,cli_depto,Cli_Cod_Postal
@@ -305,7 +306,7 @@ GO
 
 --Visibilidad
 PRINT 'Migrando Visibilidades...'
-insert into ROAD_TO_PROYECTO.Visibilidad
+insert into ROAD_TO_PROYECTO.Visibilidad (VisiId, Descripcion, ComiFija, ComiVariable)
 select Publicacion_Visibilidad_Cod, Publicacion_Visibilidad_Desc, Publicacion_Visibilidad_Precio, Publicacion_Visibilidad_Porcentaje
 from gd_esquema.Maestra
 where Publicacion_Visibilidad_Cod is not null
@@ -322,8 +323,8 @@ GO
 
 --Tipo_Publicacion
 PRINT 'Migrando Tipos de publicaciones...'
-insert into ROAD_TO_PROYECTO.Tipo_Publicacion
-select Publicacion_Tipo, 0, 0
+insert into ROAD_TO_PROYECTO.Tipo_Publicacion 
+select Publicacion_Tipo
 from gd_esquema.Maestra
 where Publicacion_Tipo is not null
 group by Publicacion_Tipo
@@ -332,7 +333,7 @@ GO
 --Publicacion
 PRINT 'Migrando publicaciones...'
 insert into ROAD_TO_PROYECTO.Publicacion
-select Publicacion_Cod, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Visibilidad_Cod, (select RubrId from ROAD_TO_PROYECTO.Rubro where publicacion_rubro_descripcion = DescripLarga) as Rubro, (select TipoPubliId from ROAD_TO_PROYECTO.Tipo_Publicacion where Publicacion_Tipo = Descripcion) as TipoPublicacion, 3 as Estado, (select Usuario from ROAD_TO_PROYECTO.Usuario where Mail = Publ_Cli_Mail or Mail = Publ_Empresa_Mail) as Usuario
+select Publicacion_Cod, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Visibilidad_Cod, (select RubrId from ROAD_TO_PROYECTO.Rubro where publicacion_rubro_descripcion = DescripLarga) as Rubro, (select TipoPubliId from ROAD_TO_PROYECTO.Tipo_Publicacion where Publicacion_Tipo = Descripcion) as TipoPublicacion, 3 as Estado, (select Usuario from ROAD_TO_PROYECTO.Usuario where Mail = Publ_Cli_Mail or Mail = Publ_Empresa_Mail) as Usuario, 0
 from gd_esquema.Maestra
 where Publicacion_Cod is not null
 group by Publicacion_Cod, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Visibilidad_Cod, Publicacion_Rubro_Descripcion,Publ_Cli_Mail, Publicacion_Tipo, Publ_Empresa_Mail
@@ -341,12 +342,12 @@ GO
 --Transaccion
 PRINT 'Migrando transacciones...'
 insert into ROAD_TO_PROYECTO.Transaccion
-select 'Compra', Compra_Fecha, Compra_Cantidad, null, null, Publicacion_Cod, (select ClieId from ROAD_TO_PROYECTO.Cliente where Cli_Dni = NroDocumento)
+select 'Compra', Compra_Fecha, Compra_Cantidad, null, null, Publicacion_Cod, (select ClieId from ROAD_TO_PROYECTO.Cliente where Cli_Dni = NroDocumento), 0
 from gd_esquema.Maestra
 where Publicacion_Tipo = 'Compra Inmediata' and Compra_Fecha is not null 
 group by publicacion_cod, Compra_Fecha, Compra_Cantidad, Cli_Dni
 union
-select 'Oferta', Oferta_Fecha, 1, Oferta_Monto, 0, Publicacion_Cod, (select ClieId from ROAD_TO_PROYECTO.Cliente where Cli_Dni = NroDocumento)
+select 'Oferta', Oferta_Fecha, 1, Oferta_Monto, 0, Publicacion_Cod, (select ClieId from ROAD_TO_PROYECTO.Cliente where Cli_Dni = NroDocumento), 0
 from gd_esquema.Maestra
 where Publicacion_Tipo = 'Subasta' and Oferta_Fecha is not null
 group by Publicacion_Cod, Oferta_Fecha, Oferta_Monto, Cli_Dni
@@ -706,7 +707,7 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Comisiones_Valores
 	@Visibilidad nvarchar(255)
 	as
 	begin
-		select ComiFija, ComiVariable from ROAD_TO_PROYECTO.Visibilidad where Descripcion = @Visibilidad
+		select ComiFija, ComiVariable, ComiEnvio from ROAD_TO_PROYECTO.Visibilidad where Descripcion = @Visibilidad
 	end
 GO
 
@@ -771,12 +772,13 @@ GO
 CREATE PROCEDURE ROAD_TO_PROYECTO.Comprar_Publicacion
 	@PubliId int,
 	@Cantidad numeric(18,0),
-	@CompradorId int --Es cliente, no usuario, por eso es int y no nvarchar(255)
+	@CompradorId int, --Es cliente, no usuario, por eso es int y no nvarchar(255)
+	@ConEnvio bit
 	as begin
 		if((select Stock from ROAD_TO_PROYECTO.Publicacion where PublId = @PubliId) > @Cantidad)
 		begin
-			insert into ROAD_TO_PROYECTO.Transaccion(TipoTransac, Fecha, Cantidad, PubliId, ClieId)
-			values('Compra', getdate(), @Cantidad, @PubliId, @CompradorId)
+			insert into ROAD_TO_PROYECTO.Transaccion(TipoTransac, Fecha, Cantidad, PubliId, ClieId, ConEnvio)
+			values('Compra', getdate(), @Cantidad, @PubliId, @CompradorId, @ConEnvio)
 		end
 	end
 GO
@@ -784,12 +786,13 @@ GO
 CREATE PROCEDURE ROAD_TO_PROYECTO.Ofertar_Publicacion
 	@PubliId int,
 	@MontoOferta numeric(18,2),
-	@OfertanteId int --Es cliente, no usuario, por eso es int y no nvarchar(255)
+	@OfertanteId int, --Es cliente, no usuario, por eso es int y no nvarchar(255)
+	@ConEnvio bit
 	as begin
 		if((select top 1 Monto from ROAD_TO_PROYECTO.Transaccion where PubliId = @PubliId and TipoTransac = 'Oferta' order by Monto desc) < @MontoOferta)
 		begin
-			insert into ROAD_TO_PROYECTO.Transaccion (TipoTransac, Fecha, Monto, PubliId, ClieId)
-			values('Oferta', getdate(), @MontoOferta, @PubliId, @OfertanteId)
+			insert into ROAD_TO_PROYECTO.Transaccion (TipoTransac, Fecha, Monto, PubliId, ClieId, ConEnvio)
+			values('Oferta', getdate(), @MontoOferta, @PubliId, @OfertanteId, @ConEnvio)
 		end
 	end
 GO
@@ -797,15 +800,15 @@ GO
 CREATE PROCEDURE ROAD_TO_PROYECTO.Agregar_Visibilidad
 	@Descripcion nvarchar(255),
 	@ComiFija numeric(18,2),
-	@ComiVariable numeric(18,2)
+	@ComiVariable numeric(18,2),
+	@ComiEnvio numeric(18,2)
 	as begin
 		declare @VisiIdAnterior int, @VisiId int
 		select top 1 @VisiIdAnterior = VisiId from ROAD_TO_PROYECTO.Visibilidad order by VisiId desc
 		set @VisiId = @VisiIdAnterior +1
 
-		insert into ROAD_TO_PROYECTO.Visibilidad
-		(VisiId, Descripcion, ComiFija, ComiVariable)
-		values (@VisiId, @Descripcion, @ComiFija, @ComiVariable)
+		insert into ROAD_TO_PROYECTO.Visibilidad (VisiId, Descripcion, ComiFija, ComiVariable, ComiEnvio)
+		values (@VisiId, @Descripcion, @ComiFija, @ComiVariable, @ComiEnvio)
 	end
 GO
 
@@ -819,10 +822,11 @@ GO
 CREATE PROCEDURE ROAD_TO_PROYECTO.Update_Visibilidad
 	@Descripcion nvarchar(255),
 	@ComiFija numeric(18,2),
-	@ComiVariable numeric(18,2)
+	@ComiVariable numeric(18,2),
+	@ComiEnvio numeric(18,2)
 	as begin
 		update ROAD_TO_PROYECTO.Visibilidad
-		set ComiFija = @ComiFija, ComiVariable = @ComiVariable
+		set ComiFija = @ComiFija, ComiVariable = @ComiVariable, ComiEnvio = @ComiEnvio
 		where Descripcion = @Descripcion
 	end
 GO
@@ -864,12 +868,12 @@ CREATE TRIGGER ROAD_TO_PROYECTO.Actualizar_Stock_y_Facturar on ROAD_TO_PROYECTO.
 				values(@FacturaActual, @Cantidad, 'Comisión por productos vendidos', @Cantidad * @ComiVariable)
 				
 				--Verifico si corresponde comisiones por envío
-				if((select tp.EnvioHabilitado from ROAD_TO_PROYECTO.Publicacion p, ROAD_TO_PROYECTO.Tipo_Publicacion tp where p.PublId = @PubliId and p.Tipo = tp.TipoPubliId) = 1)
+				if((select p.EnvioHabilitado from ROAD_TO_PROYECTO.Publicacion p where p.PublId = @PubliId) = 1)
 					begin
 						--Busco la comisión por envío de la publicación
-						select @ComiEnvio = Comienvio 
-						from ROAD_TO_PROYECTO.Tipo_Publicacion tp, ROAD_TO_PROYECTO.Publicacion p
-						where p.PublId = @PubliId and p.Tipo = tp.TipoPubliId
+						select @ComiEnvio = ComiEnvio 
+						from ROAD_TO_PROYECTO.Visibilidad v, ROAD_TO_PROYECTO.Publicacion p
+						where p.PublId = @PubliId and p.Tipo = v.VisiId
 
 						--Creo los items de la factura
 						insert into ROAD_TO_PROYECTO.Item_Factura (FactNro, Cantidad, Detalle, Monto)
