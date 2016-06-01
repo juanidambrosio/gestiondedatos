@@ -32,16 +32,18 @@
             this.cmdVolver = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNuevoRol = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lstFuncionalidades = new System.Windows.Forms.ListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lstFuncElegidas = new System.Windows.Forms.ListBox();
+            this.cmdBorrar = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdAceptar
             // 
-            this.cmdAceptar.Location = new System.Drawing.Point(165, 31);
+            this.cmdAceptar.Location = new System.Drawing.Point(165, 45);
             this.cmdAceptar.Name = "cmdAceptar";
             this.cmdAceptar.Size = new System.Drawing.Size(75, 23);
             this.cmdAceptar.TabIndex = 0;
@@ -51,7 +53,7 @@
             // 
             // cmdVolver
             // 
-            this.cmdVolver.Location = new System.Drawing.Point(165, 60);
+            this.cmdVolver.Location = new System.Drawing.Point(367, 45);
             this.cmdVolver.Name = "cmdVolver";
             this.cmdVolver.Size = new System.Drawing.Size(75, 23);
             this.cmdVolver.TabIndex = 1;
@@ -76,13 +78,14 @@
             this.txtNuevoRol.Size = new System.Drawing.Size(100, 20);
             this.txtNuevoRol.TabIndex = 3;
             // 
-            // listBox1
+            // lstFuncionalidades
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(3, 100);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(237, 95);
-            this.listBox1.TabIndex = 4;
+            this.lstFuncionalidades.FormattingEnabled = true;
+            this.lstFuncionalidades.Location = new System.Drawing.Point(3, 100);
+            this.lstFuncionalidades.Name = "lstFuncionalidades";
+            this.lstFuncionalidades.Size = new System.Drawing.Size(237, 95);
+            this.lstFuncionalidades.TabIndex = 4;
+            this.lstFuncionalidades.SelectedIndexChanged += new System.EventHandler(this.lstFuncionalidades_SelectedIndexChanged);
             // 
             // menuStrip1
             // 
@@ -91,7 +94,7 @@
             this.salirToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(251, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(514, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -106,20 +109,40 @@
             // statusStrip1
             // 
             this.statusStrip1.BackColor = System.Drawing.Color.NavajoWhite;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 208);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 221);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(251, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(514, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lstFuncElegidas
+            // 
+            this.lstFuncElegidas.FormattingEnabled = true;
+            this.lstFuncElegidas.Location = new System.Drawing.Point(265, 100);
+            this.lstFuncElegidas.Name = "lstFuncElegidas";
+            this.lstFuncElegidas.Size = new System.Drawing.Size(237, 95);
+            this.lstFuncElegidas.TabIndex = 7;
+            // 
+            // cmdBorrar
+            // 
+            this.cmdBorrar.Location = new System.Drawing.Point(265, 45);
+            this.cmdBorrar.Name = "cmdBorrar";
+            this.cmdBorrar.Size = new System.Drawing.Size(75, 23);
+            this.cmdBorrar.TabIndex = 8;
+            this.cmdBorrar.Text = "Borrar todo";
+            this.cmdBorrar.UseVisualStyleBackColor = true;
+            this.cmdBorrar.Click += new System.EventHandler(this.cmdBorrar_Click);
             // 
             // AltaRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(251, 230);
+            this.ClientSize = new System.Drawing.Size(514, 243);
+            this.Controls.Add(this.cmdBorrar);
+            this.Controls.Add(this.lstFuncElegidas);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lstFuncionalidades);
             this.Controls.Add(this.txtNuevoRol);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmdVolver);
@@ -142,10 +165,12 @@
         private System.Windows.Forms.Button cmdVolver;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtNuevoRol;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstFuncionalidades;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ListBox lstFuncElegidas;
+        private System.Windows.Forms.Button cmdBorrar;
 
     }
 }

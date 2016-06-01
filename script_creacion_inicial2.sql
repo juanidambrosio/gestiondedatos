@@ -471,6 +471,14 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.ListaRubros
 	end
 GO
 
+CREATE PROCEDURE ROAD_TO_PROYECTO.ListaFuncionalidades
+	as begin
+		select Descripcion
+		from ROAD_TO_PROYECTO.Funcion
+		order by Descripcion
+	end
+GO
+
 CREATE PROCEDURE ROAD_TO_PROYECTO.Usuario_Logs_Fallidos
 	@Usuario nvarchar(255),
 	@Contraseña nvarchar(255)
