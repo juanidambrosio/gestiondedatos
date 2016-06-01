@@ -720,7 +720,8 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Alta_Publicacion
 	@RubroDesc nvarchar(255),
 	@TipoDesc nvarchar(255),
 --	@EstadoDesc nvarchar(50),
-	@VendedorId nvarchar(255)	
+	@VendedorId nvarchar(255),
+	@EnvioHabilitado bit	
 
 	as begin
 		declare @VisiId int, @RubroId int, @TipoPubliId int, @EstadoId int, @PubliIdAnterior int, @PubliId int
@@ -731,8 +732,8 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.Alta_Publicacion
 		select top 1 @PubliIdAnterior = PublId from ROAD_TO_PROYECTO.Publicacion order by PublId desc
 		set @PubliId = @PubliIdAnterior +1
 
-		insert into ROAD_TO_PROYECTO.Publicacion (PublId, Descipcion, Stock, FechaInicio, FechaFin, Precio, Visibilidad, Rubro, Tipo, Estado, UserId)
-		values(@PubliId, @Descipcion, @Stock, @FechaInicio, dateadd(mm, 2, @FechaInicio), @Precio, @VisiId, @RubroId, @TipoPubliId, @EstadoId, @VendedorId)
+		insert into ROAD_TO_PROYECTO.Publicacion (PublId, Descipcion, Stock, FechaInicio, FechaFin, Precio, Visibilidad, Rubro, Tipo, Estado, UserId, EnvioHabilitado)
+		values(@PubliId, @Descipcion, @Stock, @FechaInicio, dateadd(mm, 2, @FechaInicio), @Precio, @VisiId, @RubroId, @TipoPubliId, @EstadoId, @VendedorId, @EnvioHabilitado)
 	end
 GO
 
