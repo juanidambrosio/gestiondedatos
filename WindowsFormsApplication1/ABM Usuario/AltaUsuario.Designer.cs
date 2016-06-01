@@ -58,7 +58,6 @@
             this.txtMail = new System.Windows.Forms.TextBox();
             this.txtNombreCliente = new System.Windows.Forms.TextBox();
             this.txtApellidoCliente = new System.Windows.Forms.TextBox();
-            this.txtTipoCliente = new System.Windows.Forms.TextBox();
             this.txtDNICliente = new System.Windows.Forms.TextBox();
             this.txtTelCliente = new System.Windows.Forms.TextBox();
             this.txtCalle = new System.Windows.Forms.TextBox();
@@ -72,8 +71,6 @@
             this.lblFechaEmpresa = new System.Windows.Forms.Label();
             this.lblNombreEmpresa = new System.Windows.Forms.Label();
             this.lblTelefonoEmpresa = new System.Windows.Forms.Label();
-            this.rbCliente = new System.Windows.Forms.RadioButton();
-            this.rbEmpresa = new System.Windows.Forms.RadioButton();
             this.txtRazonEmpresa = new System.Windows.Forms.TextBox();
             this.txtCUITEmpresa = new System.Windows.Forms.TextBox();
             this.txtNombreContEmpresa = new System.Windows.Forms.TextBox();
@@ -85,6 +82,8 @@
             this.lblRubroEmpresa = new System.Windows.Forms.Label();
             this.lblRubroSel = new System.Windows.Forms.Label();
             this.cmdRubroEmpresa = new System.Windows.Forms.Button();
+            this.cboRoles = new System.Windows.Forms.ComboBox();
+            this.cboTipoDoc = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,7 +93,7 @@
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label1.Location = new System.Drawing.Point(12, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(98, 72);
+            this.label1.Size = new System.Drawing.Size(109, 61);
             this.label1.TabIndex = 0;
             this.label1.Text = "Tipo de Usuario";
             // 
@@ -145,7 +144,7 @@
             // 
             // cmdAceptar
             // 
-            this.cmdAceptar.Location = new System.Drawing.Point(22, 132);
+            this.cmdAceptar.Location = new System.Drawing.Point(22, 202);
             this.cmdAceptar.Name = "cmdAceptar";
             this.cmdAceptar.Size = new System.Drawing.Size(75, 23);
             this.cmdAceptar.TabIndex = 8;
@@ -155,7 +154,7 @@
             // 
             // cmdBorrar
             // 
-            this.cmdBorrar.Location = new System.Drawing.Point(22, 169);
+            this.cmdBorrar.Location = new System.Drawing.Point(22, 251);
             this.cmdBorrar.Name = "cmdBorrar";
             this.cmdBorrar.Size = new System.Drawing.Size(75, 23);
             this.cmdBorrar.TabIndex = 9;
@@ -209,10 +208,11 @@
             // 
             // dtpCreacion
             // 
-            this.dtpCreacion.Location = new System.Drawing.Point(257, 178);
+            this.dtpCreacion.Location = new System.Drawing.Point(257, 175);
             this.dtpCreacion.Name = "dtpCreacion";
             this.dtpCreacion.Size = new System.Drawing.Size(189, 20);
             this.dtpCreacion.TabIndex = 15;
+            this.dtpCreacion.Visible = false;
             // 
             // lblFechaNacCliente
             // 
@@ -299,7 +299,7 @@
             // 
             // txtUsuario
             // 
-            this.txtUsuario.Location = new System.Drawing.Point(257, 60);
+            this.txtUsuario.Location = new System.Drawing.Point(258, 60);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(100, 20);
             this.txtUsuario.TabIndex = 26;
@@ -336,23 +336,16 @@
             this.txtApellidoCliente.Size = new System.Drawing.Size(100, 20);
             this.txtApellidoCliente.TabIndex = 30;
             // 
-            // txtTipoCliente
-            // 
-            this.txtTipoCliente.Location = new System.Drawing.Point(257, 199);
-            this.txtTipoCliente.Name = "txtTipoCliente";
-            this.txtTipoCliente.Size = new System.Drawing.Size(100, 20);
-            this.txtTipoCliente.TabIndex = 31;
-            // 
             // txtDNICliente
             // 
-            this.txtDNICliente.Location = new System.Drawing.Point(256, 221);
+            this.txtDNICliente.Location = new System.Drawing.Point(258, 221);
             this.txtDNICliente.Name = "txtDNICliente";
             this.txtDNICliente.Size = new System.Drawing.Size(100, 20);
             this.txtDNICliente.TabIndex = 32;
             // 
             // txtTelCliente
             // 
-            this.txtTelCliente.Location = new System.Drawing.Point(255, 241);
+            this.txtTelCliente.Location = new System.Drawing.Point(258, 247);
             this.txtTelCliente.Name = "txtTelCliente";
             this.txtTelCliente.Size = new System.Drawing.Size(100, 20);
             this.txtTelCliente.TabIndex = 33;
@@ -444,58 +437,37 @@
             this.lblTelefonoEmpresa.TabIndex = 44;
             this.lblTelefonoEmpresa.Text = "(*)Telefono:";
             // 
-            // rbCliente
-            // 
-            this.rbCliente.AutoSize = true;
-            this.rbCliente.Location = new System.Drawing.Point(22, 63);
-            this.rbCliente.Name = "rbCliente";
-            this.rbCliente.Size = new System.Drawing.Size(57, 17);
-            this.rbCliente.TabIndex = 46;
-            this.rbCliente.Text = "Cliente";
-            this.rbCliente.UseVisualStyleBackColor = true;
-            this.rbCliente.CheckedChanged += new System.EventHandler(this.rbCliente_CheckedChanged);
-            // 
-            // rbEmpresa
-            // 
-            this.rbEmpresa.AutoSize = true;
-            this.rbEmpresa.Location = new System.Drawing.Point(22, 86);
-            this.rbEmpresa.Name = "rbEmpresa";
-            this.rbEmpresa.Size = new System.Drawing.Size(66, 17);
-            this.rbEmpresa.TabIndex = 47;
-            this.rbEmpresa.Text = "Empresa";
-            this.rbEmpresa.UseVisualStyleBackColor = true;
-            // 
             // txtRazonEmpresa
             // 
-            this.txtRazonEmpresa.Location = new System.Drawing.Point(258, 134);
+            this.txtRazonEmpresa.Location = new System.Drawing.Point(257, 134);
             this.txtRazonEmpresa.Name = "txtRazonEmpresa";
             this.txtRazonEmpresa.Size = new System.Drawing.Size(100, 20);
             this.txtRazonEmpresa.TabIndex = 48;
             // 
             // txtCUITEmpresa
             // 
-            this.txtCUITEmpresa.Location = new System.Drawing.Point(256, 156);
+            this.txtCUITEmpresa.Location = new System.Drawing.Point(258, 156);
             this.txtCUITEmpresa.Name = "txtCUITEmpresa";
             this.txtCUITEmpresa.Size = new System.Drawing.Size(100, 20);
             this.txtCUITEmpresa.TabIndex = 49;
             // 
             // txtNombreContEmpresa
             // 
-            this.txtNombreContEmpresa.Location = new System.Drawing.Point(258, 199);
+            this.txtNombreContEmpresa.Location = new System.Drawing.Point(258, 196);
             this.txtNombreContEmpresa.Name = "txtNombreContEmpresa";
             this.txtNombreContEmpresa.Size = new System.Drawing.Size(100, 20);
             this.txtNombreContEmpresa.TabIndex = 50;
             // 
             // txtTelEmpresa
             // 
-            this.txtTelEmpresa.Location = new System.Drawing.Point(256, 218);
+            this.txtTelEmpresa.Location = new System.Drawing.Point(257, 222);
             this.txtTelEmpresa.Name = "txtTelEmpresa";
             this.txtTelEmpresa.Size = new System.Drawing.Size(100, 20);
             this.txtTelEmpresa.TabIndex = 51;
             // 
             // cmdVolver
             // 
-            this.cmdVolver.Location = new System.Drawing.Point(22, 211);
+            this.cmdVolver.Location = new System.Drawing.Point(22, 304);
             this.cmdVolver.Name = "cmdVolver";
             this.cmdVolver.Size = new System.Drawing.Size(75, 23);
             this.cmdVolver.TabIndex = 52;
@@ -558,12 +530,31 @@
             this.cmdRubroEmpresa.UseVisualStyleBackColor = true;
             this.cmdRubroEmpresa.Click += new System.EventHandler(this.cmdRubroEmpresa_Click);
             // 
+            // cboRoles
+            // 
+            this.cboRoles.FormattingEnabled = true;
+            this.cboRoles.Location = new System.Drawing.Point(16, 65);
+            this.cboRoles.Name = "cboRoles";
+            this.cboRoles.Size = new System.Drawing.Size(102, 21);
+            this.cboRoles.TabIndex = 58;
+            this.cboRoles.SelectedIndexChanged += new System.EventHandler(this.cboRoles_SelectedIndexChanged);
+            // 
+            // cboTipoDoc
+            // 
+            this.cboTipoDoc.FormattingEnabled = true;
+            this.cboTipoDoc.Location = new System.Drawing.Point(257, 196);
+            this.cboTipoDoc.Name = "cboTipoDoc";
+            this.cboTipoDoc.Size = new System.Drawing.Size(101, 21);
+            this.cboTipoDoc.TabIndex = 59;
+            // 
             // AltaUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(533, 569);
+            this.Controls.Add(this.cboTipoDoc);
+            this.Controls.Add(this.cboRoles);
             this.Controls.Add(this.cmdRubroEmpresa);
             this.Controls.Add(this.lblRubroSel);
             this.Controls.Add(this.lblRubroEmpresa);
@@ -573,8 +564,6 @@
             this.Controls.Add(this.txtNombreContEmpresa);
             this.Controls.Add(this.txtCUITEmpresa);
             this.Controls.Add(this.txtRazonEmpresa);
-            this.Controls.Add(this.rbEmpresa);
-            this.Controls.Add(this.rbCliente);
             this.Controls.Add(this.lblTelefonoEmpresa);
             this.Controls.Add(this.lblNombreEmpresa);
             this.Controls.Add(this.lblFechaEmpresa);
@@ -588,7 +577,6 @@
             this.Controls.Add(this.txtCalle);
             this.Controls.Add(this.txtTelCliente);
             this.Controls.Add(this.txtDNICliente);
-            this.Controls.Add(this.txtTipoCliente);
             this.Controls.Add(this.txtApellidoCliente);
             this.Controls.Add(this.txtNombreCliente);
             this.Controls.Add(this.txtMail);
@@ -660,7 +648,6 @@
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.TextBox txtNombreCliente;
         private System.Windows.Forms.TextBox txtApellidoCliente;
-        private System.Windows.Forms.TextBox txtTipoCliente;
         private System.Windows.Forms.TextBox txtDNICliente;
         private System.Windows.Forms.TextBox txtTelCliente;
         private System.Windows.Forms.TextBox txtCalle;
@@ -674,8 +661,6 @@
         private System.Windows.Forms.Label lblFechaEmpresa;
         private System.Windows.Forms.Label lblNombreEmpresa;
         private System.Windows.Forms.Label lblTelefonoEmpresa;
-        private System.Windows.Forms.RadioButton rbCliente;
-        private System.Windows.Forms.RadioButton rbEmpresa;
         private System.Windows.Forms.TextBox txtRazonEmpresa;
         private System.Windows.Forms.TextBox txtCUITEmpresa;
         private System.Windows.Forms.TextBox txtNombreContEmpresa;
@@ -687,5 +672,7 @@
         private System.Windows.Forms.Label lblRubroEmpresa;
         private System.Windows.Forms.Button cmdRubroEmpresa;
         public System.Windows.Forms.Label lblRubroSel;
+        private System.Windows.Forms.ComboBox cboRoles;
+        private System.Windows.Forms.ComboBox cboTipoDoc;
     }
 }

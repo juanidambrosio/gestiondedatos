@@ -17,9 +17,19 @@ namespace WindowsFormsApplication1.ABM_Usuario
     {
         public static AltaUsuario aus;
         private int huboError = 0;
+        //SqlConnection cnn;
+        SqlCommand cmd;
+        SqlCommand cmd2;
+        SqlDataReader sdr;
+        SqlDataAdapter adapter;
+        SqlDataAdapter adapter2;
+        private DataBase db;
+
         public AltaUsuario()
         {
-            InitializeComponent();
+
+            db = DataBase.GetInstance(); 
+            InitializeComponent();            
            
             AltaUsuario.aus = this;
 
@@ -32,114 +42,38 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if(this.rbCliente.Checked == true)
-            {
-                this.lblApellidoCliente.Visible = true;
-                this.lblNombreCliente.Visible = true;
-                this.lblFechaNacCliente.Visible = true;
-                this.lblNroDocCliente.Visible = true;
-                this.lblTelCliente.Visible = true;
-                this.lblTipoDNICliente.Visible = true;
+           
+        }
 
-                this.txtApellidoCliente.Visible = true;
-                this.txtDNICliente.Visible = true;                             
-                this.txtNombreCliente.Visible = true;                            
-                this.txtTelCliente.Visible = true;
-                this.txtTipoCliente.Visible = true;
+        private void cargarTipoDOC(ComboBox cboTipoDoc) 
+        {
+            cmd2 = new SqlCommand("ROAD_TO_PROYECTO.ListaTipoDOC", db.Connection);
+            cmd2.CommandType = CommandType.StoredProcedure;
+            adapter2 = new SqlDataAdapter(cmd2);
+            DataTable dt2 = new DataTable("ROAD_TO_PROYECTO.Cliente");
+            adapter2.Fill(dt2);
+            this.cboTipoDoc.DataSource = dt2;
+            this.cboTipoDoc.DisplayMember = "TipoDocumento";
+            cboTipoDoc.ValueMember = cboTipoDoc.DisplayMember;
+            cboTipoDoc.SelectedIndex = -1;
+            cboTipoDoc.Text = "Seleccione un tipo de documento";
+        }
 
-                this.txtCUITEmpresa.Text = "";
-                this.txtNombreContEmpresa.Text = "";
-                this.txtRazonEmpresa.Text = "";
-                this.txtTelEmpresa.Text = "";
-
-                this.cmdRubroEmpresa.Visible = false;
-                this.lblRubroEmpresa.Visible = false;
-                this.lblRubroSel.Text = "";
-                             
-               
-
-            }
-            if (this.rbEmpresa.Checked == true)
-            {
-                this.lblFechaEmpresa.Visible = true;
-                this.lblNombreEmpresa.Visible = true;
-                this.lblRazonEmpresa.Visible = true;
-                this.lblTelefonoEmpresa.Visible = true;
-                this.lblCUITEmpresa.Visible = true;
-
-                this.txtCUITEmpresa.Visible = true;
-                this.txtNombreContEmpresa.Visible = true;
-                this.txtRazonEmpresa.Visible = true;
-                this.txtTelEmpresa.Visible = true;
-
-                this.cmdRubroEmpresa.Visible = true;
-                this.lblRubroEmpresa.Visible = true;
-                this.lblRubroSel.Visible = true;
-            
-
-                this.txtApellidoCliente.Text = "";
-                this.txtDNICliente.Text = "";
-                this.txtNombreCliente.Text = "";
-                this.txtTelCliente.Text = "";
-                this.txtTipoCliente.Text = "";
-            
-          
-                               
-            }
-
-            if(this.rbCliente.Checked == true || this.rbEmpresa.Checked == true)
-            {
-                this.lblCalle.Visible = true;
-                this.lblCodPos.Visible = true;
-                this.lblDom.Visible = true;
-                this.lblDpto.Visible = true;
-                this.lblLocal.Visible = true;
-                this.lblPiso.Visible = true;
-                this.lblNum.Visible = true;
-
-                this.txtCalle.Visible = true;
-                this.txtCodPos.Visible = true;
-                this.txtDpto.Visible = true;
-                this.txtLocalidad.Visible = true;
-                this.txtPiso.Visible = true;
-                this.txtNumero.Visible = true;
-                this.dtpCreacion.Visible = true;
-            }
-          
-            if(this.rbCliente.Checked == false)
-            {
-                this.lblApellidoCliente.Visible = false;
-                this.lblNombreCliente.Visible = false;
-                this.lblFechaNacCliente.Visible = false;
-                this.lblNroDocCliente.Visible = false;
-                this.lblTelCliente.Visible = false;
-                this.lblTipoDNICliente.Visible = false;
-
-                this.txtApellidoCliente.Visible = false;
-                this.txtDNICliente.Visible = false;
-                this.txtNombreCliente.Visible = false;
-                this.txtTelCliente.Visible = false;
-                this.txtTipoCliente.Visible = false;
-
-                
-            }
-            if (this.rbEmpresa.Checked == false)
-            {
-                this.lblFechaEmpresa.Visible = false;
-                this.lblNombreEmpresa.Visible = false;
-                this.lblRazonEmpresa.Visible = false;
-                this.lblTelefonoEmpresa.Visible = false;
-                this.lblCUITEmpresa.Visible = false;
-
-                this.txtCUITEmpresa.Visible = false;
-                this.txtNombreContEmpresa.Visible = false;
-                this.txtRazonEmpresa.Visible = false;
-                this.txtTelEmpresa.Visible = false;
-            }
-         }
         private void AltaUsuario_Load(object sender, EventArgs e)
         {
-            
+            cmd = new SqlCommand("ROAD_TO_PROYECTO.ListaRoles", db.Connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable("ROAD_TO_PROYECTO.Rol");
+            adapter.Fill(dt);
+            this.cboRoles.DataSource = dt;
+            this.cboRoles.DisplayMember = "Nombre";
+            cboRoles.ValueMember = cboRoles.DisplayMember;
+            cboRoles.SelectedIndex = -1;
+            cboRoles.Text = "Seleccione un tipo de Rol";
+
+
+            this.dtpCreacion.Visible = false;
             this.cmdRubroEmpresa.Visible = false;
             this.lblRubroEmpresa.Visible = false;
             this.lblRubroSel.Visible = false;
@@ -165,7 +99,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             this.txtDNICliente.Visible = false;
             this.txtNombreCliente.Visible = false;
             this.txtTelCliente.Visible = false;
-            this.txtTipoCliente.Visible = false;
+            this.cboTipoDoc.Visible = false;
             this.txtCalle.Visible = false;
             this.txtCodPos.Visible = false;
             this.txtDpto.Visible = false;
@@ -176,8 +110,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             this.txtNombreContEmpresa.Visible = false;
             this.txtRazonEmpresa.Visible = false;
             this.txtTelEmpresa.Visible = false;
-            this.dtpCreacion.Visible = false;
-            this.timer1.Start();
+           
         }
 
         private void cmdAceptar_Click(object sender, EventArgs e)
@@ -186,14 +119,14 @@ namespace WindowsFormsApplication1.ABM_Usuario
             string cadenaDeErrorTipo = "Debe seleccionar un tipo de Usuario";
             
 
-            if(rbCliente.Checked== false && rbEmpresa.Checked == false)
+            if(cboRoles.SelectedIndex == -1)
             {
                 MessageBox.Show(cadenaDeErrorTipo, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                 return;
             }
 
 
-            if(rbCliente.Checked== true)
+            if (this.cboRoles.SelectedValue.ToString() == "Cliente")
                    
             {
                 if (string.IsNullOrEmpty(txtUsuario.Text))
@@ -232,9 +165,9 @@ namespace WindowsFormsApplication1.ABM_Usuario
                     cadenaDeErrores += " Telefono \r";
                     huboError++;
                 }
-                if(string.IsNullOrEmpty(txtTipoCliente.Text))
+                if (cboTipoDoc.SelectedIndex == -1)
                 {
-                    cadenaDeErrores += " Tipo \r";
+                    cadenaDeErrores += " Tipo Documento \r";
                     huboError++;
                 }
 
@@ -279,11 +212,11 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
                 string hash = this.encriptacion(txtPassword.Text);
                 UsuarioDOA doa = new UsuarioDOA();
-                doa.crearCliente("Cliente",txtUsuario.Text, hash, txtMail.Text, txtApellidoCliente.Text, txtNombreCliente.Text, int.Parse(txtDNICliente.Text), int.Parse(txtTelCliente.Text), txtTipoCliente.Text, txtCodPos.Text,txtDpto.Text,txtLocalidad.Text,int.Parse(txtPiso.Text),int.Parse(txtNumero.Text),txtCalle.Text,dtpCreacion.Value);
+                doa.crearCliente("Cliente", txtUsuario.Text, hash, txtMail.Text, txtApellidoCliente.Text, txtNombreCliente.Text, int.Parse(txtDNICliente.Text), int.Parse(txtTelCliente.Text), cboTipoDoc.SelectedValue.ToString(), txtCodPos.Text, txtDpto.Text, txtLocalidad.Text, int.Parse(txtPiso.Text), int.Parse(txtNumero.Text), txtCalle.Text, dtpCreacion.Value);
 
                 
             }
-            if (rbEmpresa.Checked == true)
+            if (this.cboRoles.SelectedValue.ToString() == "Empresa")
           
             {
                 if (string.IsNullOrEmpty(txtUsuario.Text))
@@ -419,7 +352,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             this.txtDNICliente.Text = "";
             this.txtNombreCliente.Text = "";
             this.txtTelCliente.Text = "";
-            this.txtTipoCliente.Text = "";
+            this.cboTipoDoc.SelectedIndex = -1;
 
             this.txtCUITEmpresa.Text = "";
             this.txtNombreContEmpresa.Text = "";
@@ -434,8 +367,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             this.dtpCreacion.Visible = false;
 
 
-            this.rbEmpresa.Checked = false;
-            this.rbCliente.Checked = false;
+            cboRoles.SelectedIndex = -1;
 
         }
 
@@ -464,6 +396,119 @@ namespace WindowsFormsApplication1.ABM_Usuario
             
             arubro.Show();
             this.Hide();
+        }
+
+        private void cboRoles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cboRoles.SelectedValue.ToString() == "Cliente")
+            {
+                this.lblApellidoCliente.Visible = true;
+                this.lblNombreCliente.Visible = true;
+                this.lblFechaNacCliente.Visible = true;
+                this.lblNroDocCliente.Visible = true;
+                this.lblTelCliente.Visible = true;
+                this.lblTipoDNICliente.Visible = true;
+
+                this.txtApellidoCliente.Visible = true;
+                this.txtDNICliente.Visible = true;
+                this.txtNombreCliente.Visible = true;
+                this.txtTelCliente.Visible = true;
+                this.cboTipoDoc.Visible = true;
+
+                this.txtCUITEmpresa.Text = "";
+                this.txtNombreContEmpresa.Text = "";
+                this.txtRazonEmpresa.Text = "";
+                this.txtTelEmpresa.Text = "";
+
+                this.cmdRubroEmpresa.Visible = false;
+                this.lblRubroEmpresa.Visible = false;
+                this.lblRubroSel.Text = "";
+
+                this.cargarTipoDOC(cboTipoDoc);
+
+
+
+            }
+            if (this.cboRoles.SelectedValue.ToString() == "Empresa")
+            {
+                this.lblFechaEmpresa.Visible = true;
+                this.lblNombreEmpresa.Visible = true;
+                this.lblRazonEmpresa.Visible = true;
+                this.lblTelefonoEmpresa.Visible = true;
+                this.lblCUITEmpresa.Visible = true;
+
+                this.txtCUITEmpresa.Visible = true;
+                this.txtNombreContEmpresa.Visible = true;
+                this.txtRazonEmpresa.Visible = true;
+                this.txtTelEmpresa.Visible = true;
+
+                this.cmdRubroEmpresa.Visible = true;
+                this.lblRubroEmpresa.Visible = true;
+                this.lblRubroSel.Visible = true;
+
+
+                this.txtApellidoCliente.Text = "";
+                this.txtDNICliente.Text = "";
+                this.txtNombreCliente.Text = "";
+                this.txtTelCliente.Text = "";
+                this.cboTipoDoc.SelectedIndex = -1;
+                
+
+
+
+            }
+
+            if (this.cboRoles.SelectedValue.ToString() == "Cliente" || this.cboRoles.SelectedValue.ToString() == "Empresa")
+            {
+                this.lblCalle.Visible = true;
+                this.lblCodPos.Visible = true;
+                this.lblDom.Visible = true;
+                this.lblDpto.Visible = true;
+                this.lblLocal.Visible = true;
+                this.lblPiso.Visible = true;
+                this.lblNum.Visible = true;
+
+                this.txtCalle.Visible = true;
+                this.txtCodPos.Visible = true;
+                this.txtDpto.Visible = true;
+                this.txtLocalidad.Visible = true;
+                this.txtPiso.Visible = true;
+                this.txtNumero.Visible = true;
+                this.dtpCreacion.Visible = true;
+
+                this.dtpCreacion.Visible = true;
+            }
+
+            if (this.cboRoles.SelectedValue.ToString() != "Cliente")
+            {
+                this.lblApellidoCliente.Visible = false;
+                this.lblNombreCliente.Visible = false;
+                this.lblFechaNacCliente.Visible = false;
+                this.lblNroDocCliente.Visible = false;
+                this.lblTelCliente.Visible = false;
+                this.lblTipoDNICliente.Visible = false;
+
+                this.txtApellidoCliente.Visible = false;
+                this.txtDNICliente.Visible = false;
+                this.txtNombreCliente.Visible = false;
+                this.txtTelCliente.Visible = false;
+                this.cboTipoDoc.Visible = false;
+
+
+            }
+            if (this.cboRoles.SelectedValue.ToString() != "Empresa")
+            {
+                this.lblFechaEmpresa.Visible = false;
+                this.lblNombreEmpresa.Visible = false;
+                this.lblRazonEmpresa.Visible = false;
+                this.lblTelefonoEmpresa.Visible = false;
+                this.lblCUITEmpresa.Visible = false;
+
+                this.txtCUITEmpresa.Visible = false;
+                this.txtNombreContEmpresa.Visible = false;
+                this.txtRazonEmpresa.Visible = false;
+                this.txtTelEmpresa.Visible = false;
+            }
         }
     }
 }

@@ -66,5 +66,12 @@ namespace WindowsFormsApplication1
             setVisibilidad.Show();
             this.Hide();
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            WindowsFormsApplication1.ABM_Rol.AltaRol aRol = new WindowsFormsApplication1.ABM_Rol.AltaRol();
+            aRol.Show();
+            this.Hide();
+        }
     }
 }

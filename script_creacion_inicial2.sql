@@ -405,6 +405,16 @@ CREATE PROCEDURE ROAD_TO_PROYECTO.ListaRoles
 	as begin
 		select RolId, Nombre 
 		from ROAD_TO_PROYECTO.Rol
+		
+	end
+GO
+
+CREATE PROCEDURE ROAD_TO_PROYECTO.ListaTipoDOC
+	as begin
+		select TipoDocumento
+		from ROAD_TO_PROYECTO.Cliente
+		group by TipoDocumento
+		order by TipoDocumento ASC
 	end
 GO
 
